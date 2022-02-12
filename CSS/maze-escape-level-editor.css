@@ -18,3 +18,10 @@
 	background-color: coral;
 	border-color: orangered;
 }
+
+#tool {
+	background-color: white;
+	border: solid grey;
+	border-radius: 7px;
+	padding: 4px;
+}
