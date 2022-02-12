@@ -91,10 +91,7 @@
 	});
 	
 	document.getElementById("tool").addEventListener("input", (e) => {
-		e = e || window.event;
-		console.log(e.target);
-		console.log(e.target.value);
-		switch (e.target.value) {
+		switch ((e || window.event).target.value) {
 			case "Player Spawn":
 				tool = "@";
 				break;
@@ -103,6 +100,9 @@
 				break;
 			case "Solid Wall":
 				tool = "#";
+				break;
+			default:
+				alert("An unsupported block type was somehow selected...");
 				break;
 		}
 	});
