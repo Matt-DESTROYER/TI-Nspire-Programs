@@ -21,7 +21,7 @@
 
 #tool {
 	background-color: white;
-	border: solid grey;
+	border: solid grey 1px;
 	border-radius: 7px;
 	padding: 4px;
 }
