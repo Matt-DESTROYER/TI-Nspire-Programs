@@ -92,6 +92,8 @@
 	
 	document.getElementById("tool").addEventListener("change", (e) => {
 		e = e || window.event;
+		console.log(e.target);
+		console.log(e.target.value);
 		switch (e.target.value) {
 			case "Player Spawn":
 				tool = "@";
