@@ -1,7 +1,7 @@
 #reset {
-	background-color: deepsaffron;
+	background-color: orange;
 	border: solid 2px;
-	border-color: orange;
+	border-color: darkorange;
 	border-radius: 8px;
 	padding: 7px;
 	padding-top: 10px;
@@ -9,12 +9,12 @@
 }
 
 #reset:hover {
-	background-color: orange;
-	border-color: darkorange;
+	background-color: darkorange;
+	border-color: coral;
 	cursor: pointer;
 }
 
 #reset:active {
-	background-color: darkorange;
-	border-color: orange;
+	background-color: coral;
+	border-color: orangered;
 }
