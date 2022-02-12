@@ -1,0 +1,20 @@
+#reset {
+	background-color: deepsaffron;
+	border: solid 2px;
+	border-color: orange;
+	border-radius: 8px;
+	padding: 7px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#reset:hover {
+	background-color: orange;
+	border-color: darkorange;
+	cursor: pointer;
+}
+
+#reset:active {
+	background-color: darkorange;
+	border-color: orange;
+}
