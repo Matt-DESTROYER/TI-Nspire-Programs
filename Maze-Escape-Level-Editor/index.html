@@ -117,19 +117,19 @@
 	
 	function render() {
 		if (Input.mouseDown) {
-			grid[~~(Input.mouseY / canvas.width * 32)][~~(Input.mouseX / canvas.height * 20)] = tool;
+			grid[~~(Input.mouseX / canvas.width * 32)][~~(Input.mouseY / canvas.height * 20)] = tool;
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ctx.moveTo(0, 0);
 			ctx.lineTo(canvas.width, 0);
-			for (let i = 1; i < 32; i++) {
-				ctx.moveTo(i * canvas.width / 32, 0);
-				ctx.lineTo(i * canvas.width / 32, canvas.height);
+			for (let y = 1; y < 20; y++) {
+				ctx.moveTo(0, y * canvas.height / 20);
+				ctx.lineTo(canvas.height, y * canvas.height / 20);
 			}
 			ctx.moveTo(0, 0);
 			ctx.lineTo(0, canvas.height);
-			for (let i = 1; i < 20; i++) {
-				ctx.moveTo(0, i * canvas.height / 20);
-				ctx.lineTo(canvas.height, i * canvas.height / 20);
+			for (let x = 1; x < 32; x++) {
+				ctx.moveTo(x * canvas.width / 32, 0);
+				ctx.lineTo(x * canvas.width / 32, canvas.height);
 			}
 			for (let y = 0; y < grid.length; y++) {
 				for (let x = 0; x < grid[y].length; x++) {
