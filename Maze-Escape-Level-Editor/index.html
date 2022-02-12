@@ -90,6 +90,21 @@
 		];
 	});
 	
+	document.getElementById("tool").addEventListener("change", (e) => {
+		e = e || window.event;
+		switch (e.target.value) {
+			case "Player Spawn":
+				tool = "@";
+				break;
+			case "Level Finish":
+				tool = "*";
+				break;
+			case "Solid Wall":
+				tool = "#";
+				break;
+		}
+	});
+	
 	canvas.addEventListener("mousedown", () => {
 		Input.mouseDown = true;
 	});
