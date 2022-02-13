@@ -85,6 +85,7 @@
 	function render() {
 		ctx.fillStyle = "#ffffff";
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.beginPath();
 		for (let y = 0; y <= 24; y++) {
 			ctx.moveTo(0, y * canvas.height / 20);
 			ctx.lineTo(canvas.height, y * 24);
@@ -93,6 +94,8 @@
 			ctx.moveTo(x * 32, 0);
 			ctx.lineTo(x * 32, canvas.height);
 		}
+		ctx.stroke();
+		ctx.closePath();
 		for (let y = 0; y < 32; y++) {
 			for (let x = 0; x < 24; x++) {
 				if (grid[y][x] === "#") {
