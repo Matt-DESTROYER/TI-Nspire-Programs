@@ -89,12 +89,12 @@
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 		ctx.beginPath();
 		for (let y = 0; y <= 24; y++) {
-			ctx.moveTo(0, y * canvas.height / 20);
-			ctx.lineTo(canvas.height, y * 24);
+			ctx.moveTo(0, y * 10);
+			ctx.lineTo(canvas.height, y * 10);
 		}
 		for (let x = 0; x <= 32; x++) {
-			ctx.moveTo(x * 32, 0);
-			ctx.lineTo(x * 32, canvas.height);
+			ctx.moveTo(x * 10, 0);
+			ctx.lineTo(x * 10, canvas.height);
 		}
 		ctx.stroke();
 		ctx.closePath();
@@ -102,13 +102,13 @@
 			for (let x = 0; x < 24; x++) {
 				if (grid[y][x] === "#") {
 					ctx.fillStyle = "#000000";
-					ctx.fillRect(x * 32, y * 24, 32, 24);
+					ctx.fillRect(x * 10, y * 10, 10, 10);
 				} else if (grid[y][x] === "@") {
 					ctx.fillStyle = "#0000ff";
-					ctx.fillRect(x * 32, y * 24, 32, 24);
+					ctx.fillRect(x * 10, y * 10, 10, 10);
 				} else if (grid[y][x] === "*") {
 					ctx.fillStyle = "#008000";
-					ctx.fillRect(x * 32, y * 24, 32, 24);
+					ctx.fillRect(x * 10, y * 10, 10, 10);
 				}
 			}
 		}
