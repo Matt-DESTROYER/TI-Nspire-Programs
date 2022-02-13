@@ -40,9 +40,9 @@
 		Input.mouseY = e.clientY;
 	});
 	
-	let tool = "#";
+	let tool = "#", grid;
 	
-	let grid;
+	const clamp = (number, bound1, bound2) => bound1 < bound2 ? number > bound2 ? bound2 : number < bound1 ? bound1 : number : number > bound1 ? bound1 : number < bound2 ? bound2 : number;
 	
 	function initGrid() {
 		grid = [];
@@ -76,44 +76,49 @@
 	});
 	
 	canvas.addEventListener("mouseup", () => {
+		if (tool !== "#") {
+			grid[clamp(~~(Input.mouseX / 10), 0, 31)][clamp(~~(Input.mouseY / 10), 0, 23)] = tool;
+		}
 		Input.mouseDown = false;
 	});
 	
 	function render() {
-		if (Input.mouseDown) {
-			grid[~~(Input.mouseX / 10)][~~(Input.mouseY / 10)] = tool;
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			ctx.moveTo(0, 0);
-			ctx.lineTo(canvas.width, 0);
-			for (let y = 1; y < 24; y++) {
-				ctx.moveTo(0, y * canvas.height / 20);
-				ctx.lineTo(canvas.height, y * canvas.height / 20);
-			}
-			ctx.moveTo(0, 0);
-			ctx.lineTo(0, canvas.height);
-			for (let x = 1; x < 32; x++) {
-				ctx.moveTo(x * canvas.width / 32, 0);
-				ctx.lineTo(x * canvas.width / 32, canvas.height);
-			}
-			for (let y = 0; y < 32; y++) {
-				for (let x = 0; x < 24; x++) {
-					if (grid[y][x] === "#") {
-						ctx.fillStyle = "black";
-						ctx.fillRect(x * 32, y * 20, 32, 20);
-					} else if (grid[y][x] === "@") {
-						ctx.fillStyle = "blue";
-						ctx.fillRect(x * 32, y * 20, 32, 20);
-					} else if (grid[y][x] === "*") {
-						ctx.fillStyle = "green";
-						ctx.fillRect(x * 32, y * 20, 32, 20);
-					}
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		for (let y = 0; y <= 24; y++) {
+			ctx.moveTo(0, y * canvas.height / 20);
+			ctx.lineTo(canvas.height, y * 24);
+		}
+		for (let x = 0; x <= 32; x++) {
+			ctx.moveTo(x * 32, 0);
+			ctx.lineTo(x * 32, canvas.height);
+		}
+		for (let y = 0; y < 32; y++) {
+			for (let x = 0; x < 24; x++) {
+				if (grid[y][x] === "#") {
+					ctx.fillStyle = "#000000";
+					ctx.fillRect(x * 32, y * 24, 32, 24);
+				} else if (grid[y][x] === "@") {
+					ctx.fillStyle = "#0000FF";
+					ctx.fillRect(x * 32, y * 24, 32, 24);
+				} else if (grid[y][x] === "*") {
+					ctx.fillStyle = "#008000";
+					ctx.fillRect(x * 32, y * 24, 32, 24);
 				}
 			}
 		}
-		window.requestAnimationFrame(render);
 	}
 	
-	window.requestAnimationFrame(render);
+	function update() {
+		if (Input.mouseDown) {
+			if (tool === "#") {
+				grid[clamp(~~(Input.mouseX / 10), 0, 31)][clamp(~~(Input.mouseY / 10), 0, 23)] = tool;
+			}
+			render();
+		}
+		window.requestAnimationFrame(update);
+	}
+	
+	window.requestAnimationFrame(update);
 </script>
 
 </html>
