@@ -83,7 +83,7 @@
 	});
 	
 	function render() {
-		ctx.fillStyle = "#FFFFFF";
+		ctx.fillStyle = "#ffffff";
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 		for (let y = 0; y <= 24; y++) {
 			ctx.moveTo(0, y * canvas.height / 20);
@@ -99,7 +99,7 @@
 					ctx.fillStyle = "#000000";
 					ctx.fillRect(x * 32, y * 24, 32, 24);
 				} else if (grid[y][x] === "@") {
-					ctx.fillStyle = "#0000FF";
+					ctx.fillStyle = "#0000ff";
 					ctx.fillRect(x * 32, y * 24, 32, 24);
 				} else if (grid[y][x] === "*") {
 					ctx.fillStyle = "#008000";
