@@ -81,11 +81,11 @@
 	
 	function render() {
 		if (Input.mouseDown) {
-			grid[~~(Input.mouseX / canvas.width * 32)][~~(Input.mouseY / canvas.height * 20)] = tool;
+			grid[~~(Input.mouseX / 10)][~~(Input.mouseY / 10)] = tool;
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ctx.moveTo(0, 0);
 			ctx.lineTo(canvas.width, 0);
-			for (let y = 1; y < 20; y++) {
+			for (let y = 1; y < 24; y++) {
 				ctx.moveTo(0, y * canvas.height / 20);
 				ctx.lineTo(canvas.height, y * canvas.height / 20);
 			}
@@ -95,8 +95,8 @@
 				ctx.moveTo(x * canvas.width / 32, 0);
 				ctx.lineTo(x * canvas.width / 32, canvas.height);
 			}
-			for (let y = 0; y < grid.length; y++) {
-				for (let x = 0; x < grid[y].length; x++) {
+			for (let y = 0; y < 32; y++) {
+				for (let x = 0; x < 24; x++) {
 					if (grid[y][x] === "#") {
 						ctx.fillStyle = "black";
 						ctx.fillRect(x * 32, y * 20, 32, 20);
