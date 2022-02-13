@@ -40,7 +40,7 @@
 		Input.mouseY = e.clientY;
 	});
 	
-	let tool = "#", grid;
+	let tool = "#", grid = [];
 	
 	const clamp = (number, bound1, bound2) => bound1 < bound2 ? number > bound2 ? bound2 : number < bound1 ? bound1 : number : number > bound1 ? bound1 : number < bound2 ? bound2 : number;
 	
