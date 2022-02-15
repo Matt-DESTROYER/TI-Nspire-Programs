@@ -132,7 +132,7 @@
 	});
 	
 	document.getElementById("generate").addEventListener("click", function() {
-		const levelData = "{\n" + grid.map((row) => "\t{ " + row.map((char) => '"' + char + '"').join(" ") + " }").join(",\n") + "\n }";
+		const levelData = "{\n" + grid.map((row) => "\t{ " + row.map((char) => '"' + char + '"').join(", ") + " }").join(",\n") + "\n }";
 		console.log(levelData);
 		navigator.clipboard.writeText(levelData);
 	});
