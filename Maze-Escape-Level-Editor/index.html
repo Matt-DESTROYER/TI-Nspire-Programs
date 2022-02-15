@@ -76,7 +76,6 @@
 	});
 	
 	canvas.addEventListener("mousedown", () => {
-		console.log(Input.mouseX, Input.mouseY, clamp(~~(Input.mouseX / 10), 0, 31), clamp(~~(Input.mouseY / 10), 0, 23));
 		Input.mouseDown = true;
 	});
 	
@@ -104,7 +103,6 @@
 		ctx.closePath();
 		for (let y = 0; y < 24; y++) {
 			for (let x = 0; x < 32; x++) {
-				console.log(x, y, grid[y][x]);
 				if (grid[y][x] === "#") {
 					ctx.fillStyle = "#000000";
 					ctx.fillRect(x * 10, y * 10, 10, 10);
