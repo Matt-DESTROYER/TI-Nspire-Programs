@@ -18,19 +18,21 @@
 		<p>Once your level is completed, click "Generate Level Data" (which will copy the level data), and email it <a href="mailto:mattdestroyerpro@gmail.com?subject='TI-Nspire Maze Escape Level'">here</a>. You can also email a nickname which will be added to the credits if your level is used.</p>
 	</div>
 	<br>
-	<nav>
-		<button id="reset">Reset</button>
-		<label for="tool">&nbsp;&nbsp;&nbsp;Tool:&nbsp;</label>
-		<select id="tool" selected="Solid Wall">
-			<option value="Air">Air</option>
-			<option value="Solid Wall" selected>Solid Wall</option>
-			<option value="Player Spawn">Player Spawn</option>
-			<option value="Level Finish">Level Finish</option>
-		</select>
-		<button id="generate">Generate Level Data</button>
-	</nav>
-	<br>
-	<canvas id="screen"></canvas>
+	<div style="background-color: lightgray;border-radius: 8px;padding: 10px;padding-left: 20px;padding-right: 20px;">
+		<nav>
+			<button id="reset">Reset</button>
+			<label for="tool">&nbsp;&nbsp;&nbsp;Tool:&nbsp;</label>
+			<select id="tool" selected="Solid Wall">
+				<option value="Air">Air</option>
+				<option value="Solid Wall" selected>Solid Wall</option>
+				<option value="Player Spawn">Player Spawn</option>
+				<option value="Level Finish">Level Finish</option>
+			</select>
+			<button id="generate">Generate Level Data</button>
+		</nav>
+		<br>
+		<canvas id="screen"></canvas>
+	</div>
 </body>
 
 <script type="text/javascript">
