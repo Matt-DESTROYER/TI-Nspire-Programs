@@ -36,8 +36,8 @@
 	
 	canvas.addEventListener("mousemove", (e) => {
 		e = e || window.event;
-		Input.mouseX = e.clientX;
-		Input.mouseY = e.clientY;
+		Input.mouseX = e.layerX;
+		Input.mouseY = e.layerY;
 	});
 	
 	let tool = "#", grid = [];
