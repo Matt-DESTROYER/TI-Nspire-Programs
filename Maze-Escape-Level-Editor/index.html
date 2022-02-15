@@ -18,7 +18,7 @@
 		<select id="tool" selected="Solid Wall">
 			<option value="Player Spawn">Player Spawn</option>
 			<option value="Level Finish">Level Finish</option>
-			<option value="Solid Wall">Solid Wall</option>
+			<option value="Solid Wall" selected>Solid Wall</option>
 		</select>
 	</nav>
 	<br>
@@ -121,8 +121,8 @@
 			if (tool === "#") {
 				grid[~~(Input.mouseY / 10)][~~(Input.mouseX / 10)] = tool;
 			}
-			render();
 		}
+		render();
 		window.requestAnimationFrame(update);
 	}
 	
