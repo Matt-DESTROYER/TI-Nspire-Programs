@@ -34,12 +34,6 @@
 	
 	const Input = {};
 	
-	canvas.addEventListener("mousemove", (e) => {
-		e = e || window.event;
-		Input.mouseX = e.layerX;
-		Input.mouseY = e.layerY;
-	});
-	
 	let tool = "#", grid = [];
 	{
 		const row = " ".repeat(32).split("");
@@ -47,6 +41,23 @@
 			grid.push(row.slice());
 		}
 	}
+	
+	canvas.addEventListener("mousemove", (e) => {
+		e = e || window.event;
+		Input.mouseX = e.layerX;
+		Input.mouseY = e.layerY;
+	});
+	
+	canvas.addEventListener("mousedown", () => {
+		Input.mouseDown = true;
+	});
+	
+	canvas.addEventListener("mouseup", () => {
+		if (tool !== "#") {
+			grid[~~(Input.mouseY / 10)][~~(Input.mouseX / 10)] = tool;
+		}
+		Input.mouseDown = false;
+	});
 	
 	document.getElementById("reset").addEventListener("click", function () {
 		grid = [];
@@ -68,20 +79,9 @@
 				tool = "#";
 				break;
 			default:
-				alert("An unsupported block type was somehow selected...");
+				alert("An unsupported block type was selected...");
 				break;
 		}
-	});
-	
-	canvas.addEventListener("mousedown", () => {
-		Input.mouseDown = true;
-	});
-	
-	canvas.addEventListener("mouseup", () => {
-		if (tool !== "#") {
-			grid[~~(Input.mouseY / 10)][~~(Input.mouseX / 10)] = tool;
-		}
-		Input.mouseDown = false;
 	});
 	
 	ctx.strokeStyle = "#000000";
