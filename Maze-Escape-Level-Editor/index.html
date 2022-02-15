@@ -137,7 +137,7 @@
 	});
 	
 	document.getElementById("generate").addEventListener("click", function() {
-		const levelData = "{\n" + grid.map((row) => "\t{ " + row.map((char) => '"' + char + '"').join(", ") + " }").join(",\n") + "\n }";
+		const levelData = "{\n" + grid.map((row) => '\t{ "' + row.join("") + '" }').join(",\n") + "\n }";
 		let playerSpawns = 0, levelFinishes = 0;
 		for (let y = 0; y < 24; y++) {
 			for (let x = 0; x < 32; x++) {
