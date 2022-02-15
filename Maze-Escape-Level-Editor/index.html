@@ -66,13 +66,11 @@
 	});
 	
 	canvas.addEventListener("mouseup", () => {
-		if (tool !== "#") {
-			if (tool !== " ") {
-				for (let y = 0; y < 24; y++) {
-					for (let x = 0; x < 32; x++) {
-						if (grid[y][x] === tool) {
-							grid[y][x] = " ";
-						}
+		if (tool !== "#" && tool !== " ") {
+			for (let y = 0; y < 24; y++) {
+				for (let x = 0; x < 32; x++) {
+					if (grid[y][x] === tool) {
+						grid[y][x] = " ";
 					}
 				}
 			}
@@ -143,7 +141,7 @@
 	
 	function update() {
 		if (Input.mouseDown) {
-			if (tool === "#") {
+			if (tool === "#" || tool === " ") {
 				grid[~~(Input.mouseY / 10)][~~(Input.mouseX / 10)] = tool;
 			}
 		}
