@@ -41,19 +41,22 @@
 	});
 	
 	let tool = "#", grid = [];
-	
-	const clamp = (number, bound1, bound2) => bound1 < bound2 ? number > bound2 ? bound2 : number < bound1 ? bound1 : number : number > bound1 ? bound1 : number < bound2 ? bound2 : number;
-	
-	function initGrid() {
-		grid = [];
+	{
 		const row = " ".repeat(32).split("");
 		for (let y = 0; y < 24; y++) {
 			grid.push(row.slice());
 		}
 	}
-	initGrid();
 	
-	document.getElementById("reset").addEventListener("click", initGrid);
+	const clamp = (number, bound1, bound2) => bound1 < bound2 ? number > bound2 ? bound2 : number < bound1 ? bound1 : number : number > bound1 ? bound1 : number < bound2 ? bound2 : number;
+	
+	document.getElementById("reset").addEventListener("click", function () {
+		grid = [];
+		const row = " ".repeat(32).split("");
+		for (let y = 0; y < 24; y++) {
+			grid.push(row.slice());
+		}
+	});
 	
 	document.getElementById("tool").addEventListener("input", (e) => {
 		switch ((e || window.event).target.value) {
