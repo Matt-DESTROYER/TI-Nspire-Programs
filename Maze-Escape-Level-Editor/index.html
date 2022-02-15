@@ -48,8 +48,6 @@
 		}
 	}
 	
-	const clamp = (number, bound1, bound2) => bound1 < bound2 ? number > bound2 ? bound2 : number < bound1 ? bound1 : number : number > bound1 ? bound1 : number < bound2 ? bound2 : number;
-	
 	document.getElementById("reset").addEventListener("click", function () {
 		grid = [];
 		const row = " ".repeat(32).split("");
@@ -81,7 +79,7 @@
 	
 	canvas.addEventListener("mouseup", () => {
 		if (tool !== "#") {
-			grid[clamp(~~(Input.mouseX / 10), 0, 31)][clamp(~~(Input.mouseY / 10), 0, 23)] = tool;
+			grid[~~(Input.mouseY / 10)][~~(Input.mouseX / 10)] = tool;
 		}
 		Input.mouseDown = false;
 	});
@@ -121,7 +119,7 @@
 	function update() {
 		if (Input.mouseDown) {
 			if (tool === "#") {
-				grid[clamp(~~(Input.mouseX / 10), 0, 31)][clamp(~~(Input.mouseY / 10), 0, 23)] = tool;
+				grid[~~(Input.mouseY / 10)][~~(Input.mouseX / 10)] = tool;
 			}
 			render();
 		}
