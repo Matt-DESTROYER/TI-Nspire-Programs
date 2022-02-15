@@ -25,7 +25,7 @@
 			<option value="Player Spawn">Player Spawn</option>
 			<option value="Level Finish">Level Finish</option>
 		</select>
-		<button id="generate-">Generate Level Data</button>
+		<button id="generate">Generate Level Data</button>
 	</nav>
 	<br>
 	<canvas id="screen"></canvas>
@@ -128,6 +128,11 @@
 				alert("An unsupported block type was selected...");
 				break;
 		}
+	});
+	
+	document.getElementById("generate").addEventListener("click", function() {
+		const levelData = "{\n" + grid.map((row) => "\t{ " + row.join(" ") + " }").join(",\n") + "\n }";
+		console.log(levelData);
 	});
 	
 	ctx.strokeStyle = "#000000";
