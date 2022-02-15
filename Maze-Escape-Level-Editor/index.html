@@ -84,7 +84,7 @@
 	});
 	
 	canvas.addEventListener("mouseup", () => {
-		if (tool !== "#" && tool !== " ") {
+		if (tool === "@") {
 			for (let y = 0; y < 24; y++) {
 				for (let x = 0; x < 32; x++) {
 					if (grid[y][x] === tool) {
@@ -92,6 +92,8 @@
 					}
 				}
 			}
+			grid[~~(Input.mouseY / 10)][~~(Input.mouseX / 10)] = tool;
+		} else if (tool !== "#") {
 			grid[~~(Input.mouseY / 10)][~~(Input.mouseX / 10)] = tool;
 		}
 		Input.mouseDown = false;
