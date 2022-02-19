@@ -36,24 +36,24 @@ const body = document.body || document.getElementsByTagName("body")[0];
 	author.textContent = data.author;
 	div.appendChild(author);
 	const levelDisplay = document.createElement("canvas");
-	levelDisplay.width = 320;
-	levelDisplay.height = 240;
+	levelDisplay.width = data.levelData[0].length * 10;
+	levelDisplay.height = data.levelData.length * 10;
 	const ctx = levelDisplay.getContext("2d");
 	ctx.fillStyle = "#ffffff";
 	ctx.fillRect(0, 0, levelDisplay.width, levelDisplay.height);
 	ctx.beginPath();
-	for (let y = 0; y <= 24; y++) {
+	for (let y = 0; y <= data.levelData.length; y++) {
 		ctx.moveTo(0, y * 10);
 		ctx.lineTo(levelDisplay.width, y * 10);
 	}
-	for (let x = 0; x <= 32; x++) {
+	for (let x = 0; x <= data.levelData[0].length; x++) {
 		ctx.moveTo(x * 10, 0);
 		ctx.lineTo(x * 10, levelDisplay.height);
 	}
 	ctx.stroke();
 	ctx.closePath();
-	for (let y = 0; y < 24; y++) {
-		for (let x = 0; x < 32; x++) {
+	for (let y = 0; y < data.levelData.length; y++) {
+		for (let x = 0; x < data.levelData[y].length; x++) {
 			if (data.levelData[y][x] === "#") {
 				ctx.fillStyle = "#000000";
 				ctx.fillRect(x * 10, y * 10, 10, 10);
