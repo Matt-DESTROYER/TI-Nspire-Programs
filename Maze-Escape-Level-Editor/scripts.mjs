@@ -159,7 +159,12 @@ document.getElementById("generate").addEventListener("click", async function() {
 	}
 	const levelName = prompt("Enter a name for your level:");
 	const author = prompt("Enter your name or a pseudonym/nickname:");
-	console.log(await GetCollection("Levels"));
+	(await GetCollection("Levels")).forEach(async (level) => {
+		const data = user.data();
+		console.log(data.id);
+		if (data.levelName === levelName && data.author === author) {
+		}
+	});
 });
 
 ctx.strokeStyle = "#000000";
