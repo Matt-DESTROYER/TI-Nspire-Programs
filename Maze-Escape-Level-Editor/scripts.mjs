@@ -167,6 +167,11 @@ document.getElementById("generate").addEventListener("click", async function() {
 			alreadyExists = true;
 		}
 	});
+	await CreateDocument("Levels", null, {
+		"levelName": levelName,
+		"author": author,
+		"levelData": grid
+	});
 });
 
 ctx.strokeStyle = "#000000";
