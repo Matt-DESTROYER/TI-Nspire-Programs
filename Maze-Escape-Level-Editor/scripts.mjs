@@ -136,7 +136,7 @@ document.getElementById("tool").addEventListener("input", (e) => {
 	}
 });
 
-document.getElementById("generate").addEventListener("click", function() {
+document.getElementById("generate").addEventListener("click", async function() {
 	const levelData = "{\n" + grid.map((row) => '\t{ "' + row.join("") + '" }').join(",\n") + "\n }";
 	let playerSpawns = 0, levelFinishes = 0;
 	for (let y = 0; y < 24; y++) {
