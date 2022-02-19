@@ -159,7 +159,7 @@ document.getElementById("generate").addEventListener("click", function() {
 	}
 	const levelName = prompt("Enter a name for your level:");
 	const author = prompt("Enter your name or a pseudonym/nickname:");
-	
+	console.log(await GetCollection("Levels"));
 });
 
 ctx.strokeStyle = "#000000";
