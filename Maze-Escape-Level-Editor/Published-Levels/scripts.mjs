@@ -27,14 +27,14 @@ const body = document.body || document.getElementsByTagName("body")[0];
 	const data = level.data();
 	body.appendChild(document.createElement("br"));
 	body.appendChild(document.createElement("br"));
-	const level = document.createElement("div");
-	level.classList.add("program-container");
+	const div = document.createElement("div");
+	div.classList.add("program-container");
 	const heading = document.createElement("h2");
 	heading.textContent = data.levelName;
-	level.appendChild(heading);
+	div.appendChild(heading);
 	const author = document.createElement("p");
 	author.textContent = data.author;
-	level.appendChild(author);
+	div.appendChild(author);
 	const levelDisplay = document.createElement("canvas");
 	levelDisplay.width = 320;
 	levelDisplay.height = 240;
@@ -66,6 +66,6 @@ const body = document.body || document.getElementsByTagName("body")[0];
 			}
 		}
 	}
-	level.appendChild(levelDisplay);
-	body.appendChild(level);
+	div.appendChild(levelDisplay);
+	body.appendChild(div);
 });
