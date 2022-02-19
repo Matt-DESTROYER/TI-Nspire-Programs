@@ -67,4 +67,5 @@ const body = document.body || document.getElementsByTagName("body")[0];
 		}
 	}
 	level.appendChild(levelDisplay);
+	body.appendChild(level);
 });
