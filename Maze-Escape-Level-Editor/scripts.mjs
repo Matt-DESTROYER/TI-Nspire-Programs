@@ -1,12 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import {
-	getFirestore,
-	collection,
-	doc,
-	addDoc,
-	setDoc,
-	getDocs
-} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { getFirestore, collection, doc, addDoc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
 	authDomain: "ti-nspire-programs-database.firebaseapp.com",
@@ -29,15 +23,6 @@ async function CreateDocument(collectionName, documentName, object) {
 		}
 	} catch (err) {
 		console.error("Error writing to database:", err);
-		return err;
-	}
-}
-
-async function UpdateDocument(collectionName, documentName, object) {
-	try {
-		await updateDoc(doc(db, collectionName, documentName), object);
-	} catch (err) {
-		console.error("Error updating database:", err);
 		return err;
 	}
 }
@@ -172,6 +157,9 @@ document.getElementById("generate").addEventListener("click", function() {
 	} else {
 		navigator.clipboard.writeText(levelData);
 	}
+	const levelName = prompt("Enter a name for your level:");
+	const author = prompt("Enter your name or a pseudonym/nickname:");
+	
 });
 
 ctx.strokeStyle = "#000000";
