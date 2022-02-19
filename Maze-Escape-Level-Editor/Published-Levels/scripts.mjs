@@ -21,3 +21,8 @@ async function GetCollection(collectionName) {
 		return err;
 	}
 }
+
+(await GetCollection("Levels")).forEach(async (level) => {
+	const data = level.data();
+	console.log(data);
+});
