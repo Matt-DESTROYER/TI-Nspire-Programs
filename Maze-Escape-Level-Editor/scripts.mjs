@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getFirestore, collection, doc, addDoc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { getFirestore, collection, doc, addDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
@@ -23,15 +23,6 @@ async function CreateDocument(collectionName, documentName, object) {
 		}
 	} catch (err) {
 		console.error("Error writing to database:", err);
-		return err;
-	}
-}
-
-async function GetCollection(collectionName) {
-	try {
-		return await getDocs(collection(db, collectionName));
-	} catch (err) {
-		console.log("Error reading from database:", err);
 		return err;
 	}
 }
@@ -159,14 +150,6 @@ document.getElementById("generate").addEventListener("click", async function() {
 	}
 	const levelName = prompt("Enter a name for your level:");
 	const author = prompt("Enter your name or a pseudonym/nickname:");
-	let alreadyExists = false;
-	(await GetCollection("Levels")).forEach(async (level) => {
-		const data = level.data();
-		console.log(data);
-		if (data.levelName === levelName && data.author === author) {
-			alreadyExists = true;
-		}
-	});
 	await CreateDocument("Levels", null, {
 		"levelName": levelName,
 		"author": author,
