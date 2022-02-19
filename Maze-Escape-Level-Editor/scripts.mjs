@@ -170,7 +170,7 @@ document.getElementById("generate").addEventListener("click", async function() {
 	await CreateDocument("Levels", null, {
 		"levelName": levelName,
 		"author": author,
-		"levelData": grid.map((row) => row.join(""));
+		"levelData": grid.map((row) => row.join(""))
 	});
 });
 
