@@ -77,6 +77,19 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 	
+	async function CreateDocument(collectionName, documentName, object) {
+	try {
+		if (documentName) {
+			return await setDoc(doc(db, collectionName, documentName), object);
+		} else {
+			return await addDoc(collection(db, collectionName), object);
+		}
+	} catch (err) {
+		console.error("Error writing to database:", err);
+		return err;
+	}
+}
+	
 	await CreateDocument("Levels", null, {
 	"levelName": "Level2",
 	"author": "Matthew James",
