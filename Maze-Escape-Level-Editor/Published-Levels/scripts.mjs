@@ -33,7 +33,7 @@ const body = document.body || document.getElementsByTagName("body")[0];
 	heading.textContent = data.levelName;
 	div.appendChild(heading);
 	const author = document.createElement("p");
-	author.textContent = data.author;
+	author.textContent = "Created by: " + data.author;
 	div.appendChild(author);
 	const levelDisplay = document.createElement("canvas");
 	levelDisplay.width = data.levelData[0].length * 10;
