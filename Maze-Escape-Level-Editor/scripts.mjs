@@ -1,4 +1,12 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import {
+	getFirestore,
+	collection,
+	doc,
+	addDoc,
+	setDoc,
+	getDocs
+} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
 	authDomain: "ti-nspire-programs-database.firebaseapp.com",
