@@ -36,7 +36,7 @@ programs.forEach(async (program) => {
 	header.textContent = program.title + " " + program.version;
 	div.appendChild(header);
 	const author = document.createElement("p");
-	author.textContent = program.author;
+	author.textContent = "Published by: " + program.author;
 	div.appendChild(author);
 	const description = document.createElement("p");
 	description.textContent = program.description;
