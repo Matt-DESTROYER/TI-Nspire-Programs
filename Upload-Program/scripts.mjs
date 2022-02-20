@@ -39,17 +39,6 @@ async function UpdateDocument(collectionName, documentName, object) {
 	await updateDoc(doc(db, collectionName, documentName), object);
 }
 
-function downloadURI(url, name) {
-	const link = document.createElement("a");
-	link.download = name;
-	link.href = url;
-	(document.body || document.getElementsByTagName("body")[0]).appendChild(link);
-	link.click();
-	(document.body || document.getElementsByTagName("body")[0]).removeChild(link);
-	URL.revokeObjectURL(url);
-	URL.revokeObjectURL(link);
-}
-
 const title = document.getElementById("title");
 const description = document.getElementById("description");
 const file = document.getElementById("file");
