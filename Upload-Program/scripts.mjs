@@ -85,7 +85,7 @@ upload.addEventListener("click", () => {
 			const data = programs.data();
 			if (data.title === title.value) {
 				alreadyExists = true;
-				if (data.password === title.password) {
+				if (data.password === btoa(password.value)) {
 					passwordAccepted = true;
 					console.log(program.id, data.id);
 					id = program.id;
@@ -100,7 +100,6 @@ upload.addEventListener("click", () => {
 					"description": description.value,
 					"date": Date.now(),
 					"file": fileUrl,
-					"password": password.value
 				});
 			} else {
 				alert("A program with this title already exists, if you are attempting to update this program, please input the password used to create that program. Otherwise use a different title to publish your program.");
@@ -112,7 +111,7 @@ upload.addEventListener("click", () => {
 				"description": description.value,
 				"date": Date.now(),
 				"file": fileUrl,
-				"password": password.value
+				"password": btoa(password.value)
 			});
 		}
 	}
