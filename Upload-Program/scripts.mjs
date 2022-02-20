@@ -43,22 +43,40 @@ const title = document.getElementById("title");
 const version = document.getElementById("version");
 const author = document.getElementById("author");
 const description = document.getElementById("description");
-const file = document.getElementById("file");
 let fileUrl = null;
+const screenshots = document.getElementById("screenshots");
+const screenshotInputs = [];
 const password = document.getElementById("password");
 const confirmPassword = document.getElementById("confirm-password");
-const upload = document.getElementById("upload");
 
-file.addEventListener("input", () => {
+document.getElementById("file").addEventListener("input", (e) => {
 	return new Promise((res, rej) => {
 		const reader = new FileReader();
-		reader.readAsDataURL(file.files[0]);
+		reader.readAsDataURL(e.target.files[0]);
 		reader.onload = () => res(reader.result);
 		reader.onerror = error => rej(error);
 	}).then((url) => fileUrl = url);
 });
 
-upload.addEventListener("click", async () => {
+document.getElementById("addScreenshot").addEventListener("click", () => {
+	const screenshotInput = document.createElement("input");
+	screenshotInput.type = "file";
+	screenshotInput.accept = "image/*";
+	screenshotInputs.push(screenshotInput);
+	screenshots.appendChild(screenshotInput);
+	const deleteButton = document.createElement("button");
+	deleteButton.textContent = "Delete";
+	screenshotInputs.push(deleteButton);
+	screenshots.appendChild(deleteButton);
+	deleteButton.addEventListener("click", () => {
+		screenshots.removeChild(screenshotInput);
+		screenshots.removeChild(deleteButton);
+		screenshotInputs.splice(screeshotInputs.indexOf(screenshotInput), 1);
+		screenshotInputs.splice(screeshotInputs.indexOf(deleteButton), 1);
+	});
+});
+
+document.getElementById("upload").addEventListener("click", async () => {
 	if (!title.value.trim()) {
 		alert("No title...");
 	} else if (title.value.length > 100) {
@@ -94,6 +112,15 @@ upload.addEventListener("click", async () => {
 				}
 			}
 		});
+		const images = [];
+		screenshots.forEach(async (image, i) => {
+			await (new Promise((res, rej) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(image.files[0]);
+				reader.onload = () => res(reader.result);
+			})).then((url) => images.push(url));
+		});
+		console.log(images);
 		if (alreadyExists) {
 			if (passwordAccepted) {
 				await UpdateDocument("Programs", id, {
