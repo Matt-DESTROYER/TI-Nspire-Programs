@@ -37,7 +37,7 @@ programs.forEach(async (program) => {
 	const description = document.createElement("p");
 	description.textContent = program.description;
 	div.appendChild(description);
-	const link = documnet.createElement("a");
+	const link = document.createElement("a");
 	link.href = program.file;
 	const button = document.createElement("button");
 	button.textContent = "Download";
