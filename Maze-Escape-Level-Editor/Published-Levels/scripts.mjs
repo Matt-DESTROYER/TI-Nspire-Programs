@@ -22,13 +22,13 @@ async function GetCollection(collectionName) {
 	}
 }
 
-const body = document.body || document.getElementsByTagName("body")[0];
+const levelContainer = document.getElementById("levels");
 let levels = [];
 (await GetCollection("Levels")).forEach((level) => levels.push(level.data()));
 levels.sort((a, b) => a.date < b.date ? -1 : 1);
 levels.forEach(async (level) => {
-	body.appendChild(document.createElement("br"));
-	body.appendChild(document.createElement("br"));
+	levelContainer.appendChild(document.createElement("br"));
+	levelContainer.appendChild(document.createElement("br"));
 	const div = document.createElement("div");
 	div.classList.add("program-container");
 	const heading = document.createElement("h2");
@@ -58,5 +58,5 @@ levels.forEach(async (level) => {
 		}
 	}
 	div.appendChild(levelDisplay);
-	body.appendChild(div);
+	levelContainer.appendChild(div);
 });
