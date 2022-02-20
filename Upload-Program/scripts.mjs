@@ -67,7 +67,7 @@ file.addEventListener("input", () => {
 	}).then((url) => fileUrl = url);
 });
 
-upload.addEventListener("click", () => {
+upload.addEventListener("click", async () => {
 	if (!title.value || title.value === "") {
 		alert("No title...");
 	} else if (!version.value || version.value === "") {
