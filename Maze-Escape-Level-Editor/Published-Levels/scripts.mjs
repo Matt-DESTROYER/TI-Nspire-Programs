@@ -40,20 +40,9 @@ levels.forEach(async (level) => {
 	const levelDisplay = document.createElement("canvas");
 	levelDisplay.width = level.levelData[0].length * 10;
 	levelDisplay.height = level.levelData.length * 10;
-	const ctx = levelDisplay.getContext("2d");
+	const ctx = levelDisplay.getContext("2d", { alpha: false });
 	ctx.fillStyle = "#ffffff";
 	ctx.fillRect(0, 0, levelDisplay.width, levelDisplay.height);
-	ctx.beginPath();
-	for (let y = 0; y <= level.levelData.length; y++) {
-		ctx.moveTo(0, y * 10);
-		ctx.lineTo(levelDisplay.width, y * 10);
-	}
-	for (let x = 0; x <= level.levelData[0].length; x++) {
-		ctx.moveTo(x * 10, 0);
-		ctx.lineTo(x * 10, levelDisplay.height);
-	}
-	ctx.stroke();
-	ctx.closePath();
 	for (let y = 0; y < level.levelData.length; y++) {
 		for (let x = 0; x < level.levelData[y].length; x++) {
 			if (level.levelData[y][x] === "#") {
