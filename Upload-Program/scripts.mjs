@@ -39,6 +39,16 @@ async function UpdateDocument(collectionName, documentName, object) {
 	await updateDoc(doc(db, collectionName, documentName), object);
 }
 
+function downloadURI(url, name) {
+	const link = document.createElement("a");
+	link.download = name;
+	link.href = url;
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+	delete link;
+}
+
 const title = document.getElementById("title");
 const description = document.getElementById("description");
 const file = document.getElementById("file");
@@ -57,5 +67,53 @@ file.addEventListener("input", () => {
 });
 
 upload.addEventListener("click", () => {
-	console.log(fileUrl)
+	if (!title.value || title.value === "") {
+		alert("No title...");
+	} else if (!version.value || version.value === "") {
+		alert("No version...");
+	} else if (!description.value || description.value === "") {
+		alert("No description...");
+	} else if (!fileUrl) {
+		alert("No file uploaded...");
+	} else if (!password.value || password.value.length < 4) {
+		alert("Password must be at least four characters long...");
+	} else if (password.value !== confirmPassword.value) {
+		alert("Passwords do not match...");
+	} else {
+		let alreadyExists = false, passwordAccepted = false, id = null;
+		(await GetCollection("Programs")).forEach((program) => {
+			const data = programs.data();
+			if (data.title === title.value) {
+				alreadyExists = true;
+				if (data.password === title.password) {
+					passwordAccepted = true;
+					console.log(program.id, data.id);
+					id = program.id;
+				}
+			}
+		});
+		if (alreadyExists) {
+			if (passwordAccepted) {
+				await UpdateDocument("Programs", id, {
+					"title": title.value,
+					"version": version.value,
+					"description": description.value,
+					"date": Date.now(),
+					"file": fileUrl,
+					"password": password.value
+				});
+			} else {
+				alert("A program with this title already exists, if you are attempting to update this program, please input the password used to create that program. Otherwise use a different title to publish your program.");
+			}
+		} else {
+			await CreateDocument("Programs", null, {
+				"title": title.value,
+				"version": version.value,
+				"description": description.value,
+				"date": Date.now(),
+				"file": fileUrl,
+				"password": password.value
+			});
+		}
+	}
 });
