@@ -30,6 +30,7 @@ programs.forEach(async (program) => {
 	programsContainer.appendChild(document.createElement("br"));
 	programsContainer.appendChild(document.createElement("br"));
 	const div = document.createElement("div");
+	div.classList.add("program-container");
 	programsContainer.appendChild(div);
 	const header = document.createElement("h2");
 	header.textContent = program.title + "" + program.version;
