@@ -102,7 +102,7 @@ upload.addEventListener("click", () => {
 					"file": fileUrl,
 				});
 			} else {
-				alert("A program with this title already exists, if you are attempting to update this program, please input the password used to create that program. Otherwise use a different title to publish your program.");
+				alert("A program with this title already exists. If you are attempting to update said program, please input the password used to create that program. Otherwise use a different title to publish your program.");
 			}
 		} else {
 			await CreateDocument("Programs", null, {
