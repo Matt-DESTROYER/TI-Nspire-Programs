@@ -13,3 +13,24 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
+
+async function GetCollection(collectionName) {
+	try {
+		return await getDocs(collection(db, collectionName));
+	} catch (err) {
+		return err;
+	}
+}
+
+/*
+const programsContainer = document.getElementById("programs");
+let programs = [];
+(await GetCollection("Programs")).forEach((program) => programs.push(program.data()));
+programs.sort((a, b) => a.date < b.date ? -1 : 1);
+programs.forEach(async (program) => {
+	programsContainer.appendChild(document.createElement("br"));
+	programsContainer.appendChild(document.createElement("br"));
+	const div = document.createElement("div");
+	programsContainer.appendChild(div);
+});
+*/
