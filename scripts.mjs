@@ -23,8 +23,8 @@ async function GetCollection(collectionName) {
 }
 
 const programsContainer = document.getElementById("programs");
-console.log(await GetCollection("Programs"));
-let programs = (await GetCollection("Programs")).map((program) => program.data());
+let programs = [];
+(await GetCollection("Programs")).forEach((program) => program.data());
 programs.sort((a, b) => a.date < b.date ? -1 : 1);
 programs.forEach(async (program) => {
 	programsContainer.appendChild(document.createElement("br"));
