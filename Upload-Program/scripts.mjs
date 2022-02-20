@@ -59,6 +59,8 @@ document.getElementById("file").addEventListener("input", (e) => {
 });
 
 document.getElementById("addScreenshot").addEventListener("click", () => {
+	const br = document.createElement("br");
+	screenshots.appendChild(br);
 	const screenshotInput = document.createElement("input");
 	screenshotInput.type = "file";
 	screenshotInput.accept = "image/*";
@@ -69,6 +71,7 @@ document.getElementById("addScreenshot").addEventListener("click", () => {
 	screenshotInputs.push(deleteButton);
 	screenshots.appendChild(deleteButton);
 	deleteButton.addEventListener("click", () => {
+		screenshots.removeChild(br);
 		screenshots.removeChild(screenshotInput);
 		screenshots.removeChild(deleteButton);
 		screenshotInputs.splice(screeshotInputs.indexOf(screenshotInput), 1);
@@ -114,7 +117,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 		});
 		const images = [];
 		screenshots.forEach(async (image, i) => {
-			await (new Promise((res, rej) => {
+			await(async function ((res, rej)) {
 				const reader = new FileReader();
 				reader.readAsDataURL(image.files[0]);
 				reader.onload = () => res(reader.result);
