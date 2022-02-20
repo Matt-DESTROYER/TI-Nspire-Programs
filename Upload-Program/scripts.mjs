@@ -117,11 +117,11 @@ document.getElementById("upload").addEventListener("click", async () => {
 		});
 		const images = [];
 		screenshots.forEach(async (image, i) => {
-			await(async function ((res, rej)) {
+			(await (async function (res, rej) {
 				const reader = new FileReader();
 				reader.readAsDataURL(image.files[0]);
 				reader.onload = () => res(reader.result);
-			})).then((url) => images.push(url));
+			}())).then((url) => images.push(url));
 		});
 		console.log(images);
 		if (alreadyExists) {
