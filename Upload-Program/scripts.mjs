@@ -58,6 +58,7 @@ document.getElementById("file").addEventListener("input", (e) => {
 	}).then((url) => fileUrl = url);
 });
 
+/*
 document.getElementById("addScreenshot").addEventListener("click", () => {
 	const br = document.createElement("br");
 	screenshots.appendChild(br);
@@ -78,6 +79,7 @@ document.getElementById("addScreenshot").addEventListener("click", () => {
 		screenshotInputs.splice(screeshotInputs.indexOf(deleteButton), 1);
 	});
 });
+*/
 
 document.getElementById("upload").addEventListener("click", async () => {
 	if (!title.value.trim()) {
