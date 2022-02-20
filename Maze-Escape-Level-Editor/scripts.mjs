@@ -33,18 +33,6 @@ const ctx = canvas.getContext("2d", { alpha: false });
 canvas.width = 320;
 canvas.height = 240;
 
-canvas.imageSmoothingEnabled = false;
-canvas.mozImageSmoothingEnabled = false;
-canvas.webkitImageSmoothingEnabled = false;
-canvas.msImageSmoothingEnabled = false;
-
-window.onresize = function() {
-	canvas.imageSmoothingEnabled = false;
-	canvas.mozImageSmoothingEnabled = false;
-	canvas.webkitImageSmoothingEnabled = false;
-	canvas.msImageSmoothingEnabled = false;
-};
-
 const Input = {};
 
 let tool = "#", grid = [];
