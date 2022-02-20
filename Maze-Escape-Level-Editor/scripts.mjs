@@ -128,6 +128,16 @@ document.getElementById("tool").addEventListener("input", (e) => {
 });
 
 document.getElementById("generate").addEventListener("click", async function() {
+	let playerSpawns = 0, levelFinishes = 0;
+	for (let y = 0; y < grid.length; y++) {
+		for (let x = 0; x < grid[y].length; x++) {
+			if (grid[y][x] === "@") {
+				playerSpawns++;
+			} else if (grid[y][x] === "*") {
+				levelFinishes++;
+			}
+		}
+	}
 	if (playerSpawns === 0) {
 		alert("Level invalid: no player spawn!");
 	} else if (levelFinishes === 0) {
