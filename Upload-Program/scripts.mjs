@@ -102,6 +102,9 @@ upload.addEventListener("click", async () => {
 					"date": Date.now(),
 					"file": fileUrl,
 				});
+				const a = document.createElement("a");
+				a.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
+				a.click();
 			} else {
 				alert("A program with this title already exists. If you are attempting to update said program, please input the password used to create that program. Otherwise use a different title to publish your program.");
 			}
@@ -114,6 +117,9 @@ upload.addEventListener("click", async () => {
 				"file": fileUrl,
 				"password": btoa(password.value)
 			});
+			const a = document.createElement("a");
+			a.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
+			a.click();
 		}
 	}
 });
