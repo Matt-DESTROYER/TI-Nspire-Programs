@@ -83,7 +83,7 @@ upload.addEventListener("click", async () => {
 	} else {
 		let alreadyExists = false, passwordAccepted = false, id = null;
 		(await GetCollection("Programs")).forEach((program) => {
-			const data = programs.data();
+			const data = program.data();
 			if (data.title === title.value) {
 				alreadyExists = true;
 				if (data.password === btoa(password.value)) {
