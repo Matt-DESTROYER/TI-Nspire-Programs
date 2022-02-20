@@ -115,6 +115,8 @@ document.getElementById("tool").addEventListener("input", (e) => {
 	}
 });
 
+const levelName = document.getElementById("level-name");
+const author = document.getElementById("author");
 document.getElementById("generate").addEventListener("click", async function() {
 	let playerSpawns = 0, levelFinishes = 0;
 	for (let y = 0; y < grid.length; y++) {
@@ -132,12 +134,14 @@ document.getElementById("generate").addEventListener("click", async function() {
 		alert("Level invalid: no level finish!");
 	} else if (playerSpawns > 1) {
 		alert("Level invalid: too many player spawns!");
+	} else if (!levelName.value.trim()) {
+		alert("No level name...");
+	} else if (!author.value.trim()) {
+		alert("No author...");
 	} else {
-		const levelName = prompt("Enter a name for your level:");
-		const author = prompt("Enter your name or a pseudonym/nickname:");
 		await CreateDocument("Levels", null, {
-			"levelName": levelName,
-			"author": author,
+			"levelName": levelName.value,
+			"author": author.value,
 			"date": Date.now(),
 			"levelData": grid.map((row) => row.join(""))
 		});
