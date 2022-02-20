@@ -128,17 +128,6 @@ document.getElementById("tool").addEventListener("input", (e) => {
 });
 
 document.getElementById("generate").addEventListener("click", async function() {
-	const levelData = "{\n" + grid.map((row) => '\t{ "' + row.join("") + '" }').join(",\n") + "\n }";
-	let playerSpawns = 0, levelFinishes = 0;
-	for (let y = 0; y < 24; y++) {
-		for (let x = 0; x < 32; x++) {
-			if (grid[y][x] === "@") {
-				playerSpawns++;
-			} else if (grid[y][x] === "*") {
-				levelFinishes++;
-			}
-		}
-	}
 	if (playerSpawns === 0) {
 		alert("Level invalid: no player spawn!");
 	} else if (levelFinishes === 0) {
@@ -146,16 +135,15 @@ document.getElementById("generate").addEventListener("click", async function() {
 	} else if (playerSpawns > 1) {
 		alert("Level invalid: too many player spawns!");
 	} else {
-		navigator.clipboard.writeText(levelData);
+		const levelName = prompt("Enter a name for your level:");
+		const author = prompt("Enter your name or a pseudonym/nickname:");
+		await CreateDocument("Levels", null, {
+			"levelName": levelName,
+			"author": author,
+			"date": Date.now(),
+			"levelData": grid.map((row) => row.join(""))
+		});
 	}
-	const levelName = prompt("Enter a name for your level:");
-	const author = prompt("Enter your name or a pseudonym/nickname:");
-	await CreateDocument("Levels", null, {
-		"levelName": levelName,
-		"author": author,
-		"date": Date.now(),
-		"levelData": grid.map((row) => row.join(""))
-	});
 });
 
 ctx.strokeStyle = "#000000";
