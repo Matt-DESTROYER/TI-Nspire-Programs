@@ -42,6 +42,7 @@ programs.forEach((program) => {
 	description.textContent = program.description;
 	div.appendChild(description);
 	const link = document.createElement("a");
+	link.download = program.title;
 	link.href = program.file;
 	const button = document.createElement("button");
 	button.textContent = "Download";
