@@ -40,6 +40,8 @@ async function UpdateDocument(collectionName, documentName, object) {
 }
 
 const title = document.getElementById("title");
+const version = document.getElementById("version");
+const author = document.getElementById("author");
 const description = document.getElementById("description");
 const file = document.getElementById("file");
 let fileUrl = null;
@@ -57,15 +59,25 @@ file.addEventListener("input", () => {
 });
 
 upload.addEventListener("click", async () => {
-	if (!title.value || title.value === "") {
+	if (!title.value.trim()) {
 		alert("No title...");
-	} else if (!version.value || version.value === "") {
+	} else if (title.value.length > 100) {
+		alert("Title too long...");
+	} else if (!version.value.trim()) {
 		alert("No version...");
-	} else if (!description.value || description.value === "") {
+	} else if (version.value.length > 100) {
+		alert("Version too long...");
+	} else if (!author.value.trim()) {
+		alert("No author...");
+	} else if (author.value.length > 100) {
+		alert("Author too long...");
+	} else if (!description.value.trim()) {
 		alert("No description...");
+	} else if (description.length > 10000) {
+		alert("Description too long...");
 	} else if (!fileUrl) {
 		alert("No file uploaded...");
-	} else if (!password.value || password.value.length < 4) {
+	} else if (password.value.trim().length < 4) {
 		alert("Password must be at least four characters long...");
 	} else if (password.value !== confirmPassword.value) {
 		alert("Passwords do not match...");
@@ -101,6 +113,7 @@ upload.addEventListener("click", async () => {
 			await CreateDocument("Programs", null, {
 				"title": title.value,
 				"version": version.value,
+				"author": author.value,
 				"description": description.value,
 				"date": Date.now(),
 				"file": fileUrl,
