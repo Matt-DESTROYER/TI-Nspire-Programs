@@ -22,7 +22,6 @@ async function GetCollection(collectionName) {
 	}
 }
 
-/*
 const programsContainer = document.getElementById("programs");
 let programs = [];
 (await GetCollection("Programs")).forEach((program) => programs.push(program.data()));
@@ -46,4 +45,3 @@ programs.forEach(async (program) => {
 	div.appendChild(link);
 	programsContainer.appendChild(div);
 });
-*/
