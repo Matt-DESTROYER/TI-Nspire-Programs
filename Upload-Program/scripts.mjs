@@ -43,10 +43,11 @@ function downloadURI(url, name) {
 	const link = document.createElement("a");
 	link.download = name;
 	link.href = url;
-	document.body.appendChild(link);
+	(document.body || document.getElementsByTagName("body")[0]).appendChild(link);
 	link.click();
-	document.body.removeChild(link);
-	delete link;
+	(document.body || document.getElementsByTagName("body")[0]).removeChild(link);
+	URL.revokeObjectURL(url);
+	URL.revokeObjectURL(link);
 }
 
 const title = document.getElementById("title");
