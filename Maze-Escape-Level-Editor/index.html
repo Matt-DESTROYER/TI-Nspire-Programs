@@ -24,7 +24,7 @@
 	<div style="background-color: lightgray;border-radius: 8px;padding: 10px;padding-left: 20px;padding-right: 20px;">
 		<nav>
 			<button id="reset">Reset</button>
-			<label for="tool">&nbsp;&nbsp;&nbsp;Tool:&nbsp;</label>
+			<label for="tool">&nbsp;&nbsp;&nbsp;Tool:&nbsp;&nbsp;&nbsp;&nbsp;</label>
 			<select id="tool" selected="Solid Wall">
 				<option value="Air">Air</option>
 				<option value="Solid Wall" selected>Solid Wall</option>
@@ -33,6 +33,16 @@
 			</select>
 			<button id="generate">Publish Level</button>
 		</nav>
+		<br>
+		<label for="level-name">Level name:</label>
+		<br>
+		<input id="level-name" placeholder="Level Name" />
+		<br>
+		<br>
+		<label for="author">Author:</label>
+		<br>
+		<input id="author" placeholder="Name/Nickname/Pseudonmy" />
+		<br>
 		<br>
 		<canvas id="screen"></canvas>
 	</div>
