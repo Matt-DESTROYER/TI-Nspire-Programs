@@ -145,6 +145,9 @@ document.getElementById("generate").addEventListener("click", async function() {
 			"date": Date.now(),
 			"levelData": grid.map((row) => row.join(""))
 		});
+		const link = document.createElement("a");
+		link.href = "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels";
+		link.click();
 	}
 });
 
