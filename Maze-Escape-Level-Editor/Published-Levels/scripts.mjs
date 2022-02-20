@@ -25,7 +25,7 @@ async function GetCollection(collectionName) {
 const levelContainer = document.getElementById("levels");
 let levels = [];
 (await GetCollection("Levels")).forEach((level) => levels.push(level.data()));
-levels.sort((a, b) => a.date < b.date ? -1 : 1);
+levels.sort((a, b) => a.date < b.date ? 1 : -1);
 levels.forEach(async (level) => {
 	levelContainer.appendChild(document.createElement("br"));
 	levelContainer.appendChild(document.createElement("br"));
