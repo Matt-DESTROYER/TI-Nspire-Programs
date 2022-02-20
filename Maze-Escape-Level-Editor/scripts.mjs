@@ -153,6 +153,7 @@ document.getElementById("generate").addEventListener("click", async function() {
 	await CreateDocument("Levels", null, {
 		"levelName": levelName,
 		"author": author,
+		"date": Date.now(),
 		"levelData": grid.map((row) => row.join(""))
 	});
 });
