@@ -33,7 +33,7 @@ programs.forEach(async (program) => {
 	div.classList.add("program-container");
 	programsContainer.appendChild(div);
 	const header = document.createElement("h2");
-	header.textContent = program.title + "" + program.version;
+	header.textContent = program.title + " " + program.version;
 	div.appendChild(header);
 	const author = document.createElement("p");
 	author.textContent = program.author;
