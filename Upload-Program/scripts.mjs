@@ -38,3 +38,24 @@ async function CreateDocument(collectionName, documentName, object) {
 async function UpdateDocument(collectionName, documentName, object) {
 	await updateDoc(doc(db, collectionName, documentName), object);
 }
+
+const title = document.getElementById("title");
+const description = document.getElementById("description");
+const file = document.getElementById("file");
+let fileUrl = null;
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirm-password");
+const upload = document.getElementById("upload");
+
+file.addEventListener("input", () => {
+	return new Promise((res, rej) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file.files[0]);
+		reader.onload = () => res(reader.result);
+		reader.onerror = error => rej(error);
+	}).then((url) => fileUrl = url);
+});
+
+upload.addEventListener("click", () => {
+	console.log(fileUrl)
+});
