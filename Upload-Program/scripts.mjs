@@ -35,23 +35,6 @@ async function UpdateDocument(collectionName, documentName, object) {
 	await updateDoc(doc(db, collectionName, documentName), object);
 }
 
-if (localStorage.getItem("username") === null ||
-    localStorage.getItem("password") === null) {
-	location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
-} else {
-	let loggedIn = false;
-	(await GetCollection("Accounts")).forEach((account) => {
-		const data = account.data();
-		if (localStorage.getItem("username") === data.username &&
-		    localStorage.getItem("password") === data.password) {
-			loggedIn = true;
-		}
-	});
-	if (!loggedIn) {
-		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
-	}
-}
-
 const title = document.getElementById("title");
 const version = document.getElementById("version");
 const description = document.getElementById("description");
@@ -93,6 +76,22 @@ document.getElementById("addScreenshot").addEventListener("click", () => {
 
 const errormessage = document.getElementById("error-message");
 document.getElementById("upload").addEventListener("click", async () => {
+	if (localStorage.getItem("username") === null ||
+	    localStorage.getItem("password") === null) {
+		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
+	} else {
+		let loggedIn = false;
+		(await GetCollection("Accounts")).forEach((account) => {
+			const data = account.data();
+			if (localStorage.getItem("username") === data.username &&
+			    localStorage.getItem("password") === data.password) {
+				loggedIn = true;
+			}
+		});
+		if (!loggedIn) {
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
+		}
+	}
 	errormessage.hidden = true;
 	if (title.value.trim() === "") {
 		errormessage.textContent = "No title...";
