@@ -1,2 +1,2 @@
 # TI-Nspire Programs
-Within this repository are programs developed to be used on TI-Nspire calculators.
+A website for programs developed for TI-Nspire calculators.
