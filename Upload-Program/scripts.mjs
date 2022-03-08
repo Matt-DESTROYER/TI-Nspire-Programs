@@ -39,8 +39,8 @@ const title = document.getElementById("title");
 const version = document.getElementById("version");
 const description = document.getElementById("description");
 let fileUrl = null;
-// const screenshots = document.getElementById("screenshots");
-// const screenshotInputs = [];
+const screenshots = document.getElementById("screenshots");
+const screenshotInputs = [];
 
 document.getElementById("file").addEventListener("input", (e) => {
 	return new Promise((res, rej) => {
@@ -51,8 +51,7 @@ document.getElementById("file").addEventListener("input", (e) => {
 	}).then((url) => fileUrl = url);
 });
 
-/*
-document.getElementById("addScreenshot").addEventListener("click", () => {
+document.getElementById("add-screenshot").addEventListener("click", () => {
 	const br = document.createElement("br");
 	screenshots.appendChild(br);
 	const screenshotInput = document.createElement("input");
@@ -62,17 +61,15 @@ document.getElementById("addScreenshot").addEventListener("click", () => {
 	screenshots.appendChild(screenshotInput);
 	const deleteButton = document.createElement("button");
 	deleteButton.textContent = "Delete";
-	screenshotInputs.push(deleteButton);
 	screenshots.appendChild(deleteButton);
 	deleteButton.addEventListener("click", () => {
 		screenshots.removeChild(br);
 		screenshots.removeChild(screenshotInput);
 		screenshots.removeChild(deleteButton);
 		screenshotInputs.splice(screeshotInputs.indexOf(screenshotInput), 1);
-		screenshotInputs.splice(screeshotInputs.indexOf(deleteButton), 1);
 	});
+	console.log(screenshotInputs);
 });
-*/
 
 const errormessage = document.getElementById("error-message");
 document.getElementById("upload").addEventListener("click", async () => {
