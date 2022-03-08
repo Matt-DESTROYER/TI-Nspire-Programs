@@ -60,6 +60,14 @@ programs.forEach((program) => {
 	const author = document.createElement("p");
 	author.textContent = "Published by: " + program.author;
 	div.appendChild(author);
+	const screenshots = document.createElement("div");
+	screenshots.classList.add("screenshots");
+	for (let i = 0; i < program.screenshots.length; i++) {
+		const screenshot = document.createElement("img");
+		screenshot.src = program.screenshots[i];
+		screenshots.appendChild(screenshot);
+	}
+	div.appendChild(screenshots);
 	const description = document.createElement("p");
 	description.textContent = program.description;
 	div.appendChild(description);
