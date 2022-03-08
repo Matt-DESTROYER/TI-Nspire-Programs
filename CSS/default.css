@@ -30,6 +30,13 @@ button:active {
 	border-color: blue;
 }
 
+.edit-button {
+	border-radius: 5px;
+	padding: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
 .program-container {
 	background-color: lightgray;
 	border-radius: 8px;
