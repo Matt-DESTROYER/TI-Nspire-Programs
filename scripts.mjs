@@ -65,6 +65,7 @@ programs.forEach((program) => {
 	for (let i = 0; i < program.screenshots.length; i++) {
 		const screenshot = document.createElement("img");
 		screenshot.src = program.screenshots[i];
+		screenshot.width = 200
 		screenshots.appendChild(screenshot);
 	}
 	div.appendChild(screenshots);
