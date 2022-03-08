@@ -22,7 +22,7 @@ async function GetCollection(collectionName) {
 	}
 }
 
-async function loggedIn() {
+const loggedIn = (function() {
 	if (localStorage.getItem("username") === null ||
 	    localStorage.getItem("password") === null) {
 		return false;
@@ -36,7 +36,7 @@ async function loggedIn() {
 		}
 	});
 	return _loggedIn;
-}
+})();
 
 const programsContainer = document.getElementById("programs");
 let programs = [];
@@ -49,7 +49,7 @@ programs.forEach((program) => {
 	div.classList.add("program-container");
 	programsContainer.appendChild(div);
 	const heading = document.createElement("div");
-	if (loggedIn()) {
+	if (loggedIn) {
 		const editButton = document.createElement("button");
 		editButton.textContent = "Edit";
 		editButton.classList.add("edit-button");
