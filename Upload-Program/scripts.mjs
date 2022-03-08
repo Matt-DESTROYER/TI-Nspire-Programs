@@ -42,17 +42,26 @@ async function UpdateDocument(collectionName, documentName, object) {
 if (localStorage.getItem("username") === null ||
     localStorage.getItem("password") === null) {
 	location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
+} else {
+	let loggedIn = false;
+	(await GetCollection("Accounts").forEach((account) => {
+		const data = account.data();
+		if (localStorage.getItem("username") === data.username &&
+		    localStorage.getItem("password" === data.password)) {
+			loggedIn = true;
+		}
+	});
+	 if (!loggedIn) {
+		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
+	}
 }
 
 const title = document.getElementById("title");
 const version = document.getElementById("version");
-const author = document.getElementById("author");
 const description = document.getElementById("description");
 let fileUrl = null;
 // const screenshots = document.getElementById("screenshots");
 // const screenshotInputs = [];
-const password = document.getElementById("password");
-const confirmPassword = document.getElementById("confirm-password");
 
 document.getElementById("file").addEventListener("input", (e) => {
 	return new Promise((res, rej) => {
@@ -95,61 +104,41 @@ document.getElementById("upload").addEventListener("click", async () => {
 		alert("No version...");
 	} else if (version.value.length > 100) {
 		alert("Version too long...");
-	} else if (!author.value.trim()) {
-		alert("No author...");
-	} else if (author.value.length > 100) {
-		alert("Author too long...");
 	} else if (!description.value.trim()) {
 		alert("No description...");
 	} else if (description.length > 10000) {
 		alert("Description too long...");
 	} else if (!fileUrl) {
 		alert("No file uploaded...");
-	} else if (password.value.trim().length < 4) {
-		alert("Password must be at least four characters long...");
-	} else if (password.value !== confirmPassword.value) {
-		alert("Passwords do not match...");
 	} else {
-		let alreadyExists = false, passwordAccepted = false, id = null;
+		let alreadyExists = false, , id = null;
 		(await GetCollection("Programs")).forEach((program) => {
 			const data = program.data();
 			if (data.title === title.value) {
 				alreadyExists = true;
-				if (data.password === btoa(password.value)) {
-					passwordAccepted = true;
-					console.log(program.id, data.id);
-					id = program.id;
-				}
+				id = program.id;
 			}
 		});
 		if (alreadyExists) {
-			if (passwordAccepted) {
-				await UpdateDocument("Programs", id, {
-					"title": title.value,
-					"version": version.value,
-					"description": description.value,
-					"date": Date.now(),
-					"file": fileUrl,
-				});
-				const a = document.createElement("a");
-				a.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
-				a.click();
-			} else {
-				alert("A program with this title already exists. If you are attempting to update said program, please input the password used to create that program. Otherwise use a different title to publish your program.");
-			}
+			await UpdateDocument("Programs", id, {
+				"title": title.value,
+				"version": version.value,
+				"description": description.value,
+				"date": Date.now(),
+				"file": fileUrl,
+			});
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 		} else {
 			await CreateDocument("Programs", null, {
 				"title": title.value,
 				"version": version.value,
-				"author": author.value,
+				"author": atob(localStorage.getItem("username")),
 				"description": description.value,
 				"date": Date.now(),
 				"file": fileUrl,
 				"password": btoa(password.value)
 			});
-			const a = document.createElement("a");
-			a.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
-			a.click();
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 		}
 	}
 });
