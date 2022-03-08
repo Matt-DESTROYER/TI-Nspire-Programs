@@ -117,7 +117,23 @@ document.getElementById("tool").addEventListener("input", (e) => {
 
 const levelName = document.getElementById("level-name");
 const author = document.getElementById("author");
-document.getElementById("generate").addEventListener("click", async function() {
+document.getElementById("generate").addEventListener("click", async () => {
+	if (localStorage.getItem("username") === null ||
+	    localStorage.getItem("password") === null) {
+		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
+	} else {
+		let loggedIn = false;
+		(await GetCollection("Accounts").forEach((account) => {
+			const data = account.data();
+			if (atob(localStorage.getItem("username")) === data.username &&
+			    atob(localStorage.getItem("password")) === data.password) {
+				loggedIn = true;
+			}
+		});
+		 if (!loggedIn) {
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
+		}
+	}
 	let playerSpawns = 0, levelFinishes = 0;
 	for (let y = 0; y < grid.length; y++) {
 		for (let x = 0; x < grid[y].length; x++) {
@@ -141,13 +157,11 @@ document.getElementById("generate").addEventListener("click", async function() {
 	} else {
 		await CreateDocument("Levels", null, {
 			"levelName": levelName.value,
-			"author": author.value,
+			"author": atob(localStorage.getItem("username")),
 			"date": Date.now(),
 			"levelData": grid.map((row) => row.join(""))
 		});
-		const link = document.createElement("a");
-		link.href = "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels";
-		link.click();
+		location.href = "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels";
 	}
 });
 
