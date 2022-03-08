@@ -35,6 +35,7 @@ button:active {
 	padding: 5px;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	float: right;
 }
 
 .program-container {
