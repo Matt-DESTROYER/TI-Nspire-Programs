@@ -119,7 +119,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 				id = program.id;
 			}
 		});
-		function upload() {
+		async function upload() {
 			if (alreadyExists) {
 				await UpdateDocument("Programs", id, {
 					"version": version.value,
