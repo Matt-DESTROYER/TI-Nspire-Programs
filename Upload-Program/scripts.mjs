@@ -150,6 +150,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 					reader.onload = () => res(reader.result);
 					reader.onerror = error => rej(error);
 				}).then((url) => {
+					console.log(url);
 					screenshotUrls.push(url);
 				}).catch((err) => {
 					screenshotUrls.push(null);
