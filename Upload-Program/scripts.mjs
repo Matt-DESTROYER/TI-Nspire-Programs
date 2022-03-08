@@ -126,29 +126,32 @@ document.getElementById("upload").addEventListener("click", async () => {
 				reader.readAsDataURL(e.target.files[0]);
 				reader.onload = () => res(reader.result);
 				reader.onerror = error => rej(error);
-			}).then((url) => screenshotUrls.push(url));
-		}
-		if (alreadyExists) {
-			await UpdateDocument("Programs", id, {
-				"title": title.value,
-				"version": version.value,
-				"description": description.value,
-				"date": Date.now(),
-				"file": fileUrl,
-				"screenshots": screenshotUrls
+			}).then((url) => {
+				screenshotUrls.push(url);
+				if (screenshotUrls.length === screenshotInputs.length) {
+					if (alreadyExists) {
+						await UpdateDocument("Programs", id, {
+							"title": title.value,
+							"version": version.value,
+							"description": description.value,
+							"date": Date.now(),
+							"file": fileUrl,
+							"screenshots": screenshotUrls
+						});
+					} else {
+						await CreateDocument("Programs", {
+							"title": title.value,
+							"version": version.value,
+							"author": atob(localStorage.getItem("username")),
+							"description": description.value,
+							"date": Date.now(),
+							"file": fileUrl,
+							"screenshots": screenshotUrls
+						});
+					}
+					location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
+				}
 			});
-			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
-		} else {
-			await CreateDocument("Programs", {
-				"title": title.value,
-				"version": version.value,
-				"author": atob(localStorage.getItem("username")),
-				"description": description.value,
-				"date": Date.now(),
-				"file": fileUrl,
-				"screenshots": screenshotUrls
-			});
-			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 		}
 	}
 });
