@@ -150,25 +150,41 @@ document.getElementById("generate").addEventListener("click", async () => {
 	}
 	errormessage.hidden = true;
 	if (playerSpawns === 0) {
-		errormessage.textContent = "Level invalid: no player spawn!";
+		errormessage.textContent = "Error: Level invalid: no player spawn.";
 		errormessage.hidden = false;
 	} else if (levelFinishes === 0) {
-		errormessage.textContent = "Level invalid: no level finish!";
+		errormessage.textContent = "Error: Level invalid: no level finish.";
 		errormessage.hidden = false;
 	} else if (playerSpawns > 1) {
-		errormessage.textContent = "Level invalid: too many player spawns!";
+		errormessage.textContent = "Error: Level invalid: too many player spawns.";
 		errormessage.hidden = false;
 	} else if (levelnameInput.value.trim() === "") {
-		errormessage.textContent = "No level name...";
+		errormessage.textContent = "Error: A level name is required.";
 		errormessage.hidden = false;
 	} else {
-		await CreateDocument("Levels", null, {
-			"levelName": levelnameInput.value,
-			"author": atob(localStorage.getItem("username")),
-			"date": Date.now(),
-			"levelData": grid.map((row) => row.join(""))
+		let updateLevel = false, id;
+		(await GetCollection("Levels")).forEach((level) => {
+			const data = level.data();
+			if (data.levelName === levelnameInput.value.trim() &&
+			    data.author === atob(localStorage.getItem("username"))) {
+				updateLevel = true;
+				id = level.id;
+			}
 		});
-		location.href = "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels";
+		if (updateLevel) {
+			await UpdateDocument("Levels", id, {
+				"date": Date.now(),
+				"levelData": grid.map((row) => row.join(""))
+			});
+		} else {
+			await CreateDocument("Levels", null, {
+				"levelName": levelnameInput.value,
+				"author": atob(localStorage.getItem("username")),
+				"date": Date.now(),
+				"levelData": grid.map((row) => row.join(""))
+			});
+			location.href = "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels";
+		}
 	}
 });
 
