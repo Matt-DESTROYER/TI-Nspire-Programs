@@ -116,7 +116,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 		errormessage.textContent = "No file uploaded...";
 		errormessage.hidden = false;
 	} else {
-		let alreadyExists = false, , id = null;
+		let alreadyExists = false, id = null;
 		(await GetCollection("Programs")).forEach((program) => {
 			const data = program.data();
 			if (data.title === title.value) {
