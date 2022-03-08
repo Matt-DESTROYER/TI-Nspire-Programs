@@ -22,6 +22,22 @@ async function GetCollection(collectionName) {
 	}
 }
 
+function loggedIn() {
+	if (localStorage.getItem("username") === null ||
+	    localStorage.getItem("password") === null) {
+		return false;
+	}
+	let _loggedIn = false;
+	(await GetCollection("Accounts")).forEach((account) => {
+		const data = account.data();
+		if (localStorage.getItem("username") === data.username &&
+		    localStorage.getItem("password") === data.password) {
+			_loggedIn = true;
+		}
+	});
+	return _loggedIn;
+}
+
 const programsContainer = document.getElementById("programs");
 let programs = [];
 (await GetCollection("Programs")).forEach((program) => programs.push(program.data()));
@@ -32,9 +48,20 @@ programs.forEach((program) => {
 	const div = document.createElement("div");
 	div.classList.add("program-container");
 	programsContainer.appendChild(div);
+	const heading = document.createElement("div");
+	if (loggedIn()) {
+		const editButton = document.createElement("button");
+		editButton.textContent = "Edit";
+		editButton.classList.add("edit-button");
+		editButton.addEventListener("click", () => {
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/";
+		});
+		heading.appendChild(editButton);
+	}
 	const header = document.createElement("h2");
 	header.textContent = program.title + " - " + program.version;
-	div.appendChild(header);
+	heading.appendChild(header);
+	div.appendChild(heading);
 	const author = document.createElement("p");
 	author.textContent = "Published by: " + program.author;
 	div.appendChild(author);
