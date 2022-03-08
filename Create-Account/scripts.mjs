@@ -64,10 +64,10 @@ document.getElementById("create-account").addEventListener("click", async () => 
 		errormessage.innerHTML = "Error: Passwords do not match.";
 		errormessage.hidden = false;
 	} else {
-		let accountExists = false
+		let accountExists = false;
 		(await GetCollection("Accounts")).forEach((account) => {
 			const data = account.data();
-			if (account.username === atob(usernameInput.value.trim())) {
+			if (usernameInput.value.trim() === atob(data.username)) {
 				accountExists = true;
 			}
 		});
