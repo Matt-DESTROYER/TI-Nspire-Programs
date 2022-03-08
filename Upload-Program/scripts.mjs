@@ -66,9 +66,8 @@ document.getElementById("add-screenshot").addEventListener("click", () => {
 		screenshots.removeChild(br);
 		screenshots.removeChild(screenshotInput);
 		screenshots.removeChild(deleteButton);
-		screenshotInputs.splice(screeshotInputs.indexOf(screenshotInput), 1);
+		screenshotInputs.splice(screenshotInputs.indexOf(screenshotInput), 1);
 	});
-	console.log(screenshotInputs);
 });
 
 const errormessage = document.getElementById("error-message");
