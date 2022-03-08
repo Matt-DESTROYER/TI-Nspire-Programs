@@ -140,8 +140,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 				"author": atob(localStorage.getItem("username")),
 				"description": description.value,
 				"date": Date.now(),
-				"file": fileUrl,
-				"password": btoa(password.value)
+				"file": fileUrl
 			});
 			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 		}
