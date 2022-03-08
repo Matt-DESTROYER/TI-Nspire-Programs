@@ -115,8 +115,7 @@ document.getElementById("tool").addEventListener("input", (e) => {
 	}
 });
 
-const levelName = document.getElementById("level-name");
-const author = document.getElementById("author");
+const errormessage = document.getElementById("error-message");
 document.getElementById("generate").addEventListener("click", async () => {
 	if (localStorage.getItem("username") === null ||
 	    localStorage.getItem("password") === null) {
@@ -144,16 +143,22 @@ document.getElementById("generate").addEventListener("click", async () => {
 			}
 		}
 	}
+	errormessage.hidden = true;
 	if (playerSpawns === 0) {
-		alert("Level invalid: no player spawn!");
+		errormessage.textContent = "Level invalid: no player spawn!";
+		errormessage.hidden = false;
 	} else if (levelFinishes === 0) {
-		alert("Level invalid: no level finish!");
+		errormessage.textContent = "Level invalid: no level finish!";
+		errormessage.hidden = false;
 	} else if (playerSpawns > 1) {
-		alert("Level invalid: too many player spawns!");
-	} else if (!levelName.value.trim()) {
-		alert("No level name...");
-	} else if (!author.value.trim()) {
-		alert("No author...");
+		errormessage.textContent = "Level invalid: too many player spawns!";
+		errormessage.hidden = false;
+	} else if (levelName.value.trim() === "") {
+		errormessage.textContent = "No level name...";
+		errormessage.hidden = false;
+	} else if (author.value.trim() === "") {
+		errormessage.textContent = "No author...";
+		errormessage.hidden = false;
 	} else {
 		await CreateDocument("Levels", null, {
 			"levelName": levelName.value,
