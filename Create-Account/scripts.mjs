@@ -41,16 +41,23 @@ const firstnameInput = document.getElementById("firstname"),
 document.getElementById("create-account").addEventListener("click", async () => {
 	errormessage.hidden = true;
 	if (firstnameInput.value.trim() === "") {
-		errormessage.innerHTML = "Error: A firstname required.";
+		errormessage.innerHTML = "Error: A firstname is required.";
 		errormessage.hidden = false;
 	} else if (firstnameInput.value.trim().length > 50) {
 		errormessage.innerHTML = "Error: Firstname too long";
 		errormessage.hidden = false;
 	} else if (lastnameInput.value.trim() === "") {
-		errormessage.innerHTML = "Error: A lastname required.";
+		errormessage.innerHTML = "Error: A lastname is required.";
 		errormessage.hidden = false;
 	} else if (lastnameInput.value.trim().length > 50) {
 		errormessage.innerHTML = "Error: Lastname too long.";
+		errormessage.hidden = false;
+	} else if (usernameInput.value.trim() === "") {
+		errormessage.innerHTML = "Error: A username is required.";
+		errormessage.hidden = false;
+	} else if (usernameInput.value.trim().length > 50) {
+		errormessage.innerHTML = "Error: Username too long.";
+		errormessage.hidden = false;
 	} else if (passwordInput.value.trim() === "") {
 		errormessage.innerHTML = "Error: A password is required.";
 		errormessage.hidden = false;
