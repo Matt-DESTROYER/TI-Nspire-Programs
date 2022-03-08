@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getFirestore, collection, doc, addDoc, updateDoc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
+import { getFirestore, collection, doc, addDoc, updateDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
@@ -22,13 +22,9 @@ async function GetCollection(collectionName) {
 	}
 }
 
-async function CreateDocument(collectionName, documentName, object) {
+async function CreateDocument(collectionName, object) {
 	try {
-		if (documentName) {
-			return await setDoc(doc(db, collectionName, documentName), object);
-		} else {
-			return await addDoc(collection(db, collectionName), object);
-		}
+		return await addDoc(collection(db, collectionName), object);
 	} catch (err) {
 		console.error("Error writing to database:", err);
 		return err;
@@ -95,21 +91,30 @@ document.getElementById("addScreenshot").addEventListener("click", () => {
 });
 */
 
+const errormessage = document.getElementById("error-message");
 document.getElementById("upload").addEventListener("click", async () => {
-	if (!title.value.trim()) {
-		alert("No title...");
+	errormessage.hidden = true;
+	if (title.value.trim() === "") {
+		errormessage.textContent = "No title...";
+		errormessage.hidden = false;
 	} else if (title.value.length > 100) {
-		alert("Title too long...");
-	} else if (!version.value.trim()) {
-		alert("No version...");
+		errormessage.textContent = "Title too long...";
+		errormessage.hidden = false;
+	} else if (version.value.trim() === "") {
+		errormessage.textContent = "No version...";
+		errormessage.hidden = false;
 	} else if (version.value.length > 100) {
-		alert("Version too long...");
-	} else if (!description.value.trim()) {
-		alert("No description...");
+		errormessage.textContent = "Version too long...";
+		errormessage.hidden = false;
+	} else if (description.value.trim() === "") {
+		errormessage.textContent = "No description...";
+		errormessage.hidden = false;
 	} else if (description.length > 10000) {
-		alert("Description too long...");
+		errormessage.textContent = "Description too long...";
+		errormessage.hidden = false;
 	} else if (!fileUrl) {
-		alert("No file uploaded...");
+		errormessage.textContent = "No file uploaded...";
+		errormessage.hidden = false;
 	} else {
 		let alreadyExists = false, , id = null;
 		(await GetCollection("Programs")).forEach((program) => {
@@ -129,7 +134,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 			});
 			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 		} else {
-			await CreateDocument("Programs", null, {
+			await CreateDocument("Programs", {
 				"title": title.value,
 				"version": version.value,
 				"author": atob(localStorage.getItem("username")),
