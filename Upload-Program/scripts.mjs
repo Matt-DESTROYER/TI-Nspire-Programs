@@ -40,14 +40,14 @@ if (localStorage.getItem("username") === null ||
 	location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
 } else {
 	let loggedIn = false;
-	(await GetCollection("Accounts").forEach((account) => {
+	(await GetCollection("Accounts")).forEach((account) => {
 		const data = account.data();
 		if (atob(localStorage.getItem("username")) === data.username &&
 		    atob(localStorage.getItem("password")) === data.password) {
 			loggedIn = true;
 		}
 	});
-	 if (!loggedIn) {
+	if (!loggedIn) {
 		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
 	}
 }
