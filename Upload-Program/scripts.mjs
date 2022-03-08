@@ -119,6 +119,15 @@ document.getElementById("upload").addEventListener("click", async () => {
 				id = program.id;
 			}
 		});
+		const screenshotUrls = [];
+		for (const screenshot of screenshotInputs) {
+			new Promise((res, rej) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(e.target.files[0]);
+				reader.onload = () => res(reader.result);
+				reader.onerror = error => rej(error);
+			}).then((url) => screenshotUrls.push(url));
+		}
 		if (alreadyExists) {
 			await UpdateDocument("Programs", id, {
 				"title": title.value,
@@ -126,6 +135,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 				"description": description.value,
 				"date": Date.now(),
 				"file": fileUrl,
+				"screenshots": screenshotUrls
 			});
 			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 		} else {
@@ -135,7 +145,8 @@ document.getElementById("upload").addEventListener("click", async () => {
 				"author": atob(localStorage.getItem("username")),
 				"description": description.value,
 				"date": Date.now(),
-				"file": fileUrl
+				"file": fileUrl,
+				"screenshots": screenshotUrls
 			});
 			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 		}
