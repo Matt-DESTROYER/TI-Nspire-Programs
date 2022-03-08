@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getFirestore, collection, doc, addDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
+import { getFirestore, collection, doc, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
@@ -14,13 +14,17 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
+async function GetCollection(collectionName) {
+	try {
+		return await getDocs(collection(db, collectionName));
+	} catch (err) {
+		return err;
+	}
+}
+
 async function CreateDocument(collectionName, documentName, object) {
 	try {
-		if (documentName) {
-			return await setDoc(doc(db, collectionName, documentName), object);
-		} else {
-			return await addDoc(collection(db, collectionName), object);
-		}
+		return await addDoc(collection(db, collectionName), object);
 	} catch (err) {
 		console.error("Error writing to database:", err);
 		return err;
