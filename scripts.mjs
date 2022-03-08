@@ -22,7 +22,7 @@ async function GetCollection(collectionName) {
 	}
 }
 
-function loggedIn() {
+async function loggedIn() {
 	if (localStorage.getItem("username") === null ||
 	    localStorage.getItem("password") === null) {
 		return false;
