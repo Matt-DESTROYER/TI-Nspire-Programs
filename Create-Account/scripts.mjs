@@ -67,7 +67,7 @@ document.getElementById("create-account").addEventListener("click", async () => 
 		let accountExists = false
 		(await GetCollection("Accounts")).forEach((account) => {
 			const data = account.data();
-			if (account.username === usernameInput.value) {
+			if (account.username === atob(usernameInput.value.trim())) {
 				accountExists = true;
 			}
 		});
