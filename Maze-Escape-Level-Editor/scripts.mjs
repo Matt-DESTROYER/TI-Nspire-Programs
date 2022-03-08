@@ -124,8 +124,8 @@ document.getElementById("generate").addEventListener("click", async () => {
 		let loggedIn = false;
 		(await GetCollection("Accounts")).forEach((account) => {
 			const data = account.data();
-			if (atob(localStorage.getItem("username")) === data.username &&
-			    atob(localStorage.getItem("password")) === data.password) {
+			if (localStorage.getItem("username") === data.username &&
+			    localStorage.getItem("password") === data.password) {
 				loggedIn = true;
 			}
 		});
