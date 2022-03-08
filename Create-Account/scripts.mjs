@@ -83,10 +83,10 @@ document.getElementById("create-account").addEventListener("click", async () => 
 			errormessage.hidden = false;
 		} else {
 			await CreateDocument("Accounts", {
-				firstname: btoa(firstnameInput.value.trim()),
-				lastname: btoa(lastnameInput.value.trim()),
-				username: btoa(usernameInput.value.trim()),
-				password: btoa(passwordInput.value.trim())
+				"firstname": btoa(firstnameInput.value.trim()),
+				"lastname": btoa(lastnameInput.value.trim()),
+				"username": btoa(usernameInput.value.trim()),
+				"password": btoa(passwordInput.value.trim())
 			});
 			localStorage.setItem("username", btoa(usernameInput.value.trim()));
 			localStorage.setItem("password", btoa(passwordInput.value.trim()));
