@@ -146,7 +146,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 			for (const screenshot of screenshotInputs) {
 				new Promise((res, rej) => {
 					const reader = new FileReader();
-					reader.readAsDataURL(screenshot.target.files[0]);
+					reader.readAsDataURL(screenshot.files[0]);
 					reader.onload = () => res(reader.result);
 					reader.onerror = error => rej(error);
 				}).then((url) => {
