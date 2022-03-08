@@ -119,7 +119,8 @@ document.getElementById("tool").addEventListener("input", (e) => {
 	}
 });
 
-const errormessage = document.getElementById("error-message");
+const levelnameInput = document.getElementById("level-name"),
+      errormessage = document.getElementById("error-message");
 document.getElementById("generate").addEventListener("click", async () => {
 	if (localStorage.getItem("username") === null ||
 	    localStorage.getItem("password") === null) {
@@ -157,15 +158,12 @@ document.getElementById("generate").addEventListener("click", async () => {
 	} else if (playerSpawns > 1) {
 		errormessage.textContent = "Level invalid: too many player spawns!";
 		errormessage.hidden = false;
-	} else if (levelName.value.trim() === "") {
+	} else if (levelnameInput.value.trim() === "") {
 		errormessage.textContent = "No level name...";
-		errormessage.hidden = false;
-	} else if (author.value.trim() === "") {
-		errormessage.textContent = "No author...";
 		errormessage.hidden = false;
 	} else {
 		await CreateDocument("Levels", null, {
-			"levelName": levelName.value,
+			"levelName": levelnameInput.value,
 			"author": atob(localStorage.getItem("username")),
 			"date": Date.now(),
 			"levelData": grid.map((row) => row.join(""))
