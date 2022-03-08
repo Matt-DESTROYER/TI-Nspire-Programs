@@ -119,39 +119,45 @@ document.getElementById("upload").addEventListener("click", async () => {
 				id = program.id;
 			}
 		});
+		function upload() {
+			if (alreadyExists) {
+				await UpdateDocument("Programs", id, {
+					"version": version.value,
+					"description": description.value,
+					"date": Date.now(),
+					"file": fileUrl,
+					"screenshots": screenshotUrls
+				});
+			} else {
+				await CreateDocument("Programs", {
+					"title": title.value,
+					"version": version.value,
+					"author": atob(localStorage.getItem("username")),
+					"description": description.value,
+					"date": Date.now(),
+					"file": fileUrl,
+					"screenshots": screenshotUrls
+				});
+			}
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
+		}
 		const screenshotUrls = [];
-		for (const screenshot of screenshotInputs) {
-			new Promise((res, rej) => {
-				const reader = new FileReader();
-				reader.readAsDataURL(e.target.files[0]);
-				reader.onload = () => res(reader.result);
-				reader.onerror = error => rej(error);
-			}).then((url) => {
-				screenshotUrls.push(url);
-				if (screenshotUrls.length === screenshotInputs.length) {
-					if (alreadyExists) {
-						await UpdateDocument("Programs", id, {
-							"title": title.value,
-							"version": version.value,
-							"description": description.value,
-							"date": Date.now(),
-							"file": fileUrl,
-							"screenshots": screenshotUrls
-						});
-					} else {
-						await CreateDocument("Programs", {
-							"title": title.value,
-							"version": version.value,
-							"author": atob(localStorage.getItem("username")),
-							"description": description.value,
-							"date": Date.now(),
-							"file": fileUrl,
-							"screenshots": screenshotUrls
-						});
+		if (screenshotInputs.length > 0) {
+			for (const screenshot of screenshotInputs) {
+				new Promise((res, rej) => {
+					const reader = new FileReader();
+					reader.readAsDataURL(e.target.files[0]);
+					reader.onload = () => res(reader.result);
+					reader.onerror = error => rej(error);
+				}).then((url) => {
+					screenshotUrls.push(url);
+					if (screenshotUrls.length === screenshotInputs.length) {
+						upload();
 					}
-					location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
-				}
-			});
+				});
+			}
+		} else {
+			upload();
 		}
 	}
 });
