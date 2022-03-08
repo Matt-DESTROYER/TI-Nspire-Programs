@@ -46,8 +46,8 @@ if (localStorage.getItem("username") === null ||
 	let loggedIn = false;
 	(await GetCollection("Accounts").forEach((account) => {
 		const data = account.data();
-		if (localStorage.getItem("username") === data.username &&
-		    localStorage.getItem("password" === data.password)) {
+		if (atob(localStorage.getItem("username")) === data.username &&
+		    atob(localStorage.getItem("password")) === data.password) {
 			loggedIn = true;
 		}
 	});
