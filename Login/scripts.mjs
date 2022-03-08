@@ -26,7 +26,7 @@ const usernameInput = document.getElementById("username"),
       passwordInput = document.getElementById("password"),
       errormessage = document.getElementById("error-message");
 
-document.getElementById("create-account").addEventListener("click", async () => {
+document.getElementById("login").addEventListener("click", async () => {
 	errormessage.hidden = true;
 	let accountData = {};
 	(await GetCollection("Accounts")).forEach((account) => {
