@@ -39,6 +39,11 @@ async function UpdateDocument(collectionName, documentName, object) {
 	await updateDoc(doc(db, collectionName, documentName), object);
 }
 
+if (localStorage.getItem("username") === null ||
+    localStorage.getItem("password") === null) {
+	location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
+}
+
 const title = document.getElementById("title");
 const version = document.getElementById("version");
 const author = document.getElementById("author");
