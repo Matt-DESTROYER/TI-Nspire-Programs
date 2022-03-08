@@ -42,3 +42,11 @@ button:active {
 	border-radius: 8px;
 	padding: 10px;
 }
+
+.error {
+	background-color: coral;
+	color: red;
+	border-radius: 8px;
+	border: solid red 2px;
+	padding: 5px;
+}
