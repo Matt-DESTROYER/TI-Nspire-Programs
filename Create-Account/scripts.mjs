@@ -22,7 +22,7 @@ async function GetCollection(collectionName) {
 	}
 }
 
-async function CreateDocument(collectionName, documentName, object) {
+async function CreateDocument(collectionName, object) {
 	try {
 		return await addDoc(collection(db, collectionName), object);
 	} catch (err) {
@@ -43,14 +43,25 @@ document.getElementById("create-account").addEventListener("click", async () => 
 	if (firstnameInput.value.trim() === "") {
 		errormessage.innerHTML = "Error: A firstname required.";
 		errormessage.hidden = false;
+	} else if (firstnameInput.value.trim().length > 50) {
+		errormessage.innerHTML = "Error: Firstname too long";
+		errormessage.hidden = false;
 	} else if (lastnameInput.value.trim() === "") {
 		errormessage.innerHTML = "Error: A lastname required.";
 		errormessage.hidden = false;
+	} else if (lastnameInput.value.trim().length > 50) {
+		errormessage.innerHTML = "Error: Lastname too long.";
 	} else if (passwordInput.value.trim() === "") {
 		errormessage.innerHTML = "Error: A password is required.";
 		errormessage.hidden = false;
 	} else if (passwordInput.value.trim().length < 8) {
 		errormessage.innerHTML = "Error: Password must be at least 8 characters long.";
+		errormessage.hidden = false;
+	} else if (passwordInput.value.trim().length > 50) {
+		errormessage.innerHTML = "Error: Password too long.";
+		errormessage.hidden = false;
+	} else if (passwordInput.value.trim() !== confirmpasswordInput.value.trim()) {
+		errormessage.innerHTML = "Error: Passwords do not match.";
 		errormessage.hidden = false;
 	} else {
 		let accountExists = false
@@ -64,6 +75,12 @@ document.getElementById("create-account").addEventListener("click", async () => 
 			errormessage.innerHTML = "Error: An account with this username already exists, if this is your account please <a href=\"https://matt-destroyer.github.io/TI-Nspire-Programs/Login/\">login</a>.";
 			errormessage.hidden = false;
 		} else {
+			await CreateDocument("Accounts", {
+				firstname: btoa(firstnameInput.value.trim()),
+				lastname: btoa(lastnameInput.value.trim()),
+				username: btoa(usernameInput.value.trim()),
+				password: btoa(passwordInput.value.trim())
+			});
 		}
 	}
 });
