@@ -22,20 +22,15 @@ async function GetCollection(collectionName) {
 	}
 }
 
-const loggedIn = (function() {
-	if (localStorage.getItem("username") === null ||
-	    localStorage.getItem("password") === null) {
-		return false;
-	}
-	let _loggedIn = false;
+let loggedIn = false;
+(async function() {
 	(await GetCollection("Accounts")).forEach((account) => {
 		const data = account.data();
 		if (localStorage.getItem("username") === data.username &&
 		    localStorage.getItem("password") === data.password) {
-			_loggedIn = true;
+			loggedIn = true;
 		}
 	});
-	return _loggedIn;
 })();
 
 const programsContainer = document.getElementById("programs");
