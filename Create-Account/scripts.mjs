@@ -88,6 +88,9 @@ document.getElementById("create-account").addEventListener("click", async () => 
 				username: btoa(usernameInput.value.trim()),
 				password: btoa(passwordInput.value.trim())
 			});
+			localStorage.setItem("username", btoa(usernameInput.value.trim()));
+			localStorage.setItem("password", btoa(passwordInput.value.trim()));
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 		}
 	}
 });
