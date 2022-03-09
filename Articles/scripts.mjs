@@ -3,9 +3,9 @@ import { getFirestore, collection, getDocs } from "https://www.gstatic.com/fireb
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
-	authDomain: "ti-nspire-articles-database.firebaseapp.com",
-	projectId: "ti-nspire-articles-database",
-	storageBucket: "ti-nspire-articles-database.appspot.com",
+	authDomain: "ti-nspire-programs-database.firebaseapp.com",
+	projectId: "ti-nspire-programs-database",
+	storageBucket: "ti-nspire-programs-database.appspot.com",
 	messagingSenderId: "1026879731613",
 	appId: "1:1026879731613:web:03c983f8072ebae67ba174"
 };
