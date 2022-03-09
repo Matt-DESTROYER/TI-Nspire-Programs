@@ -35,13 +35,16 @@ let loggedIn = false;
 
 const sortSelect = document.getElementById("sort");
 sortSelect.addEventListener("change", renderPrograms);
-let programsContainer = document.getElementById("programs"), programs = [];
+const programsContainer = document.getElementById("programs"), programs = [];
 (async function () {
 	(await GetCollection("Programs")).forEach((program) => programs.push(program.data()));
 	renderPrograms();
 })();
 
 async function renderPrograms() {
+	while (programsContainer.firstChild) {
+		programsContainer.removeChild(programsContainer.lastChild);
+	}
 	switch (sortSelect.value) {
 		case "newest-oldest":
 			programs.sort((a, b) => a.date < b.date ? 1 : -1);
