@@ -42,6 +42,18 @@ let fileUrl = null;
 const screenshots = document.getElementById("screenshots");
 const screenshotInputs = [];
 
+{
+	if (localStorage.getItem("title")) {
+		title.value = localStorage.getItem("title");
+	}
+	if (localStorage.getItem("version")) {
+		version.value = localStorage.getItem("version");
+	}
+	if (localStorage.getItem("description")) {
+		description.value = localStorage.getItem("description");
+	}
+}
+
 document.getElementById("file").addEventListener("input", (e) => {
 	return new Promise((res, rej) => {
 		const reader = new FileReader();
