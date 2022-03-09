@@ -72,7 +72,6 @@ async function renderArticles() {
 			editButton.textContent = "Edit";
 			editButton.classList.add("edit-button");
 			editButton.addEventListener("click", () => {
-				localStorage.setItem("article_id", article.id);
 				location.href = "https://matt-destroyer.github.io/TI-Nspire-articles/Articles/Post/";
 			});
 			heading.appendChild(editButton);
@@ -87,12 +86,13 @@ async function renderArticles() {
 		const description = document.createElement("p");
 		description.textContent = article.description;
 		div.appendChild(description);
-		const anchor = document.createElement("a");
-		anchor.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/Read/";
 		const readButton = document.createElement("button");
 		readButton.textContent = "Read";
-		anchor.appendChild(readButton);
-		div.appendChild(anchor);
+		readButton.addEventListener("click", function () {
+			localStorage.setItem("article_id", article.id);
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/Read/";
+		});
+		div.appendChild(readButton);
 		articlesContainer.appendChild(div);
 	});
 }
