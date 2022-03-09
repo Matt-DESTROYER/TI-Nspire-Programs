@@ -37,7 +37,11 @@ const sortSelect = document.getElementById("sort");
 sortSelect.addEventListener("change", renderArticles);
 const articlesContainer = document.getElementById("articles"), articles = [];
 (async function () {
-	(await GetCollection("Articles")).forEach((article) => articles.push(article.data()));
+	(await GetCollection("Articles")).forEach((article) => {
+		const data = article.data();
+		data.id = article.id;
+		articles.push(data);
+	});
 	renderArticles();
 })();
 
@@ -84,6 +88,13 @@ async function renderArticles() {
 		const description = document.createElement("p");
 		description.textContent = article.description;
 		div.appendChild(description);
+		const anchor = document.createElement("a");
+		localStorage.setItem("article_id", article.id);
+		anchor.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/Read/";
+		const readButton = document.createElement("button");
+		readButton.textContent = "Read";
+		anchor.appendChild(readButton);
+		div.appendChild(anchor);
 		articlesContainer.appendChild(div);
 	});
 }
