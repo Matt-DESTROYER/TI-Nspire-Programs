@@ -33,7 +33,7 @@ let loggedIn = false;
 	});
 })();
 
-const articlesContainer = document.getElementById("articles");
+const articlesContainer = document.getElementById("article");
 const div = document.createElement("div");
 div.classList.add("generic-container");
 articlesContainer.appendChild(div);
