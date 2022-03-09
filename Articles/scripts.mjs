@@ -34,14 +34,14 @@ let loggedIn = false;
 })();
 
 const sortSelect = document.getElementById("sort");
-sortSelect.addEventListener("change", renderarticles);
+sortSelect.addEventListener("change", renderArticles);
 const articlesContainer = document.getElementById("articles"), articles = [];
 (async function () {
 	(await GetCollection("Articles")).forEach((article) => articles.push(article.data()));
-	renderarticles();
+	renderArticles();
 })();
 
-async function renderarticles() {
+async function renderArticles() {
 	while (articlesContainer.firstChild) {
 		articlesContainer.removeChild(articlesContainer.lastChild);
 	}
