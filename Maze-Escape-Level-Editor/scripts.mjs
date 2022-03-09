@@ -58,7 +58,7 @@ let tool = "#", grid = [];
 
 canvas.addEventListener("mousemove", (e) => {
 	e = e || window.event;
-	const rect = $canvas.getBoundingClientRect();
+	const rect = canvas.getBoundingClientRect();
 	Input.mouseX = e.clientX - rect.left;
 	Input.mouseY = e.clientY - rect.top;
 });
