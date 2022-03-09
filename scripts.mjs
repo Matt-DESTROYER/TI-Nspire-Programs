@@ -58,7 +58,6 @@ async function renderPrograms() {
 	}
 	programs.forEach((program) => {
 		programsContainer.appendChild(document.createElement("br"));
-		programsContainer.appendChild(document.createElement("br"));
 		const div = document.createElement("div");
 		div.classList.add("program-container");
 		programsContainer.appendChild(div);
@@ -102,5 +101,6 @@ async function renderPrograms() {
 		link.appendChild(button);
 		div.appendChild(link);
 		programsContainer.appendChild(div);
+		programsContainer.appendChild(document.createElement("br"));
 	});
 }
