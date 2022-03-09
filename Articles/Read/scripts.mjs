@@ -49,7 +49,7 @@ if (localStorage.getItem("article_id")) {
 	//location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/";
 }
 
-const article = (await GetDocument("Articles", article_id)).data();
+const article = console.log(await GetDocument("Articles", article_id));
 
 const articlesContainer = document.getElementById("article");
 const div = document.createElement("div");
