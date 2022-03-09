@@ -129,6 +129,7 @@ const levelnameInput = document.getElementById("level-name"),
 	}
 	if (localStorage.getItem("data")) {
 		grid = localStorage.getItem("data").split(",").map((row) => row.split(""));
+		console.log(grid);
 		localStorage.removeItem("data");
 	}
 }
