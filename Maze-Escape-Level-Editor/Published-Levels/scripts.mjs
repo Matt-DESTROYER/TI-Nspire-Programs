@@ -49,7 +49,7 @@ levels.forEach(async (level) => {
 		editButton.classList.add("edit-button");
 		editButton.addEventListener("click", () => {
 			localStorage.setItem("name", level.levelName);
-			localStorage.setItem("data", level.levelData);
+			localStorage.setItem("data", level.levelData.join(","));
 			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/";
 		});
 		heading.appendChild(editButton);
