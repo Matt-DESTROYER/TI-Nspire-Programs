@@ -200,8 +200,8 @@ document.getElementById("generate").addEventListener("click", async () => {
 				"date": Date.now(),
 				"levelData": grid.map((row) => row.join(""))
 			});
-			location.href = "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels";
 		}
+		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels/";
 	}
 });
 
