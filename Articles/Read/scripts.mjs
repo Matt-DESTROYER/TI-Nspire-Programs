@@ -38,7 +38,7 @@ if (localStorage.getItem("article_id")) {
 	article_id = localStorage.getItem("article_id");
 	localStorage.removeItem("article_id");
 } else {
-	location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/";
+	//location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/";
 }
 
 const article = (await GetDocument("Articles", article_id)).data();
