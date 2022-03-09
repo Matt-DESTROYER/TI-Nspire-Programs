@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
@@ -24,7 +24,7 @@ async function GetCollection(collectionName) {
 
 async function GetDocument(collectionName, documentName) {
 	try {
-		return await getDocs(doc(db, collectionName, documentName));
+		return await getDoc(doc(db, collectionName, documentName));
 	} catch (err) {
 		return err;
 	}
