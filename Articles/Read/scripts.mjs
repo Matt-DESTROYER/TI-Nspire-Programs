@@ -33,7 +33,7 @@ let loggedIn = false;
 	});
 })();
 
-let article_id, article;
+let article_id;
 if (localStorage.getItem("article_id")) {
 	article_id = localStorage.getItem("article_id");
 	localStorage.removeItem("article_id");
