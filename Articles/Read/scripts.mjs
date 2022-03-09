@@ -25,8 +25,6 @@ async function GetCollection(collectionName) {
 async function GetDocument(collectionName, documentName) {
 	try {
 		const snap = await getDoc(doc(db, collectionName, documentName));
-		console.log(snap.exists());
-		console.log(snap);
 		if (snap.exists()) {
 			return snap;
 		} else {
@@ -53,7 +51,7 @@ if (localStorage.getItem("article_id")) {
 	article_id = localStorage.getItem("article_id");
 	localStorage.removeItem("article_id");
 } else {
-	//location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/";
+	location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/";
 }
 
 const article = (await GetDocument("Articles", article_id)).data();
@@ -81,8 +79,8 @@ heading.appendChild(header);
 div.appendChild(heading);
 const author = document.createElement("p");
 author.textContent = "Published by: " + article.author;
-div.appendChild(article.author);
+div.appendChild(author);
 const content = document.createElement("p");
-description.textContent = article.content;
+content.textContent = article.content;
 div.appendChild(content);
 articlesContainer.appendChild(div);
