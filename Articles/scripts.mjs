@@ -72,6 +72,7 @@ async function renderArticles() {
 			editButton.textContent = "Edit";
 			editButton.classList.add("edit-button");
 			editButton.addEventListener("click", () => {
+				localStorage.setItem("article_id", article.id);
 				localStorage.setItem("title", article.title);
 				localStorage.setItem("description", article.description);
 				localStorage.setItem("content", article.content);
@@ -90,7 +91,6 @@ async function renderArticles() {
 		description.textContent = article.description;
 		div.appendChild(description);
 		const anchor = document.createElement("a");
-		localStorage.setItem("article_id", article.id);
 		anchor.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/Read/";
 		const readButton = document.createElement("button");
 		readButton.textContent = "Read";
