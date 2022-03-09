@@ -121,6 +121,18 @@ document.getElementById("tool").addEventListener("input", (e) => {
 
 const levelnameInput = document.getElementById("level-name"),
       errormessage = document.getElementById("error-message");
+
+{
+	if (localStorage.getItem("name")) {
+		levelnameInput.value = localStorage.getItem("name");
+		localStorage.removeItem("name");
+	}
+	if (localStorage.getItem("data")) {
+		grid = localStorage.getItem("data").split(",").map((row) => row.split(""));
+		localStorage.removeItem("data");
+	}
+}
+
 document.getElementById("generate").addEventListener("click", async () => {
 	if (localStorage.getItem("username") === null ||
 	    localStorage.getItem("password") === null) {
