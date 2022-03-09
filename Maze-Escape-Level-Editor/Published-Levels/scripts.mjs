@@ -22,6 +22,17 @@ async function GetCollection(collectionName) {
 	}
 }
 
+let loggedIn = false;
+(async function() {
+	(await GetCollection("Accounts")).forEach((account) => {
+		const data = account.data();
+		if (localStorage.getItem("username") === data.username &&
+		    localStorage.getItem("password") === data.password) {
+			loggedIn = true;
+		}
+	});
+})();
+
 const levelContainer = document.getElementById("levels");
 let levels = [];
 (await GetCollection("Levels")).forEach((level) => levels.push(level.data()));
@@ -31,8 +42,21 @@ levels.forEach(async (level) => {
 	levelContainer.appendChild(document.createElement("br"));
 	const div = document.createElement("div");
 	div.classList.add("program-container");
-	const heading = document.createElement("h2");
-	heading.textContent = level.levelName;
+	const heading = document.createElement("div");
+	if (loggedIn) {
+		const editButton = document.createElement("button");
+		editButton.textContent = "Edit";
+		editButton.classList.add("edit-button");
+		editButton.addEventListener("click", () => {
+			localStorage.setItem("name", level.levelName);
+			localStorage.setItem("data", program.levelData);
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/";
+		});
+		heading.appendChild(editButton);
+	}
+	const header = document.createElement("h2");
+	header.textContent = level.levelName;
+	heading.appendChild(header);
 	div.appendChild(heading);
 	const author = document.createElement("p");
 	author.textContent = "Created by: " + level.author;
