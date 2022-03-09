@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
+import { getFirestore, doc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
@@ -14,9 +14,9 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
-async function GetCollection(collectionName) {
+async function GetDocument(collectionName, documentName) {
 	try {
-		return await getDocs(collection(db, collectionName));
+		return await getDocs(doc(db, collectionName, documentName));
 	} catch (err) {
 		return err;
 	}
@@ -32,6 +32,16 @@ let loggedIn = false;
 		}
 	});
 })();
+
+let article_id, article;
+if (localStorage.getItem("article_id")) {
+	article_id = localStorage.getItem("article_id");
+	localStorage.removeItem("article_id");
+} else {
+	location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/";
+}
+
+const article = (await GetDocument("Articles", article_id)).data();
 
 const articlesContainer = document.getElementById("article");
 const div = document.createElement("div");
@@ -56,15 +66,8 @@ heading.appendChild(header);
 div.appendChild(heading);
 const author = document.createElement("p");
 author.textContent = "Published by: " + article.author;
-div.appendChild(author);
+div.appendChild(article.author);
 const content = document.createElement("p");
 description.textContent = article.content;
 div.appendChild(content);
-const anchor = document.createElement("a");
-localStorage.setItem("article_id", article.id);
-anchor.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/Read/";
-const readButton = document.createElement("button");
-readButton.textContent = "Read";
-anchor.appendChild(readButton);
-div.appendChild(anchor);
 articlesContainer.appendChild(div);
