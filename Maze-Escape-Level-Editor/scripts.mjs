@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getFirestore, collection, doc, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
+import { getFirestore, collection, doc, addDoc, updateDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
@@ -29,6 +29,10 @@ async function CreateDocument(collectionName, documentName, object) {
 		console.error("Error writing to database:", err);
 		return err;
 	}
+}
+
+async function UpdateDocument(collectionName, documentName, object) {
+	await updateDoc(doc(db, collectionName, documentName), object);
 }
 
 const canvas = document.getElementById("screen");
