@@ -33,54 +33,71 @@ let loggedIn = false;
 	});
 })();
 
-const programsContainer = document.getElementById("programs");
-let programs = [];
-(await GetCollection("Programs")).forEach((program) => programs.push(program.data()));
-programs.sort((a, b) => a.date < b.date ? 1 : -1);
-programs.forEach((program) => {
-	programsContainer.appendChild(document.createElement("br"));
-	programsContainer.appendChild(document.createElement("br"));
-	const div = document.createElement("div");
-	div.classList.add("program-container");
-	programsContainer.appendChild(div);
-	const heading = document.createElement("div");
-	if (loggedIn) {
-		const editButton = document.createElement("button");
-		editButton.textContent = "Edit";
-		editButton.classList.add("edit-button");
-		editButton.addEventListener("click", () => {
-			localStorage.setItem("title", program.title);
-			localStorage.setItem("version", program.version);
-			localStorage.setItem("description", program.description);
-			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/";
-		});
-		heading.appendChild(editButton);
+const sortSelect = document.getElementById("sort");
+sortSelect.addEventListener("change", renderPrograms);
+let programsContainer = document.getElementById("programs"), programs = [];
+(async function () {
+	(await GetCollection("Programs")).forEach((program) => programs.push(program.data()));
+	renderPrograms();
+})();
+
+async function renderPrograms() {
+	switch (sortSelect.value) {
+		case "newest-oldest":
+			programs.sort((a, b) => a.date < b.date ? 1 : -1);
+			break;
+		case "oldest-newest":
+			programs.sort((a, b) => a.date > b.date ? 1 : -1);
+			break;
+		default:
+			programs.sort((a, b) => a.date < b.date ? 1 : -1);
+			break;
 	}
-	const header = document.createElement("h2");
-	header.textContent = program.title + " - " + program.version;
-	heading.appendChild(header);
-	div.appendChild(heading);
-	const author = document.createElement("p");
-	author.textContent = "Published by: " + program.author;
-	div.appendChild(author);
-	const screenshots = document.createElement("div");
-	screenshots.classList.add("screenshots");
-	for (let i = 0; i < program.screenshots.length; i++) {
-		const screenshot = document.createElement("img");
-		screenshot.src = program.screenshots[i];
-		screenshot.width = 160;
-		screenshots.appendChild(screenshot);
-	}
-	div.appendChild(screenshots);
-	const description = document.createElement("p");
-	description.textContent = program.description;
-	div.appendChild(description);
-	const link = document.createElement("a");
-	link.download = program.title;
-	link.href = program.file;
-	const button = document.createElement("button");
-	button.textContent = "Download";
-	link.appendChild(button);
-	div.appendChild(link);
-	programsContainer.appendChild(div);
-});
+	programs.forEach((program) => {
+		programsContainer.appendChild(document.createElement("br"));
+		programsContainer.appendChild(document.createElement("br"));
+		const div = document.createElement("div");
+		div.classList.add("program-container");
+		programsContainer.appendChild(div);
+		const heading = document.createElement("div");
+		if (loggedIn) {
+			const editButton = document.createElement("button");
+			editButton.textContent = "Edit";
+			editButton.classList.add("edit-button");
+			editButton.addEventListener("click", () => {
+				localStorage.setItem("title", program.title);
+				localStorage.setItem("version", program.version);
+				localStorage.setItem("description", program.description);
+				location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/";
+			});
+			heading.appendChild(editButton);
+		}
+		const header = document.createElement("h2");
+		header.textContent = program.title + " - " + program.version;
+		heading.appendChild(header);
+		div.appendChild(heading);
+		const author = document.createElement("p");
+		author.textContent = "Published by: " + program.author;
+		div.appendChild(author);
+		const screenshots = document.createElement("div");
+		screenshots.classList.add("screenshots");
+		for (let i = 0; i < program.screenshots.length; i++) {
+			const screenshot = document.createElement("img");
+			screenshot.src = program.screenshots[i];
+			screenshot.width = 160;
+			screenshots.appendChild(screenshot);
+		}
+		div.appendChild(screenshots);
+		const description = document.createElement("p");
+		description.textContent = program.description;
+		div.appendChild(description);
+		const link = document.createElement("a");
+		link.download = program.title;
+		link.href = program.file;
+		const button = document.createElement("button");
+		button.textContent = "Download";
+		link.appendChild(button);
+		div.appendChild(link);
+		programsContainer.appendChild(div);
+	});
+}
