@@ -44,6 +44,14 @@ button:active {
 	padding: 20px;
 }
 
+.generic-container {
+	background-color: lightgray;
+	border-radius: 8px;
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
 .footer {
 	background-color: black;
 	color: whitesmoke;
