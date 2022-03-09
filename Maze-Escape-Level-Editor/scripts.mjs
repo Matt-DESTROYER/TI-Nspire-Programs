@@ -58,8 +58,9 @@ let tool = "#", grid = [];
 
 canvas.addEventListener("mousemove", (e) => {
 	e = e || window.event;
-	Input.mouseX = e.layerX;
-	Input.mouseY = e.layerY;
+	const rect = $canvas.getBoundingClientRect();
+	Input.mouseX = e.clientX - rect.left;
+	Input.mouseY = e.clientY - rect.top;
 });
 
 canvas.addEventListener("mousedown", () => {
@@ -129,7 +130,6 @@ const levelnameInput = document.getElementById("level-name"),
 	}
 	if (localStorage.getItem("data")) {
 		grid = localStorage.getItem("data").split(",").map((row) => row.split(""));
-		console.log(grid);
 		localStorage.removeItem("data");
 	}
 }
