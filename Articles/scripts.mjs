@@ -73,9 +73,6 @@ async function renderArticles() {
 			editButton.classList.add("edit-button");
 			editButton.addEventListener("click", () => {
 				localStorage.setItem("article_id", article.id);
-				localStorage.setItem("title", article.title);
-				localStorage.setItem("description", article.description);
-				localStorage.setItem("content", article.content);
 				location.href = "https://matt-destroyer.github.io/TI-Nspire-articles/Articles/Post/";
 			});
 			heading.appendChild(editButton);
