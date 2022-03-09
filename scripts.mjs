@@ -49,6 +49,9 @@ programs.forEach((program) => {
 		editButton.textContent = "Edit";
 		editButton.classList.add("edit-button");
 		editButton.addEventListener("click", () => {
+			localStorage.setItem("title", program.title);
+			localStorage.setItem("version", program.version);
+			localStorage.setItem("description", program.description);
 			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/";
 		});
 		heading.appendChild(editButton);
