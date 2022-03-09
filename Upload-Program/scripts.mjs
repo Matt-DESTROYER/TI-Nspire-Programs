@@ -45,12 +45,15 @@ const screenshotInputs = [];
 {
 	if (localStorage.getItem("title")) {
 		title.value = localStorage.getItem("title");
+		localStorage.removeItem("title");
 	}
 	if (localStorage.getItem("version")) {
 		version.value = localStorage.getItem("version");
+		localStorage.removeItem("version");
 	}
 	if (localStorage.getItem("description")) {
 		description.value = localStorage.getItem("description");
+		localStorage.removeItem("description");
 	}
 }
 
