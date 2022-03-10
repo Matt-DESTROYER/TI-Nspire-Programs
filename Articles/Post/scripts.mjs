@@ -55,7 +55,7 @@ const description = document.getElementById("content");
 }
 
 const errormessage = document.getElementById("error-message");
-document.getElementById("upload").addEventListener("click", async () => {
+document.getElementById("post").addEventListener("click", async () => {
 	if (localStorage.getItem("username") === null ||
 	    localStorage.getItem("password") === null) {
 		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
