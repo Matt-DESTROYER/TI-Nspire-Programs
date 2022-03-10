@@ -106,6 +106,7 @@ document.getElementById("post").addEventListener("click", async () => {
 				id = program.id;
 			}
 		});
+		console.log(description.value, Markdown(description.value));
 		if (alreadyExists) {
 			await UpdateDocument("Articles", id, {
 				"description": Markdown(description.value),
