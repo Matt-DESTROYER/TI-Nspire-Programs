@@ -106,19 +106,18 @@ document.getElementById("post").addEventListener("click", async () => {
 				id = program.id;
 			}
 		});
-		console.log(description.value, Markdown(description.value));
 		if (alreadyExists) {
 			await UpdateDocument("Articles", id, {
-				"description": Markdown(description.value),
-				"content": content.value,
+				"description": description.value,
+				"content": Markdown(content.value),
 				"date": Date.now()
 			});
 		} else {
 			await CreateDocument("Articles", {
 				"title": title.value,
 				"author": atob(localStorage.getItem("username")),
-				"description": Markdown(description.value),
-				"content": content.value,
+				"description": description.value,
+				"content": Markdown(content.value),
 				"date": Date.now()
 			});
 		}
