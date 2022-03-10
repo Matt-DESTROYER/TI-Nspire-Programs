@@ -69,7 +69,7 @@ if (loggedIn) {
 		localStorage.setItem("title", article.title);
 		localStorage.setItem("description", article.description);
 		localStorage.setItem("content", article.content);
-		location.href = "https://matt-destroyer.github.io/TI-Nspire-articles/Articles/Post/";
+		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/Post/";
 	});
 	heading.appendChild(editButton);
 }
