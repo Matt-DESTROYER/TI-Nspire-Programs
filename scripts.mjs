@@ -73,6 +73,8 @@ async function renderPrograms() {
 				location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/";
 			});
 			heading.appendChild(editButton);
+			const upvoteButton = document.createElement("button");
+			const downvoteButton = document.createElement("button");
 		}
 		const header = document.createElement("h2");
 		header.textContent = program.title + " - " + program.version;
