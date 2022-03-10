@@ -36,8 +36,8 @@ async function UpdateDocument(collectionName, documentName, object) {
 }
 
 const title = document.getElementById("title");
-const version = document.getElementById("description");
-const description = document.getElementById("content");
+const description = document.getElementById("description");
+const content = document.getElementById("content");
 
 {
 	if (localStorage.getItem("title")) {
