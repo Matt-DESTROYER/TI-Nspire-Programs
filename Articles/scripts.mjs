@@ -72,7 +72,7 @@ async function renderArticles() {
 			editButton.textContent = "Edit";
 			editButton.classList.add("edit-button");
 			editButton.addEventListener("click", () => {
-				location.href = "https://matt-destroyer.github.io/TI-Nspire-articles/Articles/Post/";
+				location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/Post/";
 			});
 			heading.appendChild(editButton);
 		}
