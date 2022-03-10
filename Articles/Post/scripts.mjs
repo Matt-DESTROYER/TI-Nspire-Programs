@@ -35,26 +35,29 @@ async function UpdateDocument(collectionName, documentName, object) {
 	await updateDoc(doc(db, collectionName, documentName), object);
 }
 
-const title = document.getElementById("title");
-const description = document.getElementById("description");
-const content = document.getElementById("content");
+const title = document.getElementById("title"),
+      description = document.getElementById("description"),
+      content = document.getElementById("content");
 
 {
 	if (localStorage.getItem("title")) {
 		title.value = localStorage.getItem("title");
+		console.log(title.value);
 		localStorage.removeItem("title");
 	}
 	if (localStorage.getItem("description")) {
 		description.value = localStorage.getItem("description");
+		console.log(description.value);
 		localStorage.removeItem("description");
 	}
 	if (localStorage.getItem("content")) {
 		content.value = localStorage.getItem("content");
+		console.log(content.value);
 		localStorage.removeItem("content");
 	}
 }
 
-// Basic Markdown: https://github.com/Matt-DESTROYER/CDN/tree/main/JS/Markdown
+// BASIC Markdown: https://github.com/Matt-DESTROYER/CDN/tree/main/JS/Markdown
 const Markdown=(function(){const e=/<\/?[a-zA-Z]+?.*?>/g;return function(n){n=n.replace(e,"");let t,r="";for(let e=0;e<n.length;e++)switch(n[e]){case"*":-1!==(t=n.indexOf("*",e+1))&&(-1===n.indexOf("\n",e+1)||n.indexOf("\n",e+1)>t)?(r+="<strong>"+n.substr(e+1,t-e-1)+"</strong>",e=t):r+=n[e];break;case"_":-1!==(t=n.indexOf("_",e+1))&&(-1===n.indexOf("\n",e+1)||n.indexOf("\n",e+1)>t)?(r+="<em>"+n.substr(e+1,t-e-1)+"</em>",e=t):r+=n[e];break;case"`":n[e+1]+n[e+2]==="``"?-1!==(t=n.indexOf("```",e+1))&&(r+="<code>"+t.substr(e+3,t-e-3)+"</code>"):-1!==(t=n.indexOf("`",e+1))?(r+="<code>"+n.substr(e+1,t-e-1)+"</code>",e=t):r+=n[e];break;default:r+=n[e]}return r}})();
 
 const errormessage = document.getElementById("error-message");
