@@ -42,17 +42,14 @@ const title = document.getElementById("title"),
 {
 	if (localStorage.getItem("title")) {
 		title.value = localStorage.getItem("title");
-		console.log(title.value);
 		localStorage.removeItem("title");
 	}
 	if (localStorage.getItem("description")) {
 		description.value = localStorage.getItem("description");
-		console.log(description.value);
 		localStorage.removeItem("description");
 	}
 	if (localStorage.getItem("content")) {
 		content.value = localStorage.getItem("content");
-		console.log(content.value);
 		localStorage.removeItem("content");
 	}
 }
@@ -109,7 +106,7 @@ document.getElementById("post").addEventListener("click", async () => {
 		if (alreadyExists) {
 			await UpdateDocument("Articles", id, {
 				"description": description.value,
-				"content": Markdown(content.value),
+				"content": content.value,
 				"date": Date.now()
 			});
 		} else {
@@ -117,7 +114,7 @@ document.getElementById("post").addEventListener("click", async () => {
 				"title": title.value,
 				"author": atob(localStorage.getItem("username")),
 				"description": description.value,
-				"content": Markdown(content.value),
+				"content": content.value,
 				"date": Date.now()
 			});
 		}
