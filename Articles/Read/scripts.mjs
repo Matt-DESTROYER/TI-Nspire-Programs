@@ -81,6 +81,6 @@ const author = document.createElement("p");
 author.textContent = "Published by: " + article.author;
 div.appendChild(author);
 const description = document.createElement("p");
-content.textContent = article.description;
+description.textContent = article.description;
 div.appendChild(description);
 articlesContainer.appendChild(div);
