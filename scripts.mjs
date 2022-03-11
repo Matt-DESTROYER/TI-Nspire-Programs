@@ -101,10 +101,11 @@ async function renderPrograms() {
 			voteCounter.textContent = program.votes;
 			const upvoteButton = document.createElement("button");
 			upvoteButton.addEventListener("click", async () => {
-				const votes = (await GetDocument("Accounts", id)).data().votes,
-				      _votes = (await GetDocument("Programs", program.id)).data().votes;
-				let updateVote = false;
+				const votes = (await GetDocument("Accounts", id)).data().votes;
+				let _votes = (await GetDocument("Programs", program.id)).data().votes,
+				    updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
+					console.log(votes[i]);
 					if (votes[i][0] === program.title && votes[i][1] === program.author) {
 						if (votes[i][2] === 1) {
 							updateVote = true;
@@ -115,8 +116,9 @@ async function renderPrograms() {
 						await UpdateDocument("Accounts", id, {
 							"votes": votes
 						});
+						_votes += 2;
 						await UpdateDocument("Programs", program.id, {
-							"votes": _votes + 2
+							"votes": _votes
 						});
 						updateVote = true;
 						break;
@@ -127,20 +129,22 @@ async function renderPrograms() {
 					await UpdateDocument("Accounts", id, {
 						"votes": votes
 					});
+					_votes++;
 					await UpdateDocument("Programs", program.id, {
-						"votes": _votes + 1
+						"votes": _votes
 					});
 				}
-				voteCounter.textContent = (await GetDocument("Programs", program.id)).data().votes;
+				voteCounter.textContent = _votes;
 			});
 			upvoteButton.classList.add("right-align");
 			upvoteButton.textContent = "Upvote";
 			const downvoteButton = document.createElement("button");
 			downvoteButton.addEventListener("click", async () => {
-				const votes = (await GetDocument("Accounts", id)).data().votes,
-				      _votes = (await GetDocument("Programs", program.id)).data().votes;
-				let updateVote = false;
+				const votes = (await GetDocument("Accounts", id)).data().votes;
+				let _votes = (await GetDocument("Programs", program.id)).data().votes,
+				    updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
+					console.log(votes[i]);
 					if (votes[i][0] === program.title && votes[i][1] === program.author) {
 						if (votes[i][2] === -1) {
 							updateVote = true;
@@ -151,8 +155,9 @@ async function renderPrograms() {
 						await UpdateDocument("Accounts", id, {
 							"votes": votes
 						});
+						_votes -= 2;
 						await UpdateDocument("Programs", program.id, {
-							"votes": _votes - 2
+							"votes": _votes
 						});
 						updateVote = true;
 						break;
@@ -163,11 +168,12 @@ async function renderPrograms() {
 					await UpdateDocument("Accounts", id, {
 						"votes": votes
 					});
+					_votes--;
 					await UpdateDocument("Programs", program.id, {
-						"votes": _votes - 1
+						"votes": _votes
 					});
 				}
-				voteCounter.textContent = (await GetDocument("Programs", program.id)).data().votes;
+				voteCounter.textContent = _votes;
 			});
 			downvoteButton.classList.add("right-align");
 			downvoteButton.textContent = "Downvote";
