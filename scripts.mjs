@@ -76,6 +76,14 @@ async function renderPrograms() {
 			programs.sort((a, b) => a.date < b.date ? 1 : -1);
 			break;
 	}
+	let id = null;
+	(await GetCollection("Accounts")).forEach((account) => {
+		const data = account.data();
+		if (data.username === localStorage.getItem("username") &&
+		    data.password === localStorage.getItem("password")) {
+			id = account.id;
+		}
+	});
 	for (const program in programs) {
 		programsContainer.appendChild(document.createElement("br"));
 		const div = document.createElement("div");
@@ -98,16 +106,11 @@ async function renderPrograms() {
 			heading.appendChild(voteCounter);
 			const upvoteButton = document.createElement("button");
 			const _votes = (await GetDocument("Accounts", program.id)).data().votes;
-			let id = null;
-			(await GetCollection("Accounts")).forEach((account) => {
-				const data = account.data();
-				if (data.username === localStorage.getItem("username") &&
-				    data.password === localStorage.getItem("password")) {
-					id = account.id;
-				}
-			});
 			upvoteButton.addEventListener(async () => {
-				const votes = (await GetDocument("Accounts", id)).data().votes;
+				let votes = (await GetDocument("Accounts", id));
+				console.log(votes);
+				votes = votes.data().votes;
+				console.log(votes);
 				let updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
 					if (votes[i][0] === program.title && votes[i][1] === program.author) {
