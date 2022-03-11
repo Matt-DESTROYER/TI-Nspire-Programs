@@ -38,13 +38,14 @@ async function UpdateDocument(collectionName, documentName, object) {
 	}
 }
 
-let loggedIn = false;
+let loggedIn = false, id;
 (async function() {
 	(await GetCollection("Accounts")).forEach((account) => {
 		const data = account.data();
 		if (localStorage.getItem("username") === data.username &&
 		    localStorage.getItem("password") === data.password) {
 			loggedIn = true;
+			id = account.id;
 		}
 	});
 })();
@@ -76,14 +77,6 @@ async function renderPrograms() {
 			programs.sort((a, b) => a.date < b.date ? 1 : -1);
 			break;
 	}
-	let id = null;
-	(await GetCollection("Accounts")).forEach((account) => {
-		const data = account.data();
-		if (data.username === localStorage.getItem("username") &&
-		    data.password === localStorage.getItem("password")) {
-			id = account.id;
-		}
-	});
 	for (const program of programs) {
 		programsContainer.appendChild(document.createElement("br"));
 		const div = document.createElement("div");
@@ -109,7 +102,9 @@ async function renderPrograms() {
 			const downvoteButton = document.createElement("button");
 			downvoteButton.addEventListener("click", async () => {
 				const votes = (await GetDocument("Accounts", id)).data().votes;
+				console.log(votes);
 				const _votes = (await GetDocument("Programs", program.id)).data().votes;
+				console.log(_votes);
 				let updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
 					if (votes[i][0] === program.title && votes[i][1] === program.author) {
@@ -142,7 +137,9 @@ async function renderPrograms() {
 			const upvoteButton = document.createElement("button");
 			upvoteButton.addEventListener("click", async () => {
 				const votes = (await GetDocument("Accounts", id)).data().votes;
+				constole.log(votes);
 				const _votes = (await GetDocument("Programs", program.id)).data().votes;
+				constole.log(_votes);
 				let updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
 					if (votes[i][0] === program.title && votes[i][1] === program.author) {
