@@ -101,7 +101,9 @@ async function renderPrograms() {
 				location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/";
 			});
 			heading.appendChild(editButton);
+			heading.appendChild(document.createElement("br"));
 			const voteCounter = document.createElement("span");
+			voteCounter.classList.add("right-align");
 			voteCounter.textContent = program.votes;
 			heading.appendChild(voteCounter);
 			const upvoteButton = document.createElement("button");
@@ -137,6 +139,7 @@ async function renderPrograms() {
 			upvoteButton.classList.add("right-align");
 			upvoteButton.textContent = "Upvote";
 			heading.appendChild(upvoteButton);
+			heading.appendChild(document.createElement("br"));
 			const downvoteButton = document.createElement("button");
 			downvoteButton.addEventListener("click", async () => {
 				const votes = (await GetDocument("Accounts", id)).data().votes;
