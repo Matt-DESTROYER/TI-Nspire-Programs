@@ -105,7 +105,7 @@ async function renderPrograms() {
 			voteCounter.textContent = program.votes;
 			heading.appendChild(voteCounter);
 			const upvoteButton = document.createElement("button");
-			upvoteButton.addEventListener(async () => {
+			upvoteButton.addEventListener("click", async () => {
 				let votes = (await GetDocument("Accounts", program.id));
 				console.log(votes);
 				votes = votes.data().votes;
@@ -141,7 +141,7 @@ async function renderPrograms() {
 			upvoteButton.textContent = "Upvote";
 			heading.appendChild(upvoteButton);
 			const downvoteButton = document.createElement("button");
-			downvoteButton.addEventListener(async () => {
+			downvoteButton.addEventListener("click", async () => {
 				let votes = (await GetDocument("Accounts", id));
 				console.log(votes);
 				votes = votes.data().votes;
