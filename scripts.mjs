@@ -111,7 +111,6 @@ async function renderPrograms() {
 							updateVote = true;
 							break;
 						}
-						const prevVote = vote[2];
 						vote[2] = 1;
 						votes[i] = vote.join(",");
 						await UpdateDocument("Accounts", id, {
@@ -126,7 +125,7 @@ async function renderPrograms() {
 					}
 				}
 				if (!updateVote) {
-					votes.push(program.title + "," + program.author + "," + 1);
+					votes.push(program.title + "," + program.author + ",1");
 					await UpdateDocument("Accounts", id, {
 						"votes": votes
 					});
@@ -147,11 +146,10 @@ async function renderPrograms() {
 				for (let i = 0; i < votes.length; i++) {
 					const vote = votes[i].split(",");
 					if (vote[0] === program.title && vote[1] === program.author) {
-						if (votes[2] == -1) {
+						if (vote[2] == -1) {
 							updateVote = true;
 							break;
 						}
-						const prevVote = vote[2];
 						vote[2] = -1;
 						votes[i] = vote.join(",");
 						await UpdateDocument("Accounts", id, {
@@ -166,7 +164,7 @@ async function renderPrograms() {
 					}
 				}
 				if (!updateVote) {
-					votes.push(program.title + "," + program.author + "," + -1);
+					votes.push(program.title + "," + program.author + ",-1");
 					await UpdateDocument("Accounts", id, {
 						"votes": votes
 					});
