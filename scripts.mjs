@@ -129,7 +129,7 @@ async function renderPrograms() {
 						"votes": votes
 					});
 					await UpdateDocument("Programs", program.id, {
-						"votes": _votes + 1;
+						"votes": _votes + 1
 					});
 				}
 				voteCounter.textContent = (await GetDocument("Programs", program.id)).data().votes;
@@ -161,7 +161,7 @@ async function renderPrograms() {
 						"votes": votes
 					});
 					await UpdateDocument("Programs", program.id, {
-						"votes": _votes - 1;
+						"votes": _votes - 1
 					});
 				}
 				voteCounter.textContent = (await GetDocument("Programs", program.id)).data().votes;
