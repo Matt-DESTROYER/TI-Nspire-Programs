@@ -51,7 +51,7 @@ let loggedIn = false, id;
 })();
 
 const sortSelect = document.getElementById("sort");
-sortSelect.addEventListener("change", renderPrograms);
+sortSelect.addEventListener("input", renderPrograms);
 const programsContainer = document.getElementById("programs"), programs = [];
 (async function () {
 	(await GetCollection("Programs")).forEach((program) => {
