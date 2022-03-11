@@ -24,12 +24,7 @@ async function GetCollection(collectionName) {
 
 async function GetDocument(collectionName, documentName) {
 	try {
-		const snap = await getDoc(doc(db, collectionName, documentName));
-		if (snap.exists()) {
-			return snap;
-		} else {
-			throw new Error("Document does not exist.");
-		}
+		return await getDoc(doc(db, collectionName, documentName));
 	} catch (err) {
 		return err;
 	}
