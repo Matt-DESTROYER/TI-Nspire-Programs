@@ -106,10 +106,7 @@ async function renderPrograms() {
 			heading.appendChild(voteCounter);
 			const upvoteButton = document.createElement("button");
 			upvoteButton.addEventListener("click", async () => {
-				let votes = (await GetDocument("Accounts", program.id));
-				console.log(votes);
-				votes = votes.data().votes;
-				console.log(votes);
+				const votes = (await GetDocument("Accounts", id)).data().votes;
 				const _votes = (await GetDocument("Programs", program.id)).data().votes;
 				let updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
@@ -142,10 +139,7 @@ async function renderPrograms() {
 			heading.appendChild(upvoteButton);
 			const downvoteButton = document.createElement("button");
 			downvoteButton.addEventListener("click", async () => {
-				let votes = (await GetDocument("Accounts", id));
-				console.log(votes);
-				votes = votes.data().votes;
-				console.log(votes);
+				const votes = (await GetDocument("Accounts", id)).data().votes;
 				const _votes = (await GetDocument("Programs", program.id)).data().votes;
 				let updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
