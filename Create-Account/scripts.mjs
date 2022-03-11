@@ -86,7 +86,8 @@ document.getElementById("create-account").addEventListener("click", async () => 
 				"firstname": btoa(firstnameInput.value.trim()),
 				"lastname": btoa(lastnameInput.value.trim()),
 				"username": btoa(usernameInput.value.trim()),
-				"password": btoa(passwordInput.value.trim())
+				"password": btoa(passwordInput.value.trim()),
+				"votes": []
 			});
 			localStorage.setItem("username", btoa(usernameInput.value.trim()));
 			localStorage.setItem("password", btoa(passwordInput.value.trim()));
