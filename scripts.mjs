@@ -140,6 +140,7 @@ async function renderPrograms() {
 						"votes": _votes
 					});
 				}
+				program.votes = _votes;
 				voteCounter.textContent = _votes;
 			});
 			upvoteButton.classList.add("right-align");
@@ -179,6 +180,7 @@ async function renderPrograms() {
 						"votes": _votes
 					});
 				}
+				program.votes = _votes;
 				voteCounter.textContent = _votes;
 			});
 			downvoteButton.classList.add("right-align");
