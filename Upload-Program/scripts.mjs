@@ -152,8 +152,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 					"date": Date.now(),
 					"file": fileUrl,
 					"screenshots": screenshotUrls,
-					"votes": 0,
-					"downvotes": 0
+					"votes": 0
 				});
 			}
 			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
