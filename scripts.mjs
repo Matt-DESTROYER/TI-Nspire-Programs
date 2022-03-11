@@ -76,7 +76,7 @@ async function renderPrograms() {
 			programs.sort((a, b) => a.date < b.date ? 1 : -1);
 			break;
 	}
-	programs.forEach((program) => {
+	for (const program in programs) {
 		programsContainer.appendChild(document.createElement("br"));
 		const div = document.createElement("div");
 		div.classList.add("program-container");
