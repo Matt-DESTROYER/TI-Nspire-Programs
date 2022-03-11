@@ -67,7 +67,7 @@ const heading = document.createElement("div");
 if (loggedIn) {
 	const editButton = document.createElement("button");
 	editButton.textContent = "Edit";
-	editButton.classList.add("edit-button");
+	editButton.classList.add("right-align");
 	editButton.addEventListener("click", () => {
 		localStorage.setItem("title", article.title);
 		localStorage.setItem("description", article.description);
