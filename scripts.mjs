@@ -198,5 +198,5 @@ async function renderPrograms() {
 		div.appendChild(link);
 		programsContainer.appendChild(div);
 		programsContainer.appendChild(document.createElement("br"));
-	});
+	}
 }
