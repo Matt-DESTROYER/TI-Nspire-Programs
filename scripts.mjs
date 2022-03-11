@@ -105,12 +105,12 @@ async function renderPrograms() {
 			voteCounter.textContent = program.votes;
 			heading.appendChild(voteCounter);
 			const upvoteButton = document.createElement("button");
-			const _votes = (await GetDocument("Accounts", program.id)).data().votes;
 			upvoteButton.addEventListener(async () => {
-				let votes = (await GetDocument("Accounts", id));
+				let votes = (await GetDocument("Accounts", program.id));
 				console.log(votes);
 				votes = votes.data().votes;
 				console.log(votes);
+				const _votes = (await GetDocument("Programs", program.id)).data().votes;
 				let updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
 					if (votes[i][0] === program.title && votes[i][1] === program.author) {
@@ -142,7 +142,11 @@ async function renderPrograms() {
 			heading.appendChild(upvoteButton);
 			const downvoteButton = document.createElement("button");
 			downvoteButton.addEventListener(async () => {
-				const votes = (await GetDocument("Accounts", id)).data().votes;
+				let votes = (await GetDocument("Accounts", id));
+				console.log(votes);
+				votes = votes.data().votes;
+				console.log(votes);
+				const _votes = (await GetDocument("Programs", program.id)).data().votes;
 				let updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
 					if (votes[i][0] === program.title && votes[i][1] === program.author) {
