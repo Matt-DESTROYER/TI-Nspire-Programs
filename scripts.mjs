@@ -105,14 +105,15 @@ async function renderPrograms() {
 				let _votes = (await GetDocument("Programs", program.id)).data().votes,
 				    updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
-					console.log(votes[i]);
-					if (votes[i][0] === program.title && votes[i][1] === program.author) {
-						if (votes[i][2] === 1) {
+					const vote = votes[i].split(",");
+					if (vote[0] === program.title && vote[1] === program.author) {
+						if (vote[2] == 1) {
 							updateVote = true;
 							break;
 						}
-						const prevVote = votes[i][2];
-						votes[i][2] = 1;
+						const prevVote = vote[2];
+						vote[2] = 1;
+						votes[i] = vote.join(",");
 						await UpdateDocument("Accounts", id, {
 							"votes": votes
 						});
@@ -125,7 +126,7 @@ async function renderPrograms() {
 					}
 				}
 				if (!updateVote) {
-					votes.push([ program.title, program.author, 1 ]);
+					votes.push(program.title + "," + program.author + "," + 1);
 					await UpdateDocument("Accounts", id, {
 						"votes": votes
 					});
@@ -144,14 +145,15 @@ async function renderPrograms() {
 				let _votes = (await GetDocument("Programs", program.id)).data().votes,
 				    updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
-					console.log(votes[i]);
-					if (votes[i][0] === program.title && votes[i][1] === program.author) {
-						if (votes[i][2] === -1) {
+					const vote = votes[i].split(",");
+					if (vote[0] === program.title && vote[1] === program.author) {
+						if (votes[2] == -1) {
 							updateVote = true;
 							break;
 						}
-						const prevVote = votes[i][2];
-						votes[i][2] = -1;
+						const prevVote = vote[2];
+						vote[2] = -1;
+						votes[i] = vote.join(",");
 						await UpdateDocument("Accounts", id, {
 							"votes": votes
 						});
@@ -164,7 +166,7 @@ async function renderPrograms() {
 					}
 				}
 				if (!updateVote) {
-					votes.push([ program.title, program.author, -1 ]);
+					votes.push(program.title + "," + program.author + "," + -1);
 					await UpdateDocument("Accounts", id, {
 						"votes": votes
 					});
