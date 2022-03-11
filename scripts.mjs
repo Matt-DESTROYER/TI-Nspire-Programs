@@ -101,22 +101,24 @@ async function renderPrograms() {
 			voteCounter.textContent = program.votes;
 			const upvoteButton = document.createElement("button");
 			upvoteButton.addEventListener("click", async () => {
-				const votes = (await GetDocument("Accounts", id)).data().votes;
-				console.log(votes);
-				const _votes = (await GetDocument("Programs", program.id)).data().votes;
-				console.log(_votes);
+				const votes = (await GetDocument("Accounts", id)).data().votes,
+				      _votes = (await GetDocument("Programs", program.id)).data().votes;
 				let updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
 					if (votes[i][0] === program.title && votes[i][1] === program.author) {
+						if (votes[i][2] === 1) {
+							updateVote = true;
+							break;
+						}
 						const prevVote = votes[i][2];
-						updateVote = true;
 						votes[i][2] = 1;
 						await UpdateDocument("Accounts", id, {
 							"votes": votes
 						});
 						await UpdateDocument("Programs", program.id, {
-							"votes": _votes + (prevVote === 1 ? 0 : 2)
+							"votes": _votes + 2
 						});
+						updateVote = true;
 						break;
 					}
 				}
@@ -135,22 +137,24 @@ async function renderPrograms() {
 			upvoteButton.textContent = "Upvote";
 			const downvoteButton = document.createElement("button");
 			downvoteButton.addEventListener("click", async () => {
-				const votes = (await GetDocument("Accounts", id)).data().votes;
-				console.log(votes);
-				const _votes = (await GetDocument("Programs", program.id)).data().votes;
-				console.log(_votes);
+				const votes = (await GetDocument("Accounts", id)).data().votes,
+				      _votes = (await GetDocument("Programs", program.id)).data().votes;
 				let updateVote = false;
 				for (let i = 0; i < votes.length; i++) {
 					if (votes[i][0] === program.title && votes[i][1] === program.author) {
+						if (votes[i][2] === -1) {
+							updateVote = true;
+							break;
+						}
 						const prevVote = votes[i][2];
-						updateVote = true;
 						votes[i][2] = -1;
 						await UpdateDocument("Accounts", id, {
 							"votes": votes
 						});
 						await UpdateDocument("Programs", program.id, {
-							"votes": _votes - (prevVote === -1 ? 0 : 2)
+							"votes": _votes - 2
 						});
+						updateVote = true;
 						break;
 					}
 				}
