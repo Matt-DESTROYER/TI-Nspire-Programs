@@ -106,7 +106,6 @@ async function renderPrograms() {
 			const voteCounter = document.createElement("span");
 			voteCounter.classList.add("right-align");
 			voteCounter.textContent = program.votes;
-			heading.appendChild(voteCounter);
 			const downvoteButton = document.createElement("button");
 			downvoteButton.addEventListener("click", async () => {
 				const votes = (await GetDocument("Accounts", id)).data().votes;
@@ -139,7 +138,7 @@ async function renderPrograms() {
 			});
 			downvoteButton.classList.add("right-align");
 			downvoteButton.textContent = "Downvote";
-			heading.appendChild(downvoteButton);
+			//heading.appendChild(downvoteButton);
 			const upvoteButton = document.createElement("button");
 			upvoteButton.addEventListener("click", async () => {
 				const votes = (await GetDocument("Accounts", id)).data().votes;
@@ -172,7 +171,8 @@ async function renderPrograms() {
 			});
 			upvoteButton.classList.add("right-align");
 			upvoteButton.textContent = "Upvote";
-			heading.appendChild(upvoteButton);
+			//heading.appendChild(upvoteButton);
+			//heading.appendChild(voteCounter);
 		}
 		const header = document.createElement("h2");
 		header.textContent = program.title + " - " + program.version;
