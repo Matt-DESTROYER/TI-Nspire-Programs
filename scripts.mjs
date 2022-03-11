@@ -84,7 +84,7 @@ async function renderPrograms() {
 			id = account.id;
 		}
 	});
-	for (const program in programs) {
+	for (const program of programs) {
 		programsContainer.appendChild(document.createElement("br"));
 		const div = document.createElement("div");
 		div.classList.add("program-container");
