@@ -152,7 +152,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 					"date": Date.now(),
 					"file": fileUrl,
 					"screenshots": screenshotUrls,
-					"upvotes": 0,
+					"votes": 0,
 					"downvotes": 0
 				});
 			}
