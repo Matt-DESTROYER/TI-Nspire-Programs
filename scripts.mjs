@@ -74,10 +74,10 @@ async function renderPrograms() {
 			programs.sort((a, b) => a.date > b.date ? 1 : -1);
 			break;
 		case "top-voted":
-			programs.sort((a, b) => a.votes > b.votes ? 1 : -1);
+			programs.sort((a, b) => a.votes < b.votes ? 1 : -1);
 			break;
 		case "bottom-voted":
-			programs.sort((a, b) => a.votes < b.votes ? 1 : -1);
+			programs.sort((a, b) => a.votes > b.votes ? 1 : -1);
 			break;
 		default:
 			programs.sort((a, b) => a.date < b.date ? 1 : -1);
