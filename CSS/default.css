@@ -45,7 +45,7 @@ button:active {
 }
 
 .generic-container {
-	background-color: darkgray;
+	background-color: lightgray;
 	border-radius: 8px;
 	padding: 10px;
 	padding-left: 20px;
