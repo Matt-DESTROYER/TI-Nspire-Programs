@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
 import { getFirestore, collection, doc, addDoc, updateDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js";
+import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-storage.js";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
@@ -13,6 +14,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
+
+const storage = getStorage(app);
 
 async function GetCollection(collectionName) {
 	try {
@@ -32,15 +35,29 @@ async function CreateDocument(collectionName, object) {
 }
 
 async function UpdateDocument(collectionName, documentName, object) {
-	await updateDoc(doc(db, collectionName, documentName), object);
+	try {
+		await updateDoc(doc(db, collectionName, documentName), object);
+	} catch (err) {
+		console.error("Error writing to database:", err);
+		return err;
+	}
 }
 
-const title = document.getElementById("title");
-const version = document.getElementById("version");
-const description = document.getElementById("description");
+async function UploadFile(file, path) {
+	try {
+		await uploadBytes(ref(storage, path + "/" + file.name), new Blob([ new Uint8Array(await file.arrayBuffer()) ], { type: file.type }));
+	} catch (err) {
+		console.error("Error uploading to database:", err);
+		return err;
+	}
+}
+
+const title = document.getElementById("title"),
+      version = document.getElementById("version"),
+      description = document.getElementById("description"),
+      screenshots = document.getElementById("screenshots"),
+      screenshotInputs = [];
 let fileUrl = null;
-const screenshots = document.getElementById("screenshots");
-const screenshotInputs = [];
 
 {
 	if (localStorage.getItem("title")) {
