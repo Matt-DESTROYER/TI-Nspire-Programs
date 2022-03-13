@@ -75,6 +75,8 @@ let fileUrl = null;
 }
 
 document.getElementById("file").addEventListener("input", (e) => {
+	e = e || window.event;
+	await UploadFile(e.target.files[0], "Accounts/" + localStorage.getItem("username"));
 	return new Promise((res, rej) => {
 		const reader = new FileReader();
 		reader.readAsDataURL(e.target.files[0]);
