@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
 import { getFirestore, collection, doc, getDoc, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js";
+import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-storage.js";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
@@ -14,10 +15,13 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
+const storage = getStorage(app);
+
 async function GetCollection(collectionName) {
 	try {
 		return await getDocs(collection(db, collectionName));
 	} catch (err) {
+		console.error("An error occurred reading from the database:", err);
 		return err;
 	}
 }
@@ -26,6 +30,7 @@ async function GetDocument(collectionName, documentName) {
 	try {
 		return await getDoc(doc(db, collectionName, documentName));
 	} catch (err) {
+		console.error("An error occurred reading from the database:", err);
 		return err;
 	}
 }
@@ -34,6 +39,16 @@ async function UpdateDocument(collectionName, documentName, object) {
 	try {
 		await updateDoc(doc(db, collectionName, documentName), object);
 	} catch (err) {
+		console.error("An error occurred updating the database:", err);
+		return err;
+	}
+}
+
+async function GetFileURL(path, file) {
+	try {
+		return await getDownloadURL(ref(storage, path + "/" + file));
+	} catch (err) {
+		console.error("An error occurred downloading from the database:", err);
 		return err;
 	}
 }
@@ -210,7 +225,7 @@ async function renderPrograms() {
 		div.appendChild(description);
 		const link = document.createElement("a");
 		link.download = program.title;
-		link.href = program.file;
+		link.href = await GetFileURL(program.author + "/" + program.title, program.file);
 		const button = document.createElement("button");
 		button.textContent = "Download";
 		link.appendChild(button);
