@@ -55,9 +55,9 @@ async function UploadFile(file, path) {
 const title = document.getElementById("title"),
       version = document.getElementById("version"),
       description = document.getElementById("description"),
+      file = document.getElementById("file"),
       screenshots = document.getElementById("screenshots"),
       screenshotInputs = [];
-let fileUrl = null;
 
 {
 	if (localStorage.getItem("title")) {
@@ -73,17 +73,6 @@ let fileUrl = null;
 		localStorage.removeItem("description");
 	}
 }
-
-document.getElementById("file").addEventListener("input", async (e) => {
-	e = e || window.event;
-	await UploadFile(e.target.files[0], localStorage.getItem("username") + "/" + title.value);
-	return new Promise((res, rej) => {
-		const reader = new FileReader();
-		reader.readAsDataURL(e.target.files[0]);
-		reader.onload = () => res(reader.result);
-		reader.onerror = error => rej(error);
-	}).then((url) => fileUrl = url);
-});
 
 document.getElementById("add-screenshot").addEventListener("click", () => {
 	const br = document.createElement("br");
@@ -154,12 +143,13 @@ document.getElementById("upload").addEventListener("click", async () => {
 			}
 		});
 		async function upload() {
+			await UploadFile(file.files[0], localStorage.getItem("username") + "/" + title.value);
 			if (alreadyExists) {
 				await UpdateDocument("Programs", id, {
 					"version": version.value,
 					"description": description.value,
 					"date": Date.now(),
-					"file": fileUrl,
+					"file": file.files[0].name,
 					"screenshots": screenshotUrls
 				});
 			} else {
@@ -169,7 +159,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 					"author": atob(localStorage.getItem("username")),
 					"description": description.value,
 					"date": Date.now(),
-					"file": fileUrl,
+					"file": file.files[0].name,
 					"screenshots": screenshotUrls,
 					"votes": 0
 				});
