@@ -113,25 +113,25 @@ document.getElementById("upload").addEventListener("click", async () => {
 	}
 	errormessage.hidden = true;
 	if (title.value.trim() === "") {
-		errormessage.textContent = "No title...";
+		errormessage.textContent = "Error: No title.";
 		errormessage.hidden = false;
 	} else if (title.value.length > 100) {
-		errormessage.textContent = "Title too long...";
+		errormessage.textContent = "Error: Title too long.";
 		errormessage.hidden = false;
 	} else if (version.value.trim() === "") {
-		errormessage.textContent = "No version...";
+		errormessage.textContent = "Error: No version.";
 		errormessage.hidden = false;
 	} else if (version.value.length > 100) {
-		errormessage.textContent = "Version too long...";
+		errormessage.textContent = "Error: Version too long.";
 		errormessage.hidden = false;
 	} else if (description.value.trim() === "") {
-		errormessage.textContent = "No description...";
+		errormessage.textContent = "Error: No description.";
 		errormessage.hidden = false;
 	} else if (description.length > 10000) {
-		errormessage.textContent = "Description too long...";
+		errormessage.textContent = "Error: Description too long.";
 		errormessage.hidden = false;
-	} else if (!fileUrl) {
-		errormessage.textContent = "No file uploaded...";
+	} else if (!file.files || !file.files[0]) {
+		errormessage.textContent = "Error: No file uploaded.";
 		errormessage.hidden = false;
 	} else {
 		let alreadyExists = false, id = null;
