@@ -115,6 +115,9 @@ document.getElementById("upload").addEventListener("click", async () => {
 	if (title.value.trim() === "") {
 		errormessage.textContent = "Error: No title.";
 		errormessage.hidden = false;
+	} else if (/,/.test(title.value.trim())) {
+		errormessage.textContent = "Error: Title may not contain commas (\",\").";
+		errormessage.hidden = false;
 	} else if (title.value.length > 100) {
 		errormessage.textContent = "Error: Title too long.";
 		errormessage.hidden = false;
