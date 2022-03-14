@@ -143,7 +143,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 			}
 		});
 		async function upload() {
-			await UploadFile(file.files[0], localStorage.getItem("username") + "/" + title.value);
+			await UploadFile(file.files[0], atob(localStorage.getItem("username")) + "/" + title.value);
 			if (alreadyExists) {
 				await UpdateDocument("Programs", id, {
 					"version": version.value,
