@@ -117,6 +117,7 @@ async function renderPrograms() {
 			heading.appendChild(editButton);
 			heading.appendChild(document.createElement("br"));
 			heading.appendChild(document.createElement("br"));
+			heading.appendChild(document.createElement("br"));
 			const voteCounter = document.createElement("span");
 			voteCounter.classList.add("right-align");
 			voteCounter.textContent = program.votes;
