@@ -73,10 +73,10 @@ const programsContainer = document.getElementById("programs"), programs = [];
 	for (let i = 0; i < _programs.length; i++) {
 		const data = _programs[i].data();
 		data.id = _programs[i].id;
-		data.file = await GetFileURL(data.author + "/" + data.title, data.file)
+		data.file = await GetFileURL(data.author + "/" + data.title, data.file);
 		programs.push(data);
 	}
-	console.log(programs);
+	console.log(_programs);
 	renderPrograms();
 })();
 
