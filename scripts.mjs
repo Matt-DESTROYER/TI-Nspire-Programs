@@ -69,16 +69,17 @@ const sortSelect = document.getElementById("sort");
 sortSelect.addEventListener("input", renderPrograms);
 const programsContainer = document.getElementById("programs"), programs = [];
 (async function () {
-	(await GetCollection("Programs")).forEach(async (program) => {
+	const _programs = (await GetCollection("Programs"));
+	_programs.forEach(async (program) => {
 		const data = program.data();
 		data.id = program.id;
 		data.file = await GetFileURL(data.author + "/" + data.title, data.file);
 		programs.push(data);
-		if (programs.length >= _snapshot.docChanges.length) {
+		if (programs.length >= _programs._snapshot.docChanges.length) {
 			renderPrograms();
 		}
 	});
-	console.log(await GetCollection("Programs"));
+	console.log(_programs);
 })();
 
 async function renderPrograms() {
