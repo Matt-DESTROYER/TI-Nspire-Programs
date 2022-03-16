@@ -76,6 +76,7 @@ const programsContainer = document.getElementById("programs"), programs = [];
 		data.file = await GetFileURL(data.author + "/" + data.title, data.file)
 		programs.push(data);
 	}
+	console.log(programs);
 	renderPrograms();
 })();
 
