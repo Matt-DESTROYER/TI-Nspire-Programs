@@ -69,14 +69,12 @@ const sortSelect = document.getElementById("sort");
 sortSelect.addEventListener("input", renderPrograms);
 const programsContainer = document.getElementById("programs"), programs = [];
 (async function () {
-	const _programs = await GetCollection("Programs");
-	for (let i = 0; i < _programs.length; i++) {
-		const data = _programs[i].data();
-		data.id = _programs[i].id;
+	(await GetCollection("Programs")).forEach(async (program) => {
+		const data = program.data();
+		data.id = program.id;
 		data.file = await GetFileURL(data.author + "/" + data.title, data.file);
 		programs.push(data);
-	}
-	console.log(_programs);
+	});
 	renderPrograms();
 })();
 
