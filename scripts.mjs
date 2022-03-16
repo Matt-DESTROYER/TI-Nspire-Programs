@@ -72,6 +72,7 @@ const programsContainer = document.getElementById("programs"), programs = [];
 	(await GetCollection("Programs")).forEach((program) => {
 		const data = program.data();
 		data.id = program.id;
+		data.file = await GetFileURL(data.author + "/" + data.title, data.file)
 		programs.push(data);
 	});
 	renderPrograms();
@@ -226,7 +227,7 @@ async function renderPrograms() {
 		div.appendChild(description);
 		const link = document.createElement("a");
 		link.download = program.title;
-		link.href = await GetFileURL(program.author + "/" + program.title, program.file);
+		link.href = program.file;
 		const button = document.createElement("button");
 		button.textContent = "Download";
 		link.appendChild(button);
