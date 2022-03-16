@@ -76,6 +76,7 @@ const programsContainer = document.getElementById("programs"), programs = [];
 		programs.push(data);
 	});
 	renderPrograms();
+	console.log(await GetCollection("Programs"));
 })();
 
 async function renderPrograms() {
