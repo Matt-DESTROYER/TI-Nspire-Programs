@@ -74,8 +74,10 @@ const programsContainer = document.getElementById("programs"), programs = [];
 		data.id = program.id;
 		data.file = await GetFileURL(data.author + "/" + data.title, data.file);
 		programs.push(data);
+		if (programs.length >= _snapshot.docChanges.length) {
+			renderPrograms();
+		}
 	});
-	renderPrograms();
 	console.log(await GetCollection("Programs"));
 })();
 
