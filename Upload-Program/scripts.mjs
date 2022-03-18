@@ -148,6 +148,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 		let screenshotFiles = [];
 		if (screenshotInputs.length > 0) {
 			screenshotFiles = screenshotInputs.filter((input) => input.files && input.files[0]).map((input) => input.files[0]);
+			console.log(screenshotFiles);
 		}
 		await UploadFile(file.files[0], atob(localStorage.getItem("username")) + "/" + title.value);
 		if (alreadyExists) {
