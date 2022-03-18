@@ -148,7 +148,6 @@ document.getElementById("upload").addEventListener("click", async () => {
 		let screenshotFiles = [];
 		if (screenshotInputs.length > 0) {
 			screenshotFiles = screenshotInputs.filter((input) => input.files && input.files[0]).map((input) => input.files[0]);
-			console.log(screenshotFiles);
 		}
 		await UploadFile(file.files[0], atob(localStorage.getItem("username")) + "/" + title.value);
 		if (alreadyExists) {
@@ -160,7 +159,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 				"screenshots": screenshotFiles.map((file) => file.name)
 			});
 			for (const file of screenshotFiles) {
-				await UploadFile(file.name, atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
+				await UploadFile(file, atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
 			}
 		} else {
 			await CreateDocument("Programs", {
@@ -174,9 +173,9 @@ document.getElementById("upload").addEventListener("click", async () => {
 				"votes": 0
 			});
 			for (const file of screenshotFiles) {
-				await UploadFile(file.name, atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
+				await UploadFile(file, atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
 			}
 		}
-		//location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
+		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 	}
 });
