@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
 import { getFirestore, collection, doc, addDoc, updateDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js";
-import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-storage.js";
+import { getStorage, ref, uploadBytes, deleteObject } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-storage.js";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
@@ -48,6 +48,15 @@ async function UploadFile(file, path) {
 		await uploadBytes(ref(storage, path + "/" + file.name), file); // new Blob([ new Uint8Array(await file.arrayBuffer()) ], { type: file.type })
 	} catch (err) {
 		console.error("Error uploading to database:", err);
+		return err;
+	}
+}
+
+async function DeleteFile(path) {
+	try {
+		await deleteObject(ref(storage, path));
+	} catch (err) {
+		console.error("Error deleting from database:", err);
 		return err;
 	}
 }
@@ -137,12 +146,12 @@ document.getElementById("upload").addEventListener("click", async () => {
 		errormessage.textContent = "Error: No file uploaded.";
 		errormessage.hidden = false;
 	} else {
-		let alreadyExists = false, id = null;
+		let alreadyExists = false, data;
 		(await GetCollection("Programs")).forEach((program) => {
-			const data = program.data();
+			data = program.data();
 			if (data.title === title.value) {
 				alreadyExists = true;
-				id = program.id;
+				data.id = program.id;
 			}
 		});
 		let screenshotFiles = [];
@@ -151,7 +160,11 @@ document.getElementById("upload").addEventListener("click", async () => {
 		}
 		await UploadFile(file.files[0], atob(localStorage.getItem("username")) + "/" + title.value);
 		if (alreadyExists) {
-			await UpdateDocument("Programs", id, {
+			await DeleteFile(atob(localStorage.getItem("username")) + "/" + title.value + "/" + data.file);
+			for (const screenshot of data.screenshots) {
+				await DeleteFile(atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots/" + screenshot);
+			}
+			await UpdateDocument("Programs", data.id, {
 				"version": version.value,
 				"description": description.value,
 				"date": Date.now(),
