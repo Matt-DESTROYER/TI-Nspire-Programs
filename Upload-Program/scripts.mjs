@@ -176,6 +176,6 @@ document.getElementById("upload").addEventListener("click", async () => {
 				await UploadFile(file.name, atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
 			}
 		}
-		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
+		//location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 	}
 });
