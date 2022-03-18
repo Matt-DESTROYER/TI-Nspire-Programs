@@ -45,7 +45,7 @@ async function UpdateDocument(collectionName, documentName, object) {
 
 async function UploadFile(file, path) {
 	try {
-		await uploadBytes(ref(storage, path + "/" + file.name), new Blob([ new Uint8Array(await file.arrayBuffer()) ], { type: file.type }));
+		await uploadBytes(ref(storage, path + "/" + file.name), file); // new Blob([ new Uint8Array(await file.arrayBuffer()) ], { type: file.type })
 	} catch (err) {
 		console.error("Error uploading to database:", err);
 		return err;
