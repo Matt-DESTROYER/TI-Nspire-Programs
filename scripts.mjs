@@ -75,11 +75,146 @@ const programsContainer = document.getElementById("programs"), programs = [];
 		data.id = program.id;
 		data.file = await GetFileURL(data.author + "/" + data.title, data.file);
 		programs.push(data);
-		if (programs.length >= _programs._snapshot.docChanges.length) {
-			renderPrograms();
-		}
+		await renderProgram(data);
 	});
 })();
+
+async function renderProgram(program) {
+	programsContainer.appendChild(document.createElement("br"));
+	const div = document.createElement("div");
+	div.classList.add("program-container");
+	programsContainer.appendChild(div);
+	const heading = document.createElement("div");
+	if (loggedIn) {
+		const editButton = document.createElement("button");
+		editButton.textContent = "Edit";
+		editButton.classList.add("right-align");
+		editButton.addEventListener("click", () => {
+			localStorage.setItem("title", program.title);
+			localStorage.setItem("version", program.version);
+			localStorage.setItem("description", program.description);
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/";
+		});
+		heading.appendChild(editButton);
+		heading.appendChild(document.createElement("br"));
+		heading.appendChild(document.createElement("br"));
+		heading.appendChild(document.createElement("br"));
+		const voteCounter = document.createElement("span");
+		voteCounter.classList.add("right-align");
+		voteCounter.textContent = program.votes;
+		const upvoteButton = document.createElement("button");
+		upvoteButton.addEventListener("click", async () => {
+			const votes = (await GetDocument("Accounts", id)).data().votes;
+			let _votes = (await GetDocument("Programs", program.id)).data().votes,
+			    updateVote = false;
+			for (let i = 0; i < votes.length; i++) {
+				const vote = votes[i].split(",");
+				if (vote[0] === program.title && vote[1] === program.author) {
+					if (vote[2] == 1) {
+						updateVote = true;
+						break;
+					}
+					vote[2] = 1;
+					votes[i] = vote.join(",");
+					await UpdateDocument("Accounts", id, {
+						"votes": votes
+					});
+					_votes += 2;
+					await UpdateDocument("Programs", program.id, {
+						"votes": _votes
+					});
+					updateVote = true;
+					break;
+				}
+			}
+			if (!updateVote) {
+				votes.push(program.title + "," + program.author + ",1");
+				await UpdateDocument("Accounts", id, {
+					"votes": votes
+				});
+				_votes++;
+				await UpdateDocument("Programs", program.id, {
+					"votes": _votes
+				});
+			}
+			program.votes = _votes;
+			voteCounter.textContent = _votes;
+		});
+		upvoteButton.classList.add("right-align");
+		upvoteButton.textContent = "Upvote";
+		const downvoteButton = document.createElement("button");
+		downvoteButton.addEventListener("click", async () => {
+			const votes = (await GetDocument("Accounts", id)).data().votes;
+			let _votes = (await GetDocument("Programs", program.id)).data().votes,
+			    updateVote = false;
+			for (let i = 0; i < votes.length; i++) {
+				const vote = votes[i].split(",");
+				if (vote[0] === program.title && vote[1] === program.author) {
+					if (vote[2] == -1) {
+						updateVote = true;
+						break;
+					}
+					vote[2] = -1;
+					votes[i] = vote.join(",");
+					await UpdateDocument("Accounts", id, {
+						"votes": votes
+					});
+					_votes -= 2;
+					await UpdateDocument("Programs", program.id, {
+						"votes": _votes
+					});
+					updateVote = true;
+					break;
+				}
+			}
+			if (!updateVote) {
+				votes.push(program.title + "," + program.author + ",-1");
+				await UpdateDocument("Accounts", id, {
+					"votes": votes
+				});
+				_votes--;
+				await UpdateDocument("Programs", program.id, {
+					"votes": _votes
+				});
+			}
+			program.votes = _votes;
+			voteCounter.textContent = _votes;
+		});
+		downvoteButton.classList.add("right-align");
+		downvoteButton.textContent = "Downvote";
+		heading.appendChild(downvoteButton);
+		heading.appendChild(upvoteButton);
+		heading.appendChild(voteCounter);
+	}
+	const header = document.createElement("h2");
+	header.textContent = program.title + " - " + program.version;
+	heading.appendChild(header);
+	div.appendChild(heading);
+	const author = document.createElement("p");
+	author.textContent = "Published by: " + program.author;
+	div.appendChild(author);
+	const screenshots = document.createElement("div");
+	screenshots.classList.add("screenshots");
+	for (let i = 0; i < program.screenshots.length; i++) {
+		const screenshot = document.createElement("img");
+		screenshot.src = program.screenshots[i];
+		screenshot.height = 120;
+		screenshots.appendChild(screenshot);
+	}
+	div.appendChild(screenshots);
+	const description = document.createElement("p");
+	description.textContent = program.description;
+	div.appendChild(description);
+	const link = document.createElement("a");
+	link.download = program.title;
+	link.href = program.file;
+	const button = document.createElement("button");
+	button.textContent = "Download";
+	link.appendChild(button);
+	div.appendChild(link);
+	programsContainer.appendChild(div);
+	programsContainer.appendChild(document.createElement("br"));
+}
 
 async function renderPrograms() {
 	while (programsContainer.firstChild) {
@@ -103,139 +238,6 @@ async function renderPrograms() {
 			break;
 	}
 	for (const program of programs) {
-		programsContainer.appendChild(document.createElement("br"));
-		const div = document.createElement("div");
-		div.classList.add("program-container");
-		programsContainer.appendChild(div);
-		const heading = document.createElement("div");
-		if (loggedIn) {
-			const editButton = document.createElement("button");
-			editButton.textContent = "Edit";
-			editButton.classList.add("right-align");
-			editButton.addEventListener("click", () => {
-				localStorage.setItem("title", program.title);
-				localStorage.setItem("version", program.version);
-				localStorage.setItem("description", program.description);
-				location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/";
-			});
-			heading.appendChild(editButton);
-			heading.appendChild(document.createElement("br"));
-			heading.appendChild(document.createElement("br"));
-			heading.appendChild(document.createElement("br"));
-			const voteCounter = document.createElement("span");
-			voteCounter.classList.add("right-align");
-			voteCounter.textContent = program.votes;
-			const upvoteButton = document.createElement("button");
-			upvoteButton.addEventListener("click", async () => {
-				const votes = (await GetDocument("Accounts", id)).data().votes;
-				let _votes = (await GetDocument("Programs", program.id)).data().votes,
-				    updateVote = false;
-				for (let i = 0; i < votes.length; i++) {
-					const vote = votes[i].split(",");
-					if (vote[0] === program.title && vote[1] === program.author) {
-						if (vote[2] == 1) {
-							updateVote = true;
-							break;
-						}
-						vote[2] = 1;
-						votes[i] = vote.join(",");
-						await UpdateDocument("Accounts", id, {
-							"votes": votes
-						});
-						_votes += 2;
-						await UpdateDocument("Programs", program.id, {
-							"votes": _votes
-						});
-						updateVote = true;
-						break;
-					}
-				}
-				if (!updateVote) {
-					votes.push(program.title + "," + program.author + ",1");
-					await UpdateDocument("Accounts", id, {
-						"votes": votes
-					});
-					_votes++;
-					await UpdateDocument("Programs", program.id, {
-						"votes": _votes
-					});
-				}
-				program.votes = _votes;
-				voteCounter.textContent = _votes;
-			});
-			upvoteButton.classList.add("right-align");
-			upvoteButton.textContent = "Upvote";
-			const downvoteButton = document.createElement("button");
-			downvoteButton.addEventListener("click", async () => {
-				const votes = (await GetDocument("Accounts", id)).data().votes;
-				let _votes = (await GetDocument("Programs", program.id)).data().votes,
-				    updateVote = false;
-				for (let i = 0; i < votes.length; i++) {
-					const vote = votes[i].split(",");
-					if (vote[0] === program.title && vote[1] === program.author) {
-						if (vote[2] == -1) {
-							updateVote = true;
-							break;
-						}
-						vote[2] = -1;
-						votes[i] = vote.join(",");
-						await UpdateDocument("Accounts", id, {
-							"votes": votes
-						});
-						_votes -= 2;
-						await UpdateDocument("Programs", program.id, {
-							"votes": _votes
-						});
-						updateVote = true;
-						break;
-					}
-				}
-				if (!updateVote) {
-					votes.push(program.title + "," + program.author + ",-1");
-					await UpdateDocument("Accounts", id, {
-						"votes": votes
-					});
-					_votes--;
-					await UpdateDocument("Programs", program.id, {
-						"votes": _votes
-					});
-				}
-				program.votes = _votes;
-				voteCounter.textContent = _votes;
-			});
-			downvoteButton.classList.add("right-align");
-			downvoteButton.textContent = "Downvote";
-			heading.appendChild(downvoteButton);
-			heading.appendChild(upvoteButton);
-			heading.appendChild(voteCounter);
-		}
-		const header = document.createElement("h2");
-		header.textContent = program.title + " - " + program.version;
-		heading.appendChild(header);
-		div.appendChild(heading);
-		const author = document.createElement("p");
-		author.textContent = "Published by: " + program.author;
-		div.appendChild(author);
-		const screenshots = document.createElement("div");
-		screenshots.classList.add("screenshots");
-		for (let i = 0; i < program.screenshots.length; i++) {
-			const screenshot = document.createElement("img");
-			screenshot.src = program.screenshots[i];
-			screenshot.height = 120;
-			screenshots.appendChild(screenshot);
-		}
-		div.appendChild(screenshots);
-		const description = document.createElement("p");
-		description.textContent = program.description;
-		div.appendChild(description);
-		const link = document.createElement("a");
-		link.download = program.title;
-		link.href = program.file;
-		const button = document.createElement("button");
-		button.textContent = "Download";
-		link.appendChild(button);
-		div.appendChild(link);
-		programsContainer.appendChild(div);
-		programsContainer.appendChild(document.createElement("br"));
+		await renderProgram(program);
 	}
 }
