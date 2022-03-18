@@ -74,6 +74,11 @@ const programsContainer = document.getElementById("programs"), programs = [];
 		const data = program.data();
 		data.id = program.id;
 		data.file = await GetFileURL(data.author + "/" + data.title, data.file);
+		const screenshots = data.screenshots;
+		data.screenshots = [];
+		for (const screenshot of screenshots) {
+			data.screenshots.push(await GetFileURL(data.author + "/" + data.title + "/Screenshots", screenshot));
+		}
 		programs.push(data);
 		await renderProgram(data);
 	});
