@@ -158,7 +158,9 @@ document.getElementById("upload").addEventListener("click", async () => {
 				"file": file.files[0].name,
 				"screenshots": screenshotFiles.map((file) => file.name)
 			});
-			screenshotFiles.forEach((file) => UploadFile(file.name, atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots"));
+			for (const file of screenshotFiles) {
+				await UploadFile(file.name, atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots"));
+			}
 		} else {
 			await CreateDocument("Programs", {
 				"title": title.value,
@@ -170,7 +172,9 @@ document.getElementById("upload").addEventListener("click", async () => {
 				"screenshots": screenshotFiles.map((file) => file.name),
 				"votes": 0
 			});
-			screenshotFiles.forEach((file) => UploadFile(file.name, atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots"));
+			for (const file of screenshotFiles) {
+				await UploadFile(file.name, atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots"));
+			}
 		}
 		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 	}
