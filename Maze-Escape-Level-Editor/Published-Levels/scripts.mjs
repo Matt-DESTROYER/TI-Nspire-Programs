@@ -7,7 +7,7 @@ const firebaseConfig = {
 	projectId: "ti-nspire-programs-database",
 	storageBucket: "ti-nspire-programs-database.appspot.com",
 	messagingSenderId: "1026879731613",
-	appId: "1:1026879731613:web:45cdecd4e9ed5dc57ba174"
+	appId: "1:1026879731613:web:03c983f8072ebae67ba174"
 };
 
 const app = initializeApp(firebaseConfig);
