@@ -96,7 +96,7 @@ async function renderArticles() {
 		readButton.textContent = "Read";
 		readButton.addEventListener("click", function () {
 			localStorage.setItem("article_id", article.id);
-			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/Read/";
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Articles/Read/?id=" + article.id;
 		});
 		div.appendChild(readButton);
 		articlesContainer.appendChild(div);
