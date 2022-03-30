@@ -13,9 +13,13 @@ let loggedIn = false;
 
 const levelContainer = document.getElementById("levels");
 let levels = [];
-(await GetCollection("Levels")).forEach((level) => levels.push(level.data()));
+(await GetCollection("Levels")).forEach((level) => {
+	const data = level.data();
+	data.id = level.id;
+	levels.push(data);
+});
 levels.sort((a, b) => a.date < b.date ? 1 : -1);
-levels.forEach(async (level) => {
+for (const level of levels) {
 	levelContainer.appendChild(document.createElement("br"));
 	levelContainer.appendChild(document.createElement("br"));
 	const div = document.createElement("div");
@@ -26,9 +30,7 @@ levels.forEach(async (level) => {
 		editButton.textContent = "Edit";
 		editButton.classList.add("edit-button");
 		editButton.addEventListener("click", () => {
-			localStorage.setItem("name", level.levelName);
-			localStorage.setItem("data", level.levelData.join(","));
-			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/";
+			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/?id=" + level.id;
 		});
 		heading.appendChild(editButton);
 	}
@@ -61,4 +63,4 @@ levels.forEach(async (level) => {
 	}
 	div.appendChild(levelDisplay);
 	levelContainer.appendChild(div);
-});
+}
