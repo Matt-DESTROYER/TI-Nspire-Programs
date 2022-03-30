@@ -1,35 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js";
-
-const firebaseConfig = {
-	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
-	authDomain: "ti-nspire-programs-database.firebaseapp.com",
-	projectId: "ti-nspire-programs-database",
-	storageBucket: "ti-nspire-programs-database.appspot.com",
-	messagingSenderId: "1026879731613",
-	appId: "1:1026879731613:web:03c983f8072ebae67ba174"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore();
-
-async function GetCollection(collectionName) {
-	try {
-		return await getDocs(collection(db, collectionName));
-	} catch (err) {
-		return err;
-	}
-}
-
-async function CreateDocument(collectionName, object) {
-	try {
-		return await addDoc(collection(db, collectionName), object);
-	} catch (err) {
-		console.error("Error writing to database:", err);
-		return err;
-	}
-}
+import { GetCollection, CreateDocument } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.mjs";
 
 const firstnameInput = document.getElementById("firstname"),
       lastnameInput = document.getElementById("lastname"),
