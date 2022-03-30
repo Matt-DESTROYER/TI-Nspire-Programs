@@ -147,8 +147,8 @@ document.getElementById("publish").addEventListener("click", async () => {
 				"date": Date.now(),
 				"levelData": grid.map((row) => row.join(""))
 			});
-			const test = (await GetDocument("Levels", level.id)).data();
-			console.log(test);
+			const test = (await GetDocument("Levels", level.id));
+			console.log(test.data());
 		} else {
 			let id, updateLevel = false;
 			(await GetCollection("Levels")).forEach((level) => {
