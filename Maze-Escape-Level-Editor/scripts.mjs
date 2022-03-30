@@ -158,7 +158,7 @@ document.getElementById("publish").addEventListener("click", async () => {
 				}
 			});
 			if (updateLevel) {
-				await UpdateDocument("Levels", level.id, {
+				await UpdateDocument("Levels", id, {
 					"date": Date.now(),
 					"levelData": grid.map((row) => row.join(""))
 				});
@@ -171,7 +171,7 @@ document.getElementById("publish").addEventListener("click", async () => {
 				});
 			}
 		}
-		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels/";
+		//location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels/";
 	}
 });
 
