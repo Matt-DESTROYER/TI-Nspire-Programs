@@ -140,7 +140,7 @@ document.getElementById("publish").addEventListener("click", async () => {
 		errormessage.textContent = "Error: A level name is required.";
 		errormessage.hidden = false;
 	} else {
-		if (level && btoa(level.author) === localStorage.get("username")) {
+		if (level && btoa(level.author) === localStorage.getItem("username")) {
 			await UpdateDocument("Levels", level.id, {
 				"levelName": levelnameInput.value,
 				"date": Date.now(),
