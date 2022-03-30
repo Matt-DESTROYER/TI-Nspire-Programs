@@ -94,7 +94,7 @@ const levelnameInput = document.getElementById("level-name"),
 const levelId = location.search.split("=")[1] || null;
 if (levelId) {
 	const level = (await GetDocument("Levels", levelId)).data();
-	console.log(level, level.levelData);
+	levelnameInput.value = level.levelName;
 	grid = level.levelData.map((row) => row.split(""));
 }
 
