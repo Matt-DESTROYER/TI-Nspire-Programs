@@ -25,6 +25,15 @@ async function GetCollection(collectionName) {
 	}
 }
 
+async function CreateDocument(collectionName, object) {
+	try {
+		return await addDoc(collection(db, collectionName), object);
+	} catch (err) {
+		console.error("Error writing to database:", err);
+		return err;
+	}
+}
+
 async function GetDocument(collectionName, documentName) {
 	try {
 		return await getDoc(doc(db, collectionName, documentName));
@@ -67,4 +76,4 @@ async function GetFileURL(path, file) {
 	}
 }
 
-export { GetCollection, GetDocument, UpdateDocument };
+export { GetCollection, CreateDocument, GetDocument, UpdateDocument, UploadFile, DeleteFile, GetFileURL };
