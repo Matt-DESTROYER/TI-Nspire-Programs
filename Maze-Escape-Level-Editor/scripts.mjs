@@ -1,4 +1,4 @@
-import { GetCollection, CreateDocument, UpdateDocument } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.mjs";
+import { GetCollection, CreateDocument, GetDocument, UpdateDocument } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.mjs";
 
 const canvas = document.getElementById("screen");
 const ctx = canvas.getContext("2d", { alpha: false });
@@ -91,13 +91,9 @@ document.getElementById("tool").addEventListener("input", (e) => {
 
 const levelnameInput = document.getElementById("level-name"),
       errormessage = document.getElementById("error-message");
-const name = levelnameInput.value = (location.search.split("=")[1] || "");
-
-{
-	if (localStorage.getItem("data")) {
-		grid = localStorage.getItem("data").split(",").map((row) => row.split(""));
-		localStorage.removeItem("data");
-	}
+const levelId  (location.search.split("=")[1] || null);
+if (levelId) {
+	grid = (await GetDocument("Levels", levelId)).data().levelData.split(",").map((row) => row.split(""));
 }
 
 document.getElementById("generate").addEventListener("click", async () => {
@@ -144,7 +140,7 @@ document.getElementById("generate").addEventListener("click", async () => {
 		let updateLevel = false, id;
 		(await GetCollection("Levels")).forEach((level) => {
 			const data = level.data();
-			if (data.levelName === name ? name : levelnameInput.value.trim() &&
+			if ((levelId ? level.id === levelId : data.levelName === (name ? name : levelnameInput.value.trim())) &&
 			    data.author === atob(localStorage.getItem("username"))) {
 				updateLevel = true;
 				id = level.id;
