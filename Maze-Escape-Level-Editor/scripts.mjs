@@ -92,7 +92,7 @@ document.getElementById("tool").addEventListener("input", (e) => {
 const levelnameInput = document.getElementById("level-name"),
       errormessage = document.getElementById("error-message");
 
-const loggedIn = (function () {
+const loggedIn = await (async function () {
 	let _loggedIn = false;
 	(await GetCollection("Accounts")).forEach((account) => {
 		const data = account.data();
@@ -102,7 +102,7 @@ const loggedIn = (function () {
 		}
 	});
 	return _loggedIn;
-});
+})();
 
 const levelId = location.search.split("=")[1] || null;
 let level = null;
