@@ -1,4 +1,4 @@
-import { GetCollection, GetDocument } from "../Database.mjs";
+import { GetCollection, GetDocument } from ".../Database.mjs";
 
 let loggedIn = false;
 (async function() {
