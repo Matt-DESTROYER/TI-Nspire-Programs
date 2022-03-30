@@ -95,7 +95,7 @@ const levelId = location.search.split("=")[1] || null;
 if (levelId) {
 	const level = (await GetDocument("Levels", levelId)).data();
 	console.log(level, level.levelData);
-	grid = level.levelData.split(",").map((row) => row.split(""));
+	grid = level.levelData.map((row) => row.split(""));
 }
 
 document.getElementById("generate").addEventListener("click", async () => {
