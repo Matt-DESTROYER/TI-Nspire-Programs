@@ -28,6 +28,7 @@ for (const level of levels) {
 	if (loggedIn) {
 		const editButton = document.createElement("button");
 		editButton.textContent = "Edit";
+		editButton.classList.add("right-align");
 		editButton.classList.add("edit-button");
 		editButton.addEventListener("click", () => {
 			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/?id=" + level.id;
