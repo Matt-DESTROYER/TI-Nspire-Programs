@@ -91,10 +91,11 @@ document.getElementById("tool").addEventListener("input", (e) => {
 
 const levelnameInput = document.getElementById("level-name"),
       errormessage = document.getElementById("error-message");
+let name = null;
 
 {
 	if (localStorage.getItem("name")) {
-		levelnameInput.value = localStorage.getItem("name");
+		levelnameInput.value = name =  localStorage.getItem("name");
 		localStorage.removeItem("name");
 	}
 	if (localStorage.getItem("data")) {
@@ -147,7 +148,7 @@ document.getElementById("generate").addEventListener("click", async () => {
 		let updateLevel = false, id;
 		(await GetCollection("Levels")).forEach((level) => {
 			const data = level.data();
-			if (data.levelName === levelnameInput.value.trim() &&
+			if (data.levelName === name ? name : levelnameInput.value.trim() &&
 			    data.author === atob(localStorage.getItem("username"))) {
 				updateLevel = true;
 				id = level.id;
@@ -155,6 +156,7 @@ document.getElementById("generate").addEventListener("click", async () => {
 		});
 		if (updateLevel) {
 			await UpdateDocument("Levels", id, {
+				"levelName": levelnameInput.value,
 				"date": Date.now(),
 				"levelData": grid.map((row) => row.join(""))
 			});
