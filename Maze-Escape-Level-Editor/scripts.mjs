@@ -92,13 +92,14 @@ document.getElementById("tool").addEventListener("input", (e) => {
 const levelnameInput = document.getElementById("level-name"),
       errormessage = document.getElementById("error-message");
 const levelId = location.search.split("=")[1] || null;
+let level = null;
 if (levelId) {
-	const level = (await GetDocument("Levels", levelId)).data();
+	level = (await GetDocument("Levels", levelId)).data();
 	levelnameInput.value = level.levelName;
 	grid = level.levelData.map((row) => row.split(""));
 }
 
-document.getElementById("generate").addEventListener("click", async () => {
+document.getElementById("publish").addEventListener("click", async () => {
 	if (localStorage.getItem("username") === null ||
 	    localStorage.getItem("password") === null) {
 		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
@@ -139,22 +140,22 @@ document.getElementById("generate").addEventListener("click", async () => {
 		errormessage.textContent = "Error: A level name is required.";
 		errormessage.hidden = false;
 	} else {
-		let updateLevel = false, id;
-		(await GetCollection("Levels")).forEach((level) => {
-			const data = level.data();
-			if ((levelId ? level.id === levelId : data.levelName === (name ? name : levelnameInput.value.trim())) &&
-			    data.author === atob(localStorage.getItem("username"))) {
-				updateLevel = true;
-				id = level.id;
-			}
-		});
-		if (updateLevel) {
-			await UpdateDocument("Levels", id, {
+		if (level) {
+			await UpdateDocument("Levels", level.id, {
 				"levelName": levelnameInput.value,
 				"date": Date.now(),
 				"levelData": grid.map((row) => row.join(""))
 			});
 		} else {
+			let updateLevel = false, id;
+			(await GetCollection("Levels")).forEach((level) => {
+				const data = level.data();
+				if (levelId ? level.id === levelId : data.levelName === name ? name : levelnameInput.value.trim() &&
+					data.author === atob(localStorage.getItem("username"))) {
+					updateLevel = true;
+					id = level.id;
+				}
+			});
 			await CreateDocument("Levels", null, {
 				"levelName": levelnameInput.value,
 				"author": atob(localStorage.getItem("username")),
