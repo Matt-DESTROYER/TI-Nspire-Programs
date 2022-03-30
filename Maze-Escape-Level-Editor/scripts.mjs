@@ -108,6 +108,7 @@ const levelId = location.search.split("=")[1] || null;
 let level = null;
 if (levelId) {
 	level = (await GetDocument("Levels", levelId)).data();
+	level.id = levelId;
 	levelnameInput.value = level.levelName;
 	grid = level.levelData.map((row) => row.split(""));
 }
@@ -141,14 +142,11 @@ document.getElementById("publish").addEventListener("click", async () => {
 		errormessage.hidden = false;
 	} else {
 		if (level && btoa(level.author) === localStorage.getItem("username")) {
-			console.log(level);
 			await UpdateDocument("Levels", level.id, {
 				"levelName": levelnameInput.value,
 				"date": Date.now(),
 				"levelData": grid.map((row) => row.join(""))
 			});
-			const test = (await GetDocument("Levels", level.id));
-			console.log(test.data());
 		} else {
 			let id, updateLevel = false;
 			(await GetCollection("Levels")).forEach((level) => {
@@ -173,7 +171,7 @@ document.getElementById("publish").addEventListener("click", async () => {
 				});
 			}
 		}
-		//location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels/";
+		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels/";
 	}
 });
 
