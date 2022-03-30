@@ -91,6 +91,19 @@ document.getElementById("tool").addEventListener("input", (e) => {
 
 const levelnameInput = document.getElementById("level-name"),
       errormessage = document.getElementById("error-message");
+
+const loggedIn = (function () {
+	let _loggedIn = false;
+	(await GetCollection("Accounts")).forEach((account) => {
+		const data = account.data();
+		if (localStorage.getItem("username") === data.username &&
+		    localStorage.getItem("password") === data.password) {
+			_loggedIn = true;
+		}
+	});
+	return _loggedIn;
+});
+
 const levelId = location.search.split("=")[1] || null;
 let level = null;
 if (levelId) {
@@ -100,21 +113,8 @@ if (levelId) {
 }
 
 document.getElementById("publish").addEventListener("click", async () => {
-	if (localStorage.getItem("username") === null ||
-	    localStorage.getItem("password") === null) {
+	if (!loggedIn) {
 		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
-	} else {
-		let loggedIn = false;
-		(await GetCollection("Accounts")).forEach((account) => {
-			const data = account.data();
-			if (localStorage.getItem("username") === data.username &&
-			    localStorage.getItem("password") === data.password) {
-				loggedIn = true;
-			}
-		});
-		if (!loggedIn) {
-			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
-		}
 	}
 	let playerSpawns = 0, levelFinishes = 0;
 	for (let y = 0; y < grid.length; y++) {
@@ -140,28 +140,35 @@ document.getElementById("publish").addEventListener("click", async () => {
 		errormessage.textContent = "Error: A level name is required.";
 		errormessage.hidden = false;
 	} else {
-		if (level) {
+		if (level && btoa(level.author) === localStorage.get("username")) {
 			await UpdateDocument("Levels", level.id, {
 				"levelName": levelnameInput.value,
 				"date": Date.now(),
 				"levelData": grid.map((row) => row.join(""))
 			});
 		} else {
-			let updateLevel = false, id;
+			let id, updateLevel = false;
 			(await GetCollection("Levels")).forEach((level) => {
 				const data = level.data();
-				if (levelId ? level.id === levelId : data.levelName === name ? name : levelnameInput.value.trim() &&
-					data.author === atob(localStorage.getItem("username"))) {
+				if (data.levelName === levelnameInput.value.trim() &&
+				    btoa(data.author) === localStorage.getItem("username")) {
 					updateLevel = true;
 					id = level.id;
 				}
 			});
-			await CreateDocument("Levels", null, {
-				"levelName": levelnameInput.value,
-				"author": atob(localStorage.getItem("username")),
-				"date": Date.now(),
-				"levelData": grid.map((row) => row.join(""))
-			});
+			if (updateLevel) {
+				await UpdateDocument("Levels", level.id, {
+					"date": Date.now(),
+					"levelData": grid.map((row) => row.join(""))
+				});
+			} else {
+				await CreateDocument("Levels", {
+					"levelName": levelnameInput.value,
+					"author": atob(localStorage.getItem("username")),
+					"date": Date.now(),
+					"levelData": grid.map((row) => row.join(""))
+				});
+			}
 		}
 		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels/";
 	}
