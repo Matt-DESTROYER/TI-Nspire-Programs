@@ -141,6 +141,7 @@ document.getElementById("publish").addEventListener("click", async () => {
 		errormessage.hidden = false;
 	} else {
 		if (level && btoa(level.author) === localStorage.getItem("username")) {
+			console.log(level);
 			await UpdateDocument("Levels", level.id, {
 				"levelName": levelnameInput.value,
 				"date": Date.now(),
