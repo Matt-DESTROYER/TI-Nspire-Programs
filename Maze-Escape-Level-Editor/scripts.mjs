@@ -93,7 +93,8 @@ const levelnameInput = document.getElementById("level-name"),
       errormessage = document.getElementById("error-message");
 const levelId = location.search.split("=")[1] || null;
 if (levelId) {
-	grid = (await GetDocument("Levels", levelId)).data().levelData.split(",").map((row) => row.split(""));
+	const level = (await GetDocument("Levels", levelId)).data();
+	grid = level.levelData.split(",").map((row) => row.split(""));
 }
 
 document.getElementById("generate").addEventListener("click", async () => {
