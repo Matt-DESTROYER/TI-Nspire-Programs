@@ -61,13 +61,12 @@ async function renderProgram(program) {
 			    updateVote = false;
 			for (let i = 0; i < votes.length; i++) {
 				const vote = votes[i].split(",");
-				if (vote[0] === program.title && vote[1] === program.author) {
-					if (vote[2] == 1) {
+				if (vote[0] === program.id) {
+					if (vote[1] == 1) {
 						updateVote = true;
 						break;
 					}
-					vote[2] = 1;
-					votes[i] = vote.join(",");
+					votes[i] = vote[0] + "," + 1;
 					await UpdateDocument("Accounts", id, {
 						"votes": votes
 					});
@@ -101,13 +100,12 @@ async function renderProgram(program) {
 			    updateVote = false;
 			for (let i = 0; i < votes.length; i++) {
 				const vote = votes[i].split(",");
-				if (vote[0] === program.title && vote[1] === program.author) {
-					if (vote[2] == -1) {
+				if (vote[0] === program.id) {
+					if (vote[1] == -1) {
 						updateVote = true;
 						break;
 					}
-					vote[2] = -1;
-					votes[i] = vote.join(",");
+					votes[i] = vote[0] + "," + "-1";
 					await UpdateDocument("Accounts", id, {
 						"votes": votes
 					});
