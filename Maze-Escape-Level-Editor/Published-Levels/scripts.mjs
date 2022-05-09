@@ -11,11 +11,20 @@ let loggedIn = false;
 	});
 })();
 
+function _(id, levelData) {
+	await UpdateDocument("Levels", id, {
+		"levelData": JSON.stringify(levelData.split(",").map((row) => row.split("")))
+	});
+}
+
 const levelContainer = document.getElementById("levels");
 let levels = [];
 (await GetCollection("Levels")).forEach((level) => {
 	const data = level.data();
 	data.id = level.id;
+	if (typeof data.levelData !== "string") {
+		_(data.id, data.levelData);
+	}
 	levels.push(data);
 });
 levels.sort((a, b) => a.date < b.date ? 1 : -1);
