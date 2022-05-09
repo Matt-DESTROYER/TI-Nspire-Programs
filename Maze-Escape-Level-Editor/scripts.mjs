@@ -110,7 +110,7 @@ if (levelId) {
 	level = (await GetDocument("Levels", levelId)).data();
 	level.id = levelId;
 	levelnameInput.value = level.levelName;
-	grid = level.levelData.map((row) => row.split(""));
+	grid = JSON.parse(level.levelData);
 }
 
 document.getElementById("publish").addEventListener("click", async () => {
@@ -145,7 +145,7 @@ document.getElementById("publish").addEventListener("click", async () => {
 			await UpdateDocument("Levels", level.id, {
 				"levelName": levelnameInput.value,
 				"date": Date.now(),
-				"levelData": grid.map((row) => row.join(""))
+				"levelData": JSON.stringify(grid)
 			});
 		} else {
 			let id, updateLevel = false;
@@ -160,14 +160,14 @@ document.getElementById("publish").addEventListener("click", async () => {
 			if (updateLevel) {
 				await UpdateDocument("Levels", id, {
 					"date": Date.now(),
-					"levelData": grid.map((row) => row.join(""))
+					"levelData": JSON.stringify(grid)
 				});
 			} else {
 				await CreateDocument("Levels", {
 					"levelName": levelnameInput.value,
 					"author": atob(localStorage.getItem("username")),
 					"date": Date.now(),
-					"levelData": grid.map((row) => row.join(""))
+					"levelData": JSON.stringify(grid)
 				});
 			}
 		}
