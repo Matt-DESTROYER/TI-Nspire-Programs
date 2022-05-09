@@ -16,11 +16,7 @@ let levels = [];
 (await GetCollection("Levels")).forEach((level) => {
 	const data = level.data();
 	data.id = level.id;
-	if (typeof data.levelData !== "string") {
-		UpdateDocument("Levels", data.id, {
-			"levelData": JSON.stringify(data.levelData.map((row) => row.split("")))
-		});
-	}
+	data.levelData = JSON.parse(data.levelData);
 	levels.push(data);
 });
 levels.sort((a, b) => a.date < b.date ? 1 : -1);
