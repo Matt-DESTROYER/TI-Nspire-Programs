@@ -1,4 +1,4 @@
-import { GetCollection, UpdateDocument } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.mjs";
+import { GetCollection } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.mjs";
 
 let loggedIn = false;
 (async function() {
