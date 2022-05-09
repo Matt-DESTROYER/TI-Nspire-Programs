@@ -18,7 +18,7 @@ let levels = [];
 	data.id = level.id;
 	if (typeof data.levelData !== "string") {
 		UpdateDocument("Levels", data.id, {
-			"levelData": JSON.stringify(data.levelData.split(",").map((row) => row.split("")))
+			"levelData": JSON.stringify(data.levelData.map((row) => row.split("")))
 		});
 	}
 	levels.push(data);
