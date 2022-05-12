@@ -1,11 +1,11 @@
 import { GetCollection, CreateDocument, UpdateDocument, UploadFile, DeleteFile } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.mjs";
 
 const title = document.getElementById("title"),
-      version = document.getElementById("version"),
-      description = document.getElementById("description"),
-      file = document.getElementById("file"),
-      screenshots = document.getElementById("screenshots"),
-      screenshotInputs = [];
+	version = document.getElementById("version"),
+	description = document.getElementById("description"),
+	file = document.getElementById("file"),
+	screenshots = document.getElementById("screenshots"),
+	screenshotInputs = [];
 
 {
 	if (localStorage.getItem("title")) {
@@ -95,7 +95,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 		});
 		let screenshotFiles = [];
 		if (screenshotInputs.length > 0) {
-			screenshotFiles = screenshotInputs.filter((input) => input.files && input.files[0]).map((input) => input.files[0]);
+			screenshotFiles = screenshotInputs.filter((input) => "files" in input && input.files[0]).map((input) => input.files[0]);
 		}
 		await UploadFile(file.files[0], atob(localStorage.getItem("username")) + "/" + title.value);
 		if (alreadyExists) {
