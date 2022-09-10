@@ -12,7 +12,7 @@ const Redirect = function (url) {
 
 const Account = await (async function () {
     if (window.localStorage.getItem("id")) {
-        const account = await GetDocument("Accounts", window.localStorage.getItem("id"));
+        const account = (await GetDocument("Accounts", window.localStorage.getItem("id"))).data();
         if (window.localStorage.getItem("username") !== account.username || window.localStorage.getItem("password") !== account.password) {
             return null;
         }
