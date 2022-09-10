@@ -1,4 +1,7 @@
 import { GetCollection } from "../Modules/Database.js";
+import { nav } from "../Modules/Tools.js";
+
+nav("Create Account", "Create-Account", "Login", "Login");
 
 const usernameInput = document.getElementById("username"),
 	passwordInput = document.getElementById("password"),
