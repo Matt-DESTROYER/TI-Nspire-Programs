@@ -26,7 +26,7 @@ const Account = await (async function () {
 
 const page = function (name, path) {
     const anchor = document.createElement("a");
-    anchor.setAttribute("href", "https://mattdestroyer.repl.co/" + (path || ""));
+    anchor.setAttribute("href", "https://matt-destroyer.github.io/TI-Nspire-Programs/" + (path || ""));
     const button = document.createElement("button");
     button.textContent = (name || "Home");
     anchor.append(button);
