@@ -1,11 +1,11 @@
 import { GetCollection, GetDocument, UpdateDocument, GetFileURL } from "./Modules/Database.mjs";
 
 let loggedIn = false, id;
-(async function() {
+(async function () {
 	(await GetCollection("Accounts")).forEach((account) => {
 		const data = account.data();
 		if (localStorage.getItem("username") === data.username &&
-		    localStorage.getItem("password") === data.password) {
+			localStorage.getItem("password") === data.password) {
 			loggedIn = true;
 			id = account.id;
 		}
@@ -58,7 +58,7 @@ async function renderProgram(program) {
 		upvoteButton.addEventListener("click", async () => {
 			const votes = (await GetDocument("Accounts", id)).data().votes;
 			let _votes = (await GetDocument("Programs", program.id)).data().votes,
-			    updateVote = false;
+				updateVote = false;
 			for (let i = 0; i < votes.length; i++) {
 				const vote = votes[i].split(",");
 				if (vote[0] === program.id) {
@@ -97,7 +97,7 @@ async function renderProgram(program) {
 		downvoteButton.addEventListener("click", async () => {
 			const votes = (await GetDocument("Accounts", id)).data().votes;
 			let _votes = (await GetDocument("Programs", program.id)).data().votes,
-			    updateVote = false;
+				updateVote = false;
 			for (let i = 0; i < votes.length; i++) {
 				const vote = votes[i].split(",");
 				if (vote[0] === program.id) {

@@ -1,8 +1,8 @@
 import { GetCollection } from "../Modules/Database.js";
 
 const usernameInput = document.getElementById("username"),
-      passwordInput = document.getElementById("password"),
-      errormessage = document.getElementById("error-message");
+	passwordInput = document.getElementById("password"),
+	errormessage = document.getElementById("error-message");
 
 document.getElementById("login").addEventListener("click", async () => {
 	errormessage.hidden = true;
@@ -20,7 +20,7 @@ document.getElementById("login").addEventListener("click", async () => {
 		errormessage.hidden = false;
 	} else {
 		let accountData = null;
-		(await GetCollection("Accounts")).forEach(function(account) {
+		(await GetCollection("Accounts")).forEach(function (account) {
 			const data = account.data();
 			data.id = account.id;
 			if (usernameInput.value.trim() === atob(data.username) && passwordInput.value.trim() === atob(account.password)) {

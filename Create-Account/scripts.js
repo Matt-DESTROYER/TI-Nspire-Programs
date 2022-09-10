@@ -1,11 +1,11 @@
 import { GetCollection, CreateDocument } from "../Modules/Database.js";
 
 const firstnameInput = document.getElementById("firstname"),
-      lastnameInput = document.getElementById("lastname"),
-      usernameInput = document.getElementById("username"),
-      passwordInput = document.getElementById("password"),
-      confirmpasswordInput = document.getElementById("confirm-password"),
-      errormessage = document.getElementById("error-message");
+	lastnameInput = document.getElementById("lastname"),
+	usernameInput = document.getElementById("username"),
+	passwordInput = document.getElementById("password"),
+	confirmpasswordInput = document.getElementById("confirm-password"),
+	errormessage = document.getElementById("error-message");
 
 document.getElementById("create-account").addEventListener("click", async () => {
 	errormessage.hidden = true;

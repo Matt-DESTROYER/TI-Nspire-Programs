@@ -44,14 +44,14 @@ document.getElementById("add-screenshot").addEventListener("click", () => {
 const errormessage = document.getElementById("error-message");
 document.getElementById("upload").addEventListener("click", async () => {
 	if (!localStorage.getItem("username") ||
-	    !localStorage.getItem("password")) {
+		!localStorage.getItem("password")) {
 		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
 	} else {
 		let loggedIn = false;
 		(await GetCollection("Accounts")).forEach((account) => {
 			const data = account.data();
 			if (localStorage.getItem("username") === data.username &&
-			    localStorage.getItem("password") === data.password) {
+				localStorage.getItem("password") === data.password) {
 				loggedIn = true;
 			}
 		});

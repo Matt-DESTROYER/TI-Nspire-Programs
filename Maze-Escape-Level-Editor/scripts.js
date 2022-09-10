@@ -90,14 +90,14 @@ document.getElementById("tool").addEventListener("input", (e) => {
 });
 
 const levelnameInput = document.getElementById("level-name"),
-      errormessage = document.getElementById("error-message");
+	errormessage = document.getElementById("error-message");
 
 const loggedIn = await (async function () {
 	let _loggedIn = false;
 	(await GetCollection("Accounts")).forEach((account) => {
 		const data = account.data();
 		if (localStorage.getItem("username") === data.username &&
-		    localStorage.getItem("password") === data.password) {
+			localStorage.getItem("password") === data.password) {
 			_loggedIn = true;
 		}
 	});
@@ -152,7 +152,7 @@ document.getElementById("publish").addEventListener("click", async () => {
 			(await GetCollection("Levels")).forEach((level) => {
 				const data = level.data();
 				if (data.levelName === levelnameInput.value.trim() &&
-				    btoa(data.author) === localStorage.getItem("username")) {
+					btoa(data.author) === localStorage.getItem("username")) {
 					updateLevel = true;
 					id = level.id;
 				}

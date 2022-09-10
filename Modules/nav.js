@@ -1,6 +1,6 @@
 import { GetDocument } from "./Database.js";
 
-const page = function(name, path) {
+const page = function (name, path) {
 	const anchor = document.createElement("a");
 	anchor.setAttribute("href", "https://mattdestroyer.repl.co/" + (path || ""));
 	const button = document.createElement("button");
@@ -9,7 +9,7 @@ const page = function(name, path) {
 	return anchor;
 };
 
-const nav = function() {
+const nav = function () {
 	const nav = document.createElement("nav");
 	nav.append(page());
 	nav.append(page("Login", "Login"));

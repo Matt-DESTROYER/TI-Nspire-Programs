@@ -1,11 +1,11 @@
 import { GetCollection } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Modules/Database.js";
 
 let loggedIn = false;
-(async function() {
+(async function () {
 	(await GetCollection("Accounts")).forEach((account) => {
 		const data = account.data();
 		if (localStorage.getItem("username") === data.username &&
-		    localStorage.getItem("password") === data.password) {
+			localStorage.getItem("password") === data.password) {
 			loggedIn = true;
 		}
 	});
