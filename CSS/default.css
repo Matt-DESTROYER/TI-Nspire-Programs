@@ -2,11 +2,12 @@ body {
 	background-color: gray;
 }
 
-nav h1 {
+nav {
 	background-color: black;
 	color: whitesmoke;
 	border-radius: 8px;
 	padding: 10px;
+	font-family: monospace;
 }
 
 button {
