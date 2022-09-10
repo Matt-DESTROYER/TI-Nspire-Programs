@@ -7,32 +7,32 @@ const usernameInput = document.getElementById("username"),
 	passwordInput = document.getElementById("password"),
 	errormessage = document.getElementById("error-message");
 
+function err(msg) {
+	errormessage.hidden = false;
+	errormessage.textContent = "Error: " + msg;
+}
+
 document.getElementById("login").addEventListener("click", async () => {
 	errormessage.hidden = true;
 	if (usernameInput.value.trim() === "") {
-		errormessage.innerHTML = "Error: No username entered.";
-		errormessage.hidden = false;
+		err("No username entered.");
 	} else if (usernameInput.value.trim().length > 50) {
-		errormessage.innerHTML = "Error: No user was found with this username.";
-		errormessage.hidden = false;
+		err("No user was found with this username.");
 	} else if (passwordInput.value.trim() === "") {
-		errormessage.innerHTML = "Error: No password entered.";
-		errormessage.hidden = false;
+		err("No password entered.");
 	} else if (passwordInput.value.trim().length < 8) {
-		errormessage.innerHTML = "Error: Incorrect password.";
-		errormessage.hidden = false;
+		err("Incorrect password.");
 	} else {
-		let accountData = null;
-		(await GetCollection("Accounts")).forEach(function (account) {
-			const data = account.data();
-			data.id = account.id;
-			if (usernameInput.value.trim() === atob(data.username) && passwordInput.value.trim() === atob(account.password)) {
-				accountData = data;
+		let account = null;
+		(await GetCollection("Accounts")).forEach(function (acc) {
+			const data = acc.data();
+			data.id = acc.id;
+			if (btoa(usernameInput.value.trim()) === data.username && btoa(passwordInput.value.trim()) === account.password) {
+				account = data;
 			}
 		});
-		if (!accountData) {
-			errormessage.innerHTML = "Error: Login failed.";
-			errormessage.hidden = false;
+		if (!account) {
+			err("Login failed.");
 		} else {
 			window.localStorage.setItem("id", account.id);
 			window.localStorage.setItem("username", account.username);
