@@ -193,7 +193,8 @@ document.getElementById("publish").addEventListener("click", async function () {
 					"levelName": levelnameInput.value,
 					"author": atob(localStorage.getItem("username")),
 					"date": Date.now(),
-					"levelData": JSON.stringify(grid)
+					"levelData": JSON.stringify(grid),
+					"in-game": false
 				});
 			}
 		}

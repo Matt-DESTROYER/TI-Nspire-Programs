@@ -1,5 +1,5 @@
 import { GetCollection } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Modules/Database.js";
-import { Account, nav } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Modules/Tools.js";
+import { Redirect, Account, nav } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Modules/Tools.js";
 
 if (Account) {
 	nav("Level Editor", "Maze-Escape-Level-Editor", "Logout", "Logout");
@@ -7,40 +7,40 @@ if (Account) {
 	nav("Login", "Login", "Create Account", "Create-Account");
 }
 
-const loggedIn = !!Account;
-
 const levelContainer = document.getElementById("levels");
 let levels = [];
-(await GetCollection("Levels")).forEach((level) => {
+(await GetCollection("Levels")).forEach(function (level) {
 	const data = level.data();
 	data.id = level.id;
 	data.levelData = JSON.parse(data.levelData);
 	levels.push(data);
 });
-levels.sort((a, b) => a.date < b.date ? 1 : -1);
+levels.sort(function (a, b) {
+	return a.date < b.date ? 1 : -1;
+});
 for (const level of levels) {
-	levelContainer.appendChild(document.createElement("br"));
-	levelContainer.appendChild(document.createElement("br"));
+	levelContainer.append(document.createElement("br"));
+	levelContainer.append(document.createElement("br"));
 	const div = document.createElement("div");
 	div.classList.add("program-container");
 	const heading = document.createElement("div");
-	if (loggedIn) {
+	if (Account && atob(level.author) === Account.username) {
 		const editButton = document.createElement("button");
 		editButton.textContent = "Edit";
 		editButton.classList.add("right-align");
 		editButton.classList.add("edit-button");
-		editButton.addEventListener("click", () => {
-			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/?id=" + level.id;
+		editButton.addEventListener("click", function () {
+			Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/?id=" + level.id);
 		});
-		heading.appendChild(editButton);
+		heading.append(editButton);
 	}
 	const header = document.createElement("h2");
 	header.textContent = level.levelName;
-	heading.appendChild(header);
-	div.appendChild(heading);
+	heading.append(header);
+	div.append(heading);
 	const author = document.createElement("p");
 	author.textContent = "Created by: " + level.author;
-	div.appendChild(author);
+	div.append(author);
 	const levelDisplay = document.createElement("canvas");
 	levelDisplay.width = level.levelData[0].length * 10;
 	levelDisplay.height = level.levelData.length * 10;
@@ -61,6 +61,6 @@ for (const level of levels) {
 			}
 		}
 	}
-	div.appendChild(levelDisplay);
-	levelContainer.appendChild(div);
+	div.append(levelDisplay);
+	levelContainer.append(div);
 }
