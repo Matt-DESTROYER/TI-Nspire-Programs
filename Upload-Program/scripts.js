@@ -8,17 +8,17 @@ const title = document.getElementById("title"),
 	screenshotInputs = [];
 
 {
-	if (localStorage.getItem("title")) {
-		title.value = localStorage.getItem("title");
-		localStorage.removeItem("title");
+	if (window.localStorage.getItem("title")) {
+		title.value = window.localStorage.getItem("title");
+		window.localStorage.removeItem("title");
 	}
-	if (localStorage.getItem("version")) {
-		version.value = localStorage.getItem("version");
-		localStorage.removeItem("version");
+	if (window.localStorage.getItem("version")) {
+		version.value = window.localStorage.getItem("version");
+		window.localStorage.removeItem("version");
 	}
-	if (localStorage.getItem("description")) {
-		description.value = localStorage.getItem("description");
-		localStorage.removeItem("description");
+	if (window.localStorage.getItem("description")) {
+		description.value = window.localStorage.getItem("description");
+		window.localStorage.removeItem("description");
 	}
 }
 
