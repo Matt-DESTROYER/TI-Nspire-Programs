@@ -1,5 +1,11 @@
 import { GetCollection, CreateDocument, UpdateDocument, UploadFile, DeleteFile } from "../Modules/Database.js";
-import { Redirect, Account } from "../Modules/Tools.js";
+import { Redirect, Account, nav } from "../Modules/Tools.js";
+
+if (Account) {
+	nav("Upload Program", "Upload-Program", "Maze Escape Level Editor", "Maze-Escape-Level-Editor", "Logout", "Logout");
+} else {
+	nav("Create Account", "Create-Account", "Login", "Login");
+}
 
 if (!Account) {
 	Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
