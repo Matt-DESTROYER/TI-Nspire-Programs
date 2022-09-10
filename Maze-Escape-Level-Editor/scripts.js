@@ -1,4 +1,4 @@
-import { GetCollection, CreateDocument, GetDocument, UpdateDocument } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.mjs";
+import { GetCollection, CreateDocument, GetDocument, UpdateDocument } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.js";
 
 const canvas = document.getElementById("screen");
 const ctx = canvas.getContext("2d", { alpha: false });
