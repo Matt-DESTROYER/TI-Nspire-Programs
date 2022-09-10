@@ -1,4 +1,9 @@
 import { GetCollection, CreateDocument, UpdateDocument, UploadFile, DeleteFile } from "../Modules/Database.js";
+import { Redirect, Account } from "../Modules/Tools.js";
+
+if (!Account) {
+	Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
+}
 
 const title = document.getElementById("title"),
 	version = document.getElementById("version"),
