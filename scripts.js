@@ -64,7 +64,7 @@ async function renderProgram(program) {
 			let downIdx = prog.downvoters.indexOf(acc.username);
 			if (downIdx !== -1) {
 				prog.downvoters.splice(downIdx, 1);
-				acc["prog-votes-dir"][acc["prog-votes.id"].indexOf(prog.id)] = 1;
+				acc["prog-votes-dir"][acc["prog-votes-id"].indexOf(prog.id)] = 1;
 			}
 			prog.upvoters.push(acc.username);
 			if (!acc["prog-votes-id"].includes(prog.id)) {
@@ -95,7 +95,7 @@ async function renderProgram(program) {
 			let upIdx = prog.upvoters.indexOf(acc.username);
 			if (upIdx !== -1) {
 				prog.upvoters.splice(upIdx, 1);
-				acc["prog-votes-dir"][acc["prog-votes.id"].indexOf(prog.id)] = -1;
+				acc["prog-votes-dir"][acc["prog-votes-id"].indexOf(prog.id)] = -1;
 			}
 			prog.downvoters.push(acc.username);
 			if (!acc["prog-votes-id"].includes(prog.id)) {
