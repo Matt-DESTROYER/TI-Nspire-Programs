@@ -1,5 +1,5 @@
 import { GetCollection, CreateDocument, GetDocument, UpdateDocument } from "../Modules/Database.js";
-import { Account, nav } from "../Modules/Tools.js";
+import { Redirect, Account, nav } from "../Modules/Tools.js";
 
 if (Account) {
 	nav("Published Levels", "Maze-Escape-Level-Editor/Published-Levels", "Logout", "Logout");
@@ -192,7 +192,7 @@ document.getElementById("publish").addEventListener("click", async () => {
 				});
 			}
 		}
-		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels/";
+		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels/");
 	}
 });
 
@@ -201,20 +201,20 @@ function render() {
 	ctx.fillStyle = "#ffffff";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	ctx.beginPath();
-	for (let y = 0; y <= 24; y++) {
+	for (let y = 0; y <= height.value; y++) {
 		ctx.moveTo(0, y * 10);
 		ctx.lineTo(canvas.width, y * 10);
 	}
-	for (let x = 0; x <= 32; x++) {
+	for (let x = 0; x <= width.value; x++) {
 		ctx.moveTo(x * 10, 0);
 		ctx.lineTo(x * 10, canvas.height);
 	}
 	ctx.stroke();
 	ctx.closePath();
-	for (let y = 0; y < canvas.height / 10; y++) {
-		for (let x = 0; x < canvas.width / 10; x++) {
+	for (let y = 0; y < height.value; y++) {
+		for (let x = 0; x < width.value; x++) {
 			if (grid[y][x] === "#") {
-				ctx.fillStyle = "#000000";
+				ctx.fillStyle = "#000";
 				ctx.fillRect(x * 10, y * 10, 10, 10);
 			} else if (grid[y][x] === "@") {
 				ctx.fillStyle = "#0000ff";
