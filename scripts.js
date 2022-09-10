@@ -67,11 +67,15 @@ async function renderProgram(program) {
 				acc["prog-votes-dir"][acc["prog-votes.id"].indexOf(prog.id)] = 1;
 			}
 			prog.upvoters.push(acc.username);
+			if (!acc["prog-votes-id"].includes(prog.id)) {
+				acc["prog-votes-id"].push(prog.id);
+			}
 			await UpdateDocument("Programs", prog.id, {
 				"upvoters": prog.upvoters,
 				"downvoters": prog.downvoters
 			});
 			await UpdateDocument("Accounts", acc.id, {
+				"prog-votes-id": acc["prog-votes-id"],
 				"prog-votes-dir": acc["prog-votes-dir"]
 			});
 			voteCounter.textContent = prog.upvoters.length - prog.downvoters.length;
@@ -93,11 +97,15 @@ async function renderProgram(program) {
 				acc["prog-votes-dir"][acc["prog-votes.id"].indexOf(prog.id)] = -1;
 			}
 			prog.downvoters.push(acc.username);
+			if (!acc["prog-votes-id"].includes(prog.id)) {
+				acc["prog-votes-id"].push(prog.id);
+			}
 			await UpdateDocument("Programs", prog.id, {
 				"upvoters": prog.upvoters,
 				"downvoters": prog.downvoters
 			});
 			await UpdateDocument("Accounts", acc.id, {
+				"prog-votes-id": acc["prog-votes-id"],
 				"prog-votes-dir": acc["prog-votes-dir"]
 			});
 			voteCounter.textContent = prog.upvoters.length - prog.downvoters.length;
