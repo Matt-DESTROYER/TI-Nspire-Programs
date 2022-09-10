@@ -15,7 +15,7 @@ sortSelect.addEventListener("input", renderPrograms);
 const programsContainer = document.getElementById("programs"), programs = [];
 (async function () {
 	const _programs = (await GetCollection("Programs"));
-	_programs.forEach(async (program) => {
+	_programs.forEach(async function (program) {
 		const data = program.data();
 		data.id = program.id;
 		data.file = await GetFileURL(data.author + "/" + data.title, data.file);
@@ -39,7 +39,7 @@ async function renderProgram(program) {
 		const editButton = document.createElement("button");
 		editButton.textContent = "Edit";
 		editButton.classList.add("right-align");
-		editButton.addEventListener("click", () => {
+		editButton.addEventListener("click", function () {
 			localStorage.setItem("title", program.title);
 			localStorage.setItem("version", program.version);
 			localStorage.setItem("description", program.description);
@@ -51,82 +51,56 @@ async function renderProgram(program) {
 		heading.append(document.createElement("br"));
 		const voteCounter = document.createElement("span");
 		voteCounter.classList.add("right-align");
-		voteCounter.textContent = program.votes;
+		voteCounter.textContent = program.upvoters.length - program.downvoters.length;
 		const upvoteButton = document.createElement("button");
-		upvoteButton.addEventListener("click", async () => {
-			const votes = (await GetDocument("Accounts", id)).data().votes;
-			let _votes = (await GetDocument("Programs", program.id)).data().votes,
-				updateVote = false;
-			for (let i = 0; i < votes.length; i++) {
-				const vote = votes[i].split(",");
-				if (vote[0] === program.id) {
-					if (vote[1] == 1) {
-						updateVote = true;
-						break;
-					}
-					votes[i] = vote[0] + "," + 1;
-					await UpdateDocument("Accounts", id, {
-						"votes": votes
-					});
-					_votes += 2;
-					await UpdateDocument("Programs", program.id, {
-						"votes": _votes
-					});
-					updateVote = true;
-					break;
-				}
+		upvoteButton.addEventListener("click", async function () {
+			const prog = (await GetDocument("Programs", program.id)).data();
+			prog.id = program.id;
+			if (prog.upvoters.includes(acc.username)) {
+				return;
 			}
-			if (!updateVote) {
-				votes.push(program.title + "," + program.author + ",1");
-				await UpdateDocument("Accounts", id, {
-					"votes": votes
-				});
-				_votes++;
-				await UpdateDocument("Programs", program.id, {
-					"votes": _votes
-				});
+			const acc = (await GetDocument("Accounts", Account.id)).data();
+			acc.id = account.id;
+			let downIdx = prog.downvoters.indexOf(acc.username);
+			if (downIdx !== -1) {
+				prog.downvoters.splice(downIdx, 1);
+				acc["prog-votes-dir"][acc["prog-votes.id"].indexOf(prog.id)] = 1;
 			}
-			program.votes = _votes;
-			voteCounter.textContent = _votes;
+			prog.upvoters.push(acc.username);
+			await UpdateDocument("Programs", prog.id, {
+				"upvoters": prog.upvoters,
+				"downvoters": prog.downvoters
+			});
+			await UpdateDocument("Accounts", acc.id, {
+				"prog-votes-dir": acc["prog-votes-dir"]
+			});
+			voteCounter.textContent = prog.upvoters.length - prog.downvoters.length;
 		});
 		upvoteButton.classList.add("right-align");
 		upvoteButton.textContent = "Upvote";
 		const downvoteButton = document.createElement("button");
-		downvoteButton.addEventListener("click", async () => {
-			const votes = (await GetDocument("Accounts", id)).data().votes;
-			let _votes = (await GetDocument("Programs", program.id)).data().votes,
-				updateVote = false;
-			for (let i = 0; i < votes.length; i++) {
-				const vote = votes[i].split(",");
-				if (vote[0] === program.id) {
-					if (vote[1] == -1) {
-						updateVote = true;
-						break;
-					}
-					votes[i] = vote[0] + "," + "-1";
-					await UpdateDocument("Accounts", id, {
-						"votes": votes
-					});
-					_votes -= 2;
-					await UpdateDocument("Programs", program.id, {
-						"votes": _votes
-					});
-					updateVote = true;
-					break;
-				}
+		downvoteButton.addEventListener("click", async function () {
+			const prog = (await GetDocument("Programs", program.id)).data();
+			prog.id = program.id;
+			if (prog.upvoters.includes(acc.username)) {
+				return;
 			}
-			if (!updateVote) {
-				votes.push(program.title + "," + program.author + ",-1");
-				await UpdateDocument("Accounts", id, {
-					"votes": votes
-				});
-				_votes--;
-				await UpdateDocument("Programs", program.id, {
-					"votes": _votes
-				});
+			const acc = (await GetDocument("Accounts", Account.id)).data();
+			acc.id = account.id;
+			let upIdx = prog.upvoters.indexOf(acc.username);
+			if (upIdx !== -1) {
+				prog.upvoters.splice(upIdx, 1);
+				acc["prog-votes-dir"][acc["prog-votes.id"].indexOf(prog.id)] = -1;
 			}
-			program.votes = _votes;
-			voteCounter.textContent = _votes;
+			prog.downvoters.push(acc.username);
+			await UpdateDocument("Programs", prog.id, {
+				"upvoters": prog.upvoters,
+				"downvoters": prog.downvoters
+			});
+			await UpdateDocument("Accounts", acc.id, {
+				"prog-votes-dir": acc["prog-votes-dir"]
+			});
+			voteCounter.textContent = prog.upvoters.length - prog.downvoters.length;
 		});
 		downvoteButton.classList.add("right-align");
 		downvoteButton.textContent = "Downvote";
