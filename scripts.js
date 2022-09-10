@@ -51,6 +51,7 @@ async function renderProgram(program) {
 		heading.append(document.createElement("br"));
 		const voteCounter = document.createElement("span");
 		voteCounter.classList.add("right-align");
+		voteCounter.classList.add("vote-counter");
 		voteCounter.textContent = program.upvoters.length - program.downvoters.length;
 		const upvoteButton = document.createElement("button");
 		upvoteButton.addEventListener("click", async function () {

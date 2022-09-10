@@ -77,3 +77,9 @@ button:active {
 	border: solid red 2px;
 	padding: 5px;
 }
+
+.vote-counter {
+	border: solid darkslategray 2px;
+	padding: 5px;
+	background-color: whitesmoke;
+}
