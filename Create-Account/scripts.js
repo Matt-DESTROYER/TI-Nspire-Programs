@@ -1,4 +1,11 @@
 import { GetCollection, CreateDocument } from "../Modules/Database.js";
+import { Account, nav } from "../Modules/Tools.js";
+
+if (Account) {
+	nav("Upload Program", "Upload-Program", "Maze Escape Level Editor", "Maze-Escape-Level-Editor", "Logout", "Logout");
+} else {
+	nav("Create Account", "Create-Account", "Login", "Login");
+}
 
 const firstnameInput = document.getElementById("firstname"),
 	lastnameInput = document.getElementById("lastname"),
