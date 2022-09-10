@@ -69,6 +69,7 @@ async function renderProgram(program) {
 			prog.upvoters.push(acc.username);
 			if (!acc["prog-votes-id"].includes(prog.id)) {
 				acc["prog-votes-id"].push(prog.id);
+				acc["prog-votes-dir"].push(1);
 			}
 			await UpdateDocument("Programs", prog.id, {
 				"upvoters": prog.upvoters,
@@ -99,6 +100,7 @@ async function renderProgram(program) {
 			prog.downvoters.push(acc.username);
 			if (!acc["prog-votes-id"].includes(prog.id)) {
 				acc["prog-votes-id"].push(prog.id);
+				acc["prog-votes-dir"].push(-1);
 			}
 			await UpdateDocument("Programs", prog.id, {
 				"upvoters": prog.upvoters,
