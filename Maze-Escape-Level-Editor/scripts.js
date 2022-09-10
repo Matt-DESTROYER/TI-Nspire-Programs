@@ -23,19 +23,28 @@ let grid = [];
 
 width.addEventListener("input", function () {
 	widthDisplay.textContent = "(" + width.value + ")";
-	canvas.width = Number(width.value) * 10;
+	canvas.width = width.value * 10;
 	for (let i = 0; i < grid.length; i++) {
-		while (grid[i].length < Number(width.value)) {
+		while (grid[i].length > width.value) {
+			grid[i].pop();
+		}
+		while (grid[i].length < width.value) {
 			grid[i].push(" ");
 		}
 	}
 });
 height.addEventListener("input", function () {
 	heightDisplay.textContent = "(" + height.value + ")";
-	canvas.height = Number(height.value) * 10;
+	canvas.height = height.value * 10;
+	while (grid.length > height.value) {
+		grid.pop();
+	}
 	const row = [];
 	for (let i = 0; i < grid.length; i++) {
 		row.push(" ");
+	}
+	while (grid.length < height.value) {
+		grid.push(row.slice());
 	}
 });
 
