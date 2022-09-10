@@ -58,9 +58,9 @@ document.getElementById("create-account").addEventListener("click", async () => 
 				"password": btoa(passwordInput.value.trim()),
 				"votes": []
 			});
-			localStorage.setItem("username", btoa(usernameInput.value.trim()));
-			localStorage.setItem("password", btoa(passwordInput.value.trim()));
-			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
+			window.localStorage.setItem("username", btoa(usernameInput.value.trim()));
+			window.localStorage.setItem("password", btoa(passwordInput.value.trim()));
+			window.location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 		}
 	}
 });
