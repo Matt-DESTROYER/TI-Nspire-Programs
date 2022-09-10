@@ -2,7 +2,7 @@ import { GetCollection } from "https://Matt-DESTROYER.github.io/TI-Nspire-Progra
 import { Account, nav } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Modules/Tools.js";
 
 if (Account) {
-	nav("Published Levels", "Maze-Escape-Level-Editor/Published-Levels", "Logout", "Logout");
+	nav("Level Editor", "Maze-Escape-Level-Editor", "Logout", "Logout");
 } else {
 	nav("Login", "Login", "Create Account", "Create-Account");
 }
