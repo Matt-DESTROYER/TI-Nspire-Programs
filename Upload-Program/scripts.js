@@ -44,7 +44,7 @@ document.getElementById("add-screenshot").addEventListener("click", () => {
 	const deleteButton = document.createElement("button");
 	deleteButton.textContent = "Delete";
 	screenshots.append(deleteButton);
-	deleteButton.addEventListener("click", () => {
+	deleteButton.addEventListener("click", function () {
 		screenshots.removeChild(br);
 		screenshots.removeChild(screenshotInput);
 		screenshots.removeChild(deleteButton);
@@ -53,48 +53,44 @@ document.getElementById("add-screenshot").addEventListener("click", () => {
 });
 
 const errormessage = document.getElementById("error-message");
-document.getElementById("upload").addEventListener("click", async () => {
-	if (!window.localStorage.getItem("username") ||
-		!window.localStorage.getItem("password")) {
-		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
+
+function err(message) {
+	errormessage.textContent = "Error: " + message;
+	errormessage.hidden = false;
+}
+
+document.getElementById("upload").addEventListener("click", async function () {
+	if (!window.localStorage.getItem("username") || !window.localStorage.getItem("password")) {
+		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Login/");
 	} else {
 		let loggedIn = false;
-		(await GetCollection("Accounts")).forEach((account) => {
+		(await GetCollection("Accounts")).forEach(function (account) {
 			const data = account.data();
-			if (window.localStorage.getItem("username") === data.username &&
-				window.localStorage.getItem("password") === data.password) {
+			if (window.localStorage.getItem("username") === data.username && window.localStorage.getItem("password") === data.password) {
 				loggedIn = true;
 			}
 		});
 		if (!loggedIn) {
-			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
+			Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Login/");
 		}
 	}
 	errormessage.hidden = true;
 	if (title.value.trim() === "") {
-		errormessage.textContent = "Error: No title.";
-		errormessage.hidden = false;
-	} else if (/,/.test(title.value.trim())) {
-		errormessage.textContent = "Error: Title may not contain commas (\",\").";
-		errormessage.hidden = false;
+		err("No title.");
+	} else if (title.value.trim().includes(",")) {
+		err("Title may not contain commas (\",\").");
 	} else if (title.value.length > 100) {
-		errormessage.textContent = "Error: Title too long.";
-		errormessage.hidden = false;
+		err("Title too long.");
 	} else if (version.value.trim() === "") {
-		errormessage.textContent = "Error: No version.";
-		errormessage.hidden = false;
+		err("No version.");
 	} else if (version.value.length > 100) {
-		errormessage.textContent = "Error: Version too long.";
-		errormessage.hidden = false;
+		err("Version too long.");
 	} else if (description.value.trim() === "") {
-		errormessage.textContent = "Error: No description.";
-		errormessage.hidden = false;
-	} else if (description.length > 10000) {
-		errormessage.textContent = "Error: Description too long.";
-		errormessage.hidden = false;
+		err("No description.");
+	} else if (description.length > 5000) {
+		err("Description too long.");
 	} else if (!file.files || !file.files[0]) {
-		errormessage.textContent = "Error: No file uploaded.";
-		errormessage.hidden = false;
+		err("No file uploaded.");
 	} else {
 		let alreadyExists = false, data;
 		(await GetCollection("Programs")).forEach((program) => {
@@ -139,6 +135,6 @@ document.getElementById("upload").addEventListener("click", async () => {
 				await UploadFile(image, atob(window.localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
 			}
 		}
-		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
+		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/");
 	}
 });
