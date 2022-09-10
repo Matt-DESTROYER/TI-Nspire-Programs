@@ -13,11 +13,11 @@ const ctx = canvas.getContext("2d", { alpha: false });
 canvas.width = 320;
 canvas.height = 240;
 
-const width = document.getElementsById("width");
-const height = document.getElementsById("height");
+const width = document.getElementById("width");
+const height = document.getElementById("height");
 
-const widthDisplay = document.getElementsById("width-display");
-const heightDisplay = document.getElementsById("height-display");
+const widthDisplay = document.getElementById("width-display");
+const heightDisplay = document.getElementById("height-display");
 
 let grid = [];
 
