@@ -44,11 +44,11 @@ const nav = function () {
     heading.textContent = "TI-Nspire Programs";
     nav.append(heading);
     nav.append(page());
-    nav.append(page("Login", "Login"));
+    for (let i = 0; i < arguments.length; i += 2) {
+        nav.append(page(arguments[i], arguments[i + 1]));
+    }
     document.body.prepend(nav);
     return nav;
 };
-
-nav();
 
 export { Redirect, Account, page, nav };
