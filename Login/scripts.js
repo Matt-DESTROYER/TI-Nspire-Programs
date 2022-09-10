@@ -27,8 +27,7 @@ document.getElementById("login").addEventListener("click", async () => {
 		(await GetCollection("Accounts")).forEach(function (acc) {
 			const data = acc.data();
 			data.id = acc.id;
-			console.log(data);
-			if (btoa(usernameInput.value.trim()) === data.username && btoa(passwordInput.value.trim()) === account.password) {
+			if (btoa(usernameInput.value.trim()) === data.username && btoa(passwordInput.value.trim()) === data.password) {
 				account = data;
 			}
 		});
