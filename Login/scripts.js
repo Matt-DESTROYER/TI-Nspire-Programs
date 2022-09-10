@@ -1,4 +1,4 @@
-import { GetCollection } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.js";
+import { GetCollection } from "../Database.js";
 
 const usernameInput = document.getElementById("username"),
       passwordInput = document.getElementById("password"),
@@ -19,23 +19,22 @@ document.getElementById("login").addEventListener("click", async () => {
 		errormessage.innerHTML = "Error: Incorrect password.";
 		errormessage.hidden = false;
 	} else {
-		let accountData = {};
-		(await GetCollection("Accounts")).forEach((account) => {
+		let accountData = null;
+		(await GetCollection("Accounts")).forEach(function(account) {
 			const data = account.data();
-			if (usernameInput.value.trim() === atob(data.username)) {
+			data.id = account.id;
+			if (usernameInput.value.trim() === atob(data.username) && passwordInput.value.trim() === atob(account.password)) {
 				accountData = data;
 			}
 		});
-		if (!accountData.hasOwnProperty("username")) {
-			errormessage.innerHTML = "Error: No user was found with this username.";
+		if (!accountData) {
+			errormessage.innerHTML = "Error: Login failed.";
 			errormessage.hidden = false;
-		} else if (passwordInput.value.trim() === atob(accountData.password)) {
-			localStorage.setItem("username", accountData.username);
-			localStorage.setItem("password", accountData.password);
-			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 		} else {
-			errormessage.innerHTML = "Error: Incorrect password.";
-			errormessage.hidden = false;
+			window.localStorage.setItem("id", account.id);
+			window.localStorage.setItem("username", account.username);
+			window.localStorage.setItem("password", account.password);
+			window.location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
 		}
 	}
 });
