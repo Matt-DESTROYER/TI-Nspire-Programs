@@ -8,7 +8,10 @@ nav {
 	border-radius: 8px;
 	padding: 10px;
 	font-family: monospace;
-	white-space: no-wrap;
+}
+
+nav h1 {
+	display: inline;
 }
 
 button {
