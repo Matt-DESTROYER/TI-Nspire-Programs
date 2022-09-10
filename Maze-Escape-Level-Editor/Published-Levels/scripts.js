@@ -4,7 +4,7 @@ import { Account, nav } from "../Modules/Tools.js";
 if (Account) {
 	nav("Published Levels", "Maze-Escape-Level-Editor/Published-Levels", "Logout", "Logout");
 } else {
-	nav("Create Account", "Create-Account", "Login", "Login");
+	nav("Login", "Login", "Create Account", "Create-Account");
 }
 
 const loggedIn = !!Account;

@@ -1,7 +1,11 @@
 import { GetCollection } from "../Modules/Database.js";
 import { Redirect, nav } from "../Modules/Tools.js";
 
-nav("Create Account", "Create-Account", "Login", "Login");
+if (Account) {
+	nav("Upload Program", "Upload-Program", "Maze Escape Level Editor", "Maze-Escape-Level-Editor", "Logout", "Logout");
+} else {
+	nav("Login", "Login", "Create Account", "Create-Account");
+}
 
 const usernameInput = document.getElementById("username"),
 	passwordInput = document.getElementById("password"),
