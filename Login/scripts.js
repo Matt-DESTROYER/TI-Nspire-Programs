@@ -1,5 +1,5 @@
 import { GetCollection } from "../Modules/Database.js";
-import { nav } from "../Modules/Tools.js";
+import { Redirect, nav } from "../Modules/Tools.js";
 
 nav("Create Account", "Create-Account", "Login", "Login");
 
@@ -37,7 +37,7 @@ document.getElementById("login").addEventListener("click", async () => {
 			window.localStorage.setItem("id", account.id);
 			window.localStorage.setItem("username", account.username);
 			window.localStorage.setItem("password", account.password);
-			window.location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
+			Redirect("https://matt-destroyer.github.io");
 		}
 	}
 });
