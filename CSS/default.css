@@ -6,8 +6,6 @@ nav {
 	background-color: black;
 	color: whitesmoke;
 	border-radius: 8px;
-	display: flex;
-	justify-content: center;
 	padding: 10px;
 	font-family: monospace;
 }
