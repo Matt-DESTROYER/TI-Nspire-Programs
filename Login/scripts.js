@@ -37,7 +37,7 @@ document.getElementById("login").addEventListener("click", async () => {
 			window.localStorage.setItem("id", account.id);
 			window.localStorage.setItem("username", account.username);
 			window.localStorage.setItem("password", account.password);
-			Redirect("https://matt-destroyer.github.io");
+			Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
 		}
 	}
 });
