@@ -16,7 +16,7 @@ canvas.height = 240;
 const Input = {};
 
 let tool = "#", grid = [];
-{
+(function loadLevel() {
 	const row = " ".repeat(32).split("");
 	for (let y = 0; y < 24; y++) {
 		grid.push(row.slice());
@@ -30,7 +30,7 @@ let tool = "#", grid = [];
 	}
 	grid[1][1] = "@";
 	grid[22][30] = "*";
-}
+})();
 
 canvas.addEventListener("mousemove", (e) => {
 	e = e || window.event;
