@@ -60,7 +60,7 @@ async function renderProgram(program) {
 				return;
 			}
 			const acc = (await GetDocument("Accounts", Account.id)).data();
-			acc.id = account.id;
+			acc.id = Account.id;
 			let downIdx = prog.downvoters.indexOf(acc.username);
 			if (downIdx !== -1) {
 				prog.downvoters.splice(downIdx, 1);
@@ -86,7 +86,7 @@ async function renderProgram(program) {
 				return;
 			}
 			const acc = (await GetDocument("Accounts", Account.id)).data();
-			acc.id = account.id;
+			acc.id = Account.id;
 			let upIdx = prog.upvoters.indexOf(acc.username);
 			if (upIdx !== -1) {
 				prog.upvoters.splice(upIdx, 1);
