@@ -13,24 +13,55 @@ const ctx = canvas.getContext("2d", { alpha: false });
 canvas.width = 320;
 canvas.height = 240;
 
+const width = document.getElementsById("width");
+const height = document.getElementsById("height");
+
+const widthDisplay = document.getElementsById("width-display");
+const heightDisplay = document.getElementsById("height-display");
+
+let grid = [];
+
+width.addEventListener("input", function () {
+	widthDisplay.textContent = "(" + width.value + ")";
+	canvas.width = Number(width.value) * 10;
+	for (let i = 0; i < grid.length; i++) {
+		while (grid[i].length < Number(width.value)) {
+			grid[i].push(" ");
+		}
+	}
+});
+height.addEventListener("input", function () {
+	heightDisplay.textContent = "(" + height.value + ")";
+	canvas.height = Number(height.value) * 10;
+	const row = [];
+	for (let i = 0; i < grid.length; i++) {
+		row.push(" ");
+	}
+});
+
 const Input = {};
 
-let tool = "#", grid = [];
-(function loadLevel() {
-	const row = " ".repeat(32).split("");
-	for (let y = 0; y < 24; y++) {
+let tool = "#";
+
+function loadLevel() {
+	const row = " ".repeat(Number(width.value)).split("");
+	for (let y = 0; y < Number(height.value); y++) {
 		grid.push(row.slice());
 	}
 	for (let y = 0; y < 24; y++) {
 		for (let x = 0; x < 32; x++) {
-			if (y === 0 || y === 23 || x === 0 || x === 31) {
+			if (y === 0 || y === Number(height.value) - 1 || x === 0 || x === Number(width.value) - 1) {
 				grid[y][x] = "#";
 			}
 		}
 	}
 	grid[1][1] = "@";
-	grid[22][30] = "*";
-})();
+	grid[Number(height.value) - 2][Number(width.value) - 2] = "*";
+}
+
+loadLevel();
+
+document.getElementById("reset").addEventListener("click", loadLevel);
 
 canvas.addEventListener("mousemove", (e) => {
 	e = e || window.event;
@@ -45,8 +76,8 @@ canvas.addEventListener("mousedown", () => {
 
 canvas.addEventListener("mouseup", () => {
 	if (tool === "@") {
-		for (let y = 0; y < 24; y++) {
-			for (let x = 0; x < 32; x++) {
+		for (let y = 0; y < grid.length; y++) {
+			for (let x = 0; x < grid[y].length; x++) {
 				if (grid[y][x] === tool) {
 					grid[y][x] = " ";
 				}
@@ -57,23 +88,6 @@ canvas.addEventListener("mouseup", () => {
 		grid[~~(Input.mouseY / 10)][~~(Input.mouseX / 10)] = tool;
 	}
 	Input.mouseDown = false;
-});
-
-document.getElementById("reset").addEventListener("click", function () {
-	grid = [];
-	const row = " ".repeat(32).split("");
-	for (let y = 0; y < 24; y++) {
-		grid.push(row.slice());
-	}
-	for (let y = 0; y < 24; y++) {
-		for (let x = 0; x < 32; x++) {
-			if (y === 0 || y === 23 || x === 0 || x === 31) {
-				grid[y][x] = "#";
-			}
-		}
-	}
-	grid[1][1] = "@";
-	grid[22][30] = "*";
 });
 
 document.getElementById("tool").addEventListener("input", (e) => {
