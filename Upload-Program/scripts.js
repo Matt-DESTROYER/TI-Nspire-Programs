@@ -1,4 +1,4 @@
-import { GetCollection, CreateDocument, UpdateDocument, UploadFile, DeleteFile } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.js";
+import { GetCollection, CreateDocument, UpdateDocument, UploadFile, DeleteFile } from "../Modules/Database.js";
 
 const title = document.getElementById("title"),
 	version = document.getElementById("version"),

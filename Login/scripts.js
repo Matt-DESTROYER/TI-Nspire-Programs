@@ -1,4 +1,4 @@
-import { GetCollection } from "../Database.js";
+import { GetCollection } from "../Modules/Database.js";
 
 const usernameInput = document.getElementById("username"),
       passwordInput = document.getElementById("password"),
