@@ -72,18 +72,18 @@ loadLevel();
 
 document.getElementById("reset").addEventListener("click", loadLevel);
 
-canvas.addEventListener("mousemove", (e) => {
+canvas.addEventListener("mousemove", function (e) {
 	e = e || window.event;
 	const rect = canvas.getBoundingClientRect();
 	Input.mouseX = e.clientX - rect.left;
 	Input.mouseY = e.clientY - rect.top;
 });
 
-canvas.addEventListener("mousedown", () => {
+canvas.addEventListener("mousedown", function () {
 	Input.mouseDown = true;
 });
 
-canvas.addEventListener("mouseup", () => {
+canvas.addEventListener("mouseup", function () {
 	if (tool === "@") {
 		for (let y = 0; y < grid.length; y++) {
 			for (let x = 0; x < grid[y].length; x++) {
@@ -99,7 +99,7 @@ canvas.addEventListener("mouseup", () => {
 	Input.mouseDown = false;
 });
 
-document.getElementById("tool").addEventListener("input", (e) => {
+document.getElementById("tool").addEventListener("input", function (e) {
 	switch ((e || window.event).target.value) {
 		case "Air":
 			tool = " ";
@@ -139,7 +139,7 @@ if (levelId) {
 	canvas.height = grid.length * 10;
 }
 
-document.getElementById("publish").addEventListener("click", async () => {
+document.getElementById("publish").addEventListener("click", async function () {
 	if (!loggedIn) {
 		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
 	}
