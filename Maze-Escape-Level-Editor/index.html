@@ -21,15 +21,23 @@
 	<div class="generic-container">
 		<nav>
 			<button id="reset">Reset</button>
-			<label for="tool">&nbsp;Tool:</label>
+			<span>&nbsp;</span>
+			<label for="tool">Tool:</label>
 			<select id="tool" selected="Solid Wall">
 				<option value="Air">Air</option>
 				<option value="Solid Wall" selected>Solid Wall</option>
 				<option value="Player Spawn">Player Spawn</option>
 				<option value="Level Finish">Level Finish</option>
 			</select>
-			<span>&nbsp;</span>
 			<button id="publish">Publish Level</button>
+			<span>&nbsp;</span>
+			<label for="width">Width:</label>
+			<input id="width" type="range" min="10" max="50" value="32" />
+			<span id="width-display">(32)</span>
+			<span>&nbsp;</span>
+			<label for="height">Height:</label>
+			<input id="height" type="range" min="10" max="50" value="24" />
+			<span id="height-display">(24)</span>
 		</nav>
 		<br>
 		<label for="level-name">Level name:</label>
