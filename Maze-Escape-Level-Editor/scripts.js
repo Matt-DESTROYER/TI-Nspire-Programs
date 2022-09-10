@@ -1,4 +1,11 @@
 import { GetCollection, CreateDocument, GetDocument, UpdateDocument } from "../Modules/Database.js";
+import { Account, nav } from "../Modules/Tools.js";
+
+if (Account) {
+	nav("Published Levels", "Maze-Escape-Level-Editor/Published-Levels", "Logout", "Logout");
+} else {
+	nav("Create Account", "Create-Account", "Login", "Login");
+}
 
 const canvas = document.getElementById("screen");
 const ctx = canvas.getContext("2d", { alpha: false });
