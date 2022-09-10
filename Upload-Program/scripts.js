@@ -18,7 +18,7 @@ const title = document.getElementById("title"),
 	screenshots = document.getElementById("screenshots"),
 	screenshotInputs = [];
 
-{
+(function loadProgram() {
 	if (window.localStorage.getItem("title")) {
 		title.value = window.localStorage.getItem("title");
 		window.localStorage.removeItem("title");
@@ -31,7 +31,7 @@ const title = document.getElementById("title"),
 		description.value = window.localStorage.getItem("description");
 		window.localStorage.removeItem("description");
 	}
-}
+})();
 
 document.getElementById("add-screenshot").addEventListener("click", () => {
 	const br = document.createElement("br");
