@@ -87,7 +87,7 @@ async function renderProgram(program) {
 		downvoteButton.addEventListener("click", async function () {
 			const prog = (await GetDocument("Programs", program.id)).data();
 			prog.id = program.id;
-			if (prog.upvoters.includes(Account.username)) {
+			if (prog.downvoters.includes(Account.username)) {
 				return;
 			}
 			const acc = (await GetDocument("Accounts", Account.id)).data();
