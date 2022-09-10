@@ -1,5 +1,5 @@
 import { GetCollection } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Modules/Database.js";
-import { Account, nav } from "../Modules/Tools.js";
+import { Account, nav } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Modules/Tools.js";
 
 if (Account) {
 	nav("Published Levels", "Maze-Escape-Level-Editor/Published-Levels", "Logout", "Logout");
