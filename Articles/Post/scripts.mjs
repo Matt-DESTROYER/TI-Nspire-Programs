@@ -1,4 +1,4 @@
-import { GetCollection, CreateDocument, UpdateDocument } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.mjs";
+import { GetCollection, CreateDocument, UpdateDocument } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.js";
 
 const title = document.getElementById("title"),
       description = document.getElementById("description"),
@@ -21,8 +21,8 @@ const title = document.getElementById("title"),
 
 const errormessage = document.getElementById("error-message");
 document.getElementById("post").addEventListener("click", async () => {
-	if (localStorage.getItem("username") === null ||
-	    localStorage.getItem("password") === null) {
+	if (!localStorage.getItem("username") ||
+	    !localStorage.getItem("password")) {
 		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
 	} else {
 		let loggedIn = false;
