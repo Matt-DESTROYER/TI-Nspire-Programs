@@ -43,15 +43,15 @@ document.getElementById("add-screenshot").addEventListener("click", () => {
 
 const errormessage = document.getElementById("error-message");
 document.getElementById("upload").addEventListener("click", async () => {
-	if (!localStorage.getItem("username") ||
-		!localStorage.getItem("password")) {
+	if (!window.localStorage.getItem("username") ||
+		!window.localStorage.getItem("password")) {
 		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
 	} else {
 		let loggedIn = false;
 		(await GetCollection("Accounts")).forEach((account) => {
 			const data = account.data();
-			if (localStorage.getItem("username") === data.username &&
-				localStorage.getItem("password") === data.password) {
+			if (window.localStorage.getItem("username") === data.username &&
+				window.localStorage.getItem("password") === data.password) {
 				loggedIn = true;
 			}
 		});
@@ -97,11 +97,11 @@ document.getElementById("upload").addEventListener("click", async () => {
 		if (screenshotInputs.length > 0) {
 			screenshotFiles = screenshotInputs.filter((input) => "files" in input && input.files[0]).map((input) => input.files[0]);
 		}
-		await UploadFile(file.files[0], atob(localStorage.getItem("username")) + "/" + title.value);
+		await UploadFile(file.files[0], atob(window.localStorage.getItem("username")) + "/" + title.value);
 		if (alreadyExists) {
-			await DeleteFile(atob(localStorage.getItem("username")) + "/" + title.value + "/" + data.file);
+			await DeleteFile(atob(window.localStorage.getItem("username")) + "/" + title.value + "/" + data.file);
 			for (const screenshot of data.screenshots) {
-				await DeleteFile(atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots/" + screenshot);
+				await DeleteFile(atob(window.localStorage.getItem("username")) + "/" + title.value + "/Screenshots/" + screenshot);
 			}
 			await UpdateDocument("Programs", data.id, {
 				"version": version.value,
@@ -111,13 +111,13 @@ document.getElementById("upload").addEventListener("click", async () => {
 				"screenshots": screenshotFiles.map((file) => file.name)
 			});
 			for (const image of screenshotFiles) {
-				await UploadFile(image, atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
+				await UploadFile(image, atob(window.localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
 			}
 		} else {
 			await CreateDocument("Programs", {
 				"title": title.value,
 				"version": version.value,
-				"author": atob(localStorage.getItem("username")),
+				"author": atob(window.localStorage.getItem("username")),
 				"description": description.value,
 				"date": Date.now(),
 				"file": file.files[0].name,
@@ -125,7 +125,7 @@ document.getElementById("upload").addEventListener("click", async () => {
 				"votes": 0
 			});
 			for (const image of screenshotFiles) {
-				await UploadFile(image, atob(localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
+				await UploadFile(image, atob(window.localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
 			}
 		}
 		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
