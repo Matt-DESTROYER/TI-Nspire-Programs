@@ -122,17 +122,7 @@ document.getElementById("tool").addEventListener("input", (e) => {
 const levelnameInput = document.getElementById("level-name"),
 	errormessage = document.getElementById("error-message");
 
-const loggedIn = await (async function () {
-	let _loggedIn = false;
-	(await GetCollection("Accounts")).forEach((account) => {
-		const data = account.data();
-		if (localStorage.getItem("username") === data.username &&
-			localStorage.getItem("password") === data.password) {
-			_loggedIn = true;
-		}
-	});
-	return _loggedIn;
-})();
+const loggedIn = !!Account;
 
 const levelId = location.search.split("=")[1] || null;
 let level = null;
@@ -141,6 +131,12 @@ if (levelId) {
 	level.id = levelId;
 	levelnameInput.value = level.levelName;
 	grid = JSON.parse(level.levelData);
+	width.value = grid[0].length;
+	widthDisplay.value = "(" + grid[0].length + ")";
+	canvas.width = grid[0].length * 10;
+	height.value = grid.length;
+	heightDisplay.value = "(" + grid.length + ")";
+	canvas.height = grid.length * 10;
 }
 
 document.getElementById("publish").addEventListener("click", async () => {
@@ -179,7 +175,7 @@ document.getElementById("publish").addEventListener("click", async () => {
 			});
 		} else {
 			let id, updateLevel = false;
-			(await GetCollection("Levels")).forEach((level) => {
+			(await GetCollection("Levels")).forEach(function (level) {
 				const data = level.data();
 				if (data.levelName === levelnameInput.value.trim() &&
 					btoa(data.author) === localStorage.getItem("username")) {
