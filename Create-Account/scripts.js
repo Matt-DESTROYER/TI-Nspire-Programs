@@ -1,4 +1,4 @@
-import { GetCollection, CreateDocument } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.mjs";
+import { GetCollection, CreateDocument } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.js";
 
 const firstnameInput = document.getElementById("firstname"),
       lastnameInput = document.getElementById("lastname"),
