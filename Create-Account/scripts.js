@@ -1,5 +1,5 @@
 import { GetCollection, CreateDocument } from "../Modules/Database.js";
-import { Account, nav } from "../Modules/Tools.js";
+import { Redirect, Account, nav } from "../Modules/Tools.js";
 
 if (Account) {
 	nav("Upload Program", "Upload-Program", "Maze Escape Level Editor", "Maze-Escape-Level-Editor", "Logout", "Logout");
@@ -68,7 +68,7 @@ document.getElementById("create-account").addEventListener("click", async () => 
 			});
 			window.localStorage.setItem("username", btoa(usernameInput.value.trim()));
 			window.localStorage.setItem("password", btoa(passwordInput.value.trim()));
-			window.location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/";
+			Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
 		}
 	}
 });
