@@ -44,19 +44,19 @@ const Input = {};
 let tool = "#";
 
 function loadLevel() {
-	const row = " ".repeat(Number(width.value)).split("");
-	for (let y = 0; y < Number(height.value); y++) {
+	const row = " ".repeat(width.value).split("");
+	for (let y = 0; y < height.value; y++) {
 		grid.push(row.slice());
 	}
-	for (let y = 0; y < 24; y++) {
-		for (let x = 0; x < 32; x++) {
-			if (y === 0 || y === Number(height.value) - 1 || x === 0 || x === Number(width.value) - 1) {
+	for (let y = 0; y < height.value; y++) {
+		for (let x = 0; x < width.value; x++) {
+			if (y === 0 || y === height.value - 1 || x === 0 || x === width.value - 1) {
 				grid[y][x] = "#";
 			}
 		}
 	}
 	grid[1][1] = "@";
-	grid[Number(height.value) - 2][Number(width.value) - 2] = "*";
+	grid[height.value - 2][width.value - 2] = "*";
 }
 
 loadLevel();
@@ -211,8 +211,8 @@ function render() {
 	}
 	ctx.stroke();
 	ctx.closePath();
-	for (let y = 0; y < 24; y++) {
-		for (let x = 0; x < 32; x++) {
+	for (let y = 0; y < canvas.height / 10; y++) {
+		for (let x = 0; x < canvas.width / 10; x++) {
 			if (grid[y][x] === "#") {
 				ctx.fillStyle = "#000000";
 				ctx.fillRect(x * 10, y * 10, 10, 10);
