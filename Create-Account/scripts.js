@@ -10,45 +10,45 @@ const firstnameInput = document.getElementById("firstname"),
 document.getElementById("create-account").addEventListener("click", async () => {
 	errormessage.hidden = true;
 	if (firstnameInput.value.trim() === "") {
-		errormessage.innerHTML = "Error: A firstname is required.";
+		errormessage.textContent = "Error: A firstname is required.";
 		errormessage.hidden = false;
 	} else if (firstnameInput.value.trim().length > 50) {
-		errormessage.innerHTML = "Error: Firstname too long";
+		errormessage.textContent = "Error: Firstname too long";
 		errormessage.hidden = false;
 	} else if (lastnameInput.value.trim() === "") {
-		errormessage.innerHTML = "Error: A lastname is required.";
+		errormessage.textContent = "Error: A lastname is required.";
 		errormessage.hidden = false;
 	} else if (lastnameInput.value.trim().length > 50) {
-		errormessage.innerHTML = "Error: Lastname too long.";
+		errormessage.textContent = "Error: Lastname too long.";
 		errormessage.hidden = false;
 	} else if (usernameInput.value.trim() === "") {
-		errormessage.innerHTML = "Error: A username is required.";
+		errormessage.textContent = "Error: A username is required.";
 		errormessage.hidden = false;
 	} else if (usernameInput.value.trim().length > 50) {
-		errormessage.innerHTML = "Error: Username too long.";
+		errormessage.textContent = "Error: Username too long.";
 		errormessage.hidden = false;
 	} else if (passwordInput.value.trim() === "") {
-		errormessage.innerHTML = "Error: A password is required.";
+		errormessage.textContent = "Error: A password is required.";
 		errormessage.hidden = false;
 	} else if (passwordInput.value.trim().length < 8) {
-		errormessage.innerHTML = "Error: Password must be at least 8 characters long.";
+		errormessage.textContent = "Error: Password must be at least 8 characters long.";
 		errormessage.hidden = false;
 	} else if (passwordInput.value.trim().length > 50) {
-		errormessage.innerHTML = "Error: Password too long.";
+		errormessage.textContent = "Error: Password too long.";
 		errormessage.hidden = false;
 	} else if (passwordInput.value.trim() !== confirmpasswordInput.value.trim()) {
-		errormessage.innerHTML = "Error: Passwords do not match.";
+		errormessage.textContent = "Error: Passwords do not match.";
 		errormessage.hidden = false;
 	} else {
 		let accountExists = false;
-		(await GetCollection("Accounts")).forEach((account) => {
+		(await GetCollection("Accounts")).forEach(function (account) {
 			const data = account.data();
-			if (usernameInput.value.trim() === atob(data.username)) {
+			if (usernameInput.value.trim() === data.username) {
 				accountExists = true;
 			}
 		});
 		if (accountExists) {
-			errormessage.innerHTML = "Error: An account with this username already exists, if this is your account please <a href=\"https://matt-destroyer.github.io/TI-Nspire-Programs/Login/\">login</a>.";
+			errormessage.textContent = "Error: An account with this username already exists, if this is your account please <a href=\"https://matt-destroyer.github.io/TI-Nspire-Programs/Login/\">login</a>.";
 			errormessage.hidden = false;
 		} else {
 			await CreateDocument("Accounts", {
