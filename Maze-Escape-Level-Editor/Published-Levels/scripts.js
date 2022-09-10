@@ -24,6 +24,10 @@ for (const level of levels) {
 	const div = document.createElement("div");
 	div.classList.add("program-container");
 	const heading = document.createElement("div");
+	const ingame = document.createElement("span");
+	ingame.textContent = "In game: " + (level.ingame ? "✔️" : "❌");
+	ingame.classList.add("right-align");
+	div.append(ingame);
 	if (Account && btoa(level.author) === Account.username) {
 		const editButton = document.createElement("button");
 		editButton.textContent = "Edit";
