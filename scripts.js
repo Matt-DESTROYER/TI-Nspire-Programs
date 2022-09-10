@@ -32,10 +32,10 @@ const programsContainer = document.getElementById("programs"), programs = [];
 })();
 
 async function renderProgram(program) {
-	programsContainer.appendChild(document.createElement("br"));
+	programsContainer.append(document.createElement("br"));
 	const div = document.createElement("div");
 	div.classList.add("program-container");
-	programsContainer.appendChild(div);
+	programsContainer.append(div);
 	const heading = document.createElement("div");
 	if (loggedIn) {
 		const editButton = document.createElement("button");
@@ -47,10 +47,10 @@ async function renderProgram(program) {
 			localStorage.setItem("description", program.description);
 			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/";
 		});
-		heading.appendChild(editButton);
-		heading.appendChild(document.createElement("br"));
-		heading.appendChild(document.createElement("br"));
-		heading.appendChild(document.createElement("br"));
+		heading.append(editButton);
+		heading.append(document.createElement("br"));
+		heading.append(document.createElement("br"));
+		heading.append(document.createElement("br"));
 		const voteCounter = document.createElement("span");
 		voteCounter.classList.add("right-align");
 		voteCounter.textContent = program.votes;
@@ -132,38 +132,38 @@ async function renderProgram(program) {
 		});
 		downvoteButton.classList.add("right-align");
 		downvoteButton.textContent = "Downvote";
-		heading.appendChild(downvoteButton);
-		heading.appendChild(upvoteButton);
-		heading.appendChild(voteCounter);
+		heading.append(downvoteButton);
+		heading.append(upvoteButton);
+		heading.append(voteCounter);
 	}
 	const header = document.createElement("h2");
 	header.textContent = program.title + " - " + program.version;
-	heading.appendChild(header);
-	div.appendChild(heading);
+	heading.append(header);
+	div.append(heading);
 	const author = document.createElement("p");
 	author.textContent = "Published by: " + program.author;
-	div.appendChild(author);
+	div.append(author);
 	const screenshots = document.createElement("div");
 	screenshots.classList.add("screenshots");
 	for (let i = 0; i < program.screenshots.length; i++) {
 		const screenshot = document.createElement("img");
 		screenshot.src = program.screenshots[i];
 		screenshot.height = 120;
-		screenshots.appendChild(screenshot);
+		screenshots.append(screenshot);
 	}
-	div.appendChild(screenshots);
+	div.append(screenshots);
 	const description = document.createElement("p");
 	description.textContent = program.description;
-	div.appendChild(description);
+	div.append(description);
 	const link = document.createElement("a");
 	link.download = program.title;
 	link.href = program.file;
 	const button = document.createElement("button");
 	button.textContent = "Download";
-	link.appendChild(button);
-	div.appendChild(link);
-	programsContainer.appendChild(div);
-	programsContainer.appendChild(document.createElement("br"));
+	link.append(button);
+	div.append(link);
+	programsContainer.append(div);
+	programsContainer.append(document.createElement("br"));
 }
 
 async function renderPrograms() {

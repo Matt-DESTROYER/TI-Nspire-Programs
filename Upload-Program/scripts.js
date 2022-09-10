@@ -24,15 +24,15 @@ const title = document.getElementById("title"),
 
 document.getElementById("add-screenshot").addEventListener("click", () => {
 	const br = document.createElement("br");
-	screenshots.appendChild(br);
+	screenshots.append(br);
 	const screenshotInput = document.createElement("input");
-	screenshotInput.type = "file";
-	screenshotInput.accept = "image/*";
+	screenshotInput.setAttribute("type", "file");
+	screenshotInput.setAttribute("accept", "image/*");
 	screenshotInputs.push(screenshotInput);
-	screenshots.appendChild(screenshotInput);
+	screenshots.append(screenshotInput);
 	const deleteButton = document.createElement("button");
 	deleteButton.textContent = "Delete";
-	screenshots.appendChild(deleteButton);
+	screenshots.append(deleteButton);
 	deleteButton.addEventListener("click", () => {
 		screenshots.removeChild(br);
 		screenshots.removeChild(screenshotInput);
