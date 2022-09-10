@@ -1,15 +1,13 @@
 import { GetCollection } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Modules/Database.js";
+import { Account, nav } from "../Modules/Tools.js";
 
-let loggedIn = false;
-(async function () {
-	(await GetCollection("Accounts")).forEach((account) => {
-		const data = account.data();
-		if (localStorage.getItem("username") === data.username &&
-			localStorage.getItem("password") === data.password) {
-			loggedIn = true;
-		}
-	});
-})();
+if (Account) {
+	nav("Published Levels", "Maze-Escape-Level-Editor/Published-Levels", "Logout", "Logout");
+} else {
+	nav("Create Account", "Create-Account", "Login", "Login");
+}
+
+const loggedIn = !!Account;
 
 const levelContainer = document.getElementById("levels");
 let levels = [];
