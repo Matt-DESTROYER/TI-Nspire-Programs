@@ -1,4 +1,4 @@
-//import {  };
+import { GetDocument } from "./Database.js";
 
 const page = function(name, path) {
 	const anchor = document.createElement("a");
