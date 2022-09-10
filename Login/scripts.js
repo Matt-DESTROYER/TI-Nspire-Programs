@@ -1,4 +1,4 @@
-import { GetCollection } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.mjs";
+import { GetCollection } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Database.js";
 
 const usernameInput = document.getElementById("username"),
       passwordInput = document.getElementById("password"),
