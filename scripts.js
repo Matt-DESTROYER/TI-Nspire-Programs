@@ -1,16 +1,14 @@
 import { GetCollection, GetDocument, UpdateDocument, GetFileURL } from "./Modules/Database.js";
+import { Account, nav } from "./Modules/Tools.js";
 
-let loggedIn = false, id;
-(async function () {
-	(await GetCollection("Accounts")).forEach((account) => {
-		const data = account.data();
-		if (localStorage.getItem("username") === data.username &&
-			localStorage.getItem("password") === data.password) {
-			loggedIn = true;
-			id = account.id;
-		}
-	});
-})();
+if (Account) {
+	nav("Upload Program", "Upload-Program", "Maze Escape Level Editor", "Maze-Escape-Level-Editor");
+} else {
+	nav("Create Account", "Create-Account", "Login", "Login");
+}
+
+const loggedIn = !!Account;
+const id = loggedIn ? Account.id : null;
 
 const sortSelect = document.getElementById("sort");
 sortSelect.addEventListener("input", renderPrograms);
