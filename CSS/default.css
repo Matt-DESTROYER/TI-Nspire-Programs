@@ -8,6 +8,7 @@ nav {
 	border-radius: 8px;
 	padding: 10px;
 	font-family: monospace;
+	white-space: no-wrap;
 }
 
 button {
@@ -18,6 +19,7 @@ button {
 	padding: 7px;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	transition-duration: 0.2s;
 }
 
 button:hover {
