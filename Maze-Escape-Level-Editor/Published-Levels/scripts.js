@@ -1,5 +1,5 @@
-import { GetCollection } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Modules/Database.js";
-import { Redirect, Account, nav } from "https://Matt-DESTROYER.github.io/TI-Nspire-Programs/Modules/Tools.js";
+import { GetCollection } from "../../Modules/Database.js";
+import { Redirect, Account, nav } from "../../Modules/Tools.js";
 
 if (Account) {
 	nav("Level Editor", "Maze-Escape-Level-Editor", "Logout", "Logout");

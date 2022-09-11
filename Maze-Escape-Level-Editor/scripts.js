@@ -141,7 +141,7 @@ if (levelId) {
 
 document.getElementById("publish").addEventListener("click", async function () {
 	if (!loggedIn) {
-		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login/";
+		location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Login";
 	}
 	let playerSpawns = 0, levelFinishes = 0;
 	for (let y = 0; y < grid.length; y++) {
@@ -198,7 +198,7 @@ document.getElementById("publish").addEventListener("click", async function () {
 				});
 			}
 		}
-		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels/");
+		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Maze-Escape-Level-Editor/Published-Levels");
 	}
 });
 
