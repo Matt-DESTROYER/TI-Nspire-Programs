@@ -1,5 +1,5 @@
 import { GetCollection } from "../Modules/Database.js";
-import { Redirect, nav } from "../Modules/Tools.js";
+import { Redirect, Account, nav } from "../Modules/Tools.js";
 
 if (Account) {
 	nav("Upload Program", "Upload-Program", "Maze Escape Level Editor", "Maze-Escape-Level-Editor", "Logout", "Logout");
