@@ -1,5 +1,7 @@
-import { GetCollection, CreateDocument, UpdateDocument, UploadFile, DeleteFile } from "../Modules/Database.js";
+import { GetDocument, GetCollection, CreateDocument, UpdateDocument, UploadFile, DeleteFile } from "../Modules/Database.js";
 import { Redirect, Account, nav } from "../Modules/Tools.js";
+import { SearchParameters } from "../Modules/SearchParameters.js";
+import { GetDocument } from "../Modules/Database.js";
 
 if (Account) {
 	nav("Logout", "Logout");
@@ -19,18 +21,10 @@ const title = document.getElementById("title"),
 	screenshotInputs = [];
 
 (function loadProgram() {
-	if (window.localStorage.getItem("title")) {
-		title.value = window.localStorage.getItem("title");
-		window.localStorage.removeItem("title");
-	}
-	if (window.localStorage.getItem("version")) {
-		version.value = window.localStorage.getItem("version");
-		window.localStorage.removeItem("version");
-	}
-	if (window.localStorage.getItem("description")) {
-		description.value = window.localStorage.getItem("description");
-		window.localStorage.removeItem("description");
-	}
+	/*if ("location" in window && "href" in window.location) {
+
+		await GetDocument("Programs", );
+	}*/
 })();
 
 document.getElementById("add-screenshot").addEventListener("click", () => {

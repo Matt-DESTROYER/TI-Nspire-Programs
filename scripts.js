@@ -37,12 +37,9 @@ async function renderProgram(program) {
 		editButton.textContent = "Edit";
 		editButton.classList.add("right-align");
 		editButton.addEventListener("click", function () {
-			window.localStorage.setItem("title", program.title);
-			window.localStorage.setItem("version", program.version);
-			window.localStorage.setItem("description", program.description);
-			Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program");
+			Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/?id=" + program.id);
 		});
-		heading.append(editButton);
+		//heading.append(editButton);
 		heading.append(document.createElement("br"));
 		heading.append(document.createElement("br"));
 		heading.append(document.createElement("br"));
