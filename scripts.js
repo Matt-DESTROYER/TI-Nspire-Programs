@@ -1,14 +1,11 @@
 import { GetCollection, GetDocument, UpdateDocument, GetFileURL } from "./Modules/Database.js";
-import { Account, nav } from "./Modules/Tools.js";
+import { Redirect, Account, nav } from "./Modules/Tools.js";
 
 if (Account) {
 	nav("Upload Program", "Upload-Program", "Maze Escape Level Editor", "Maze-Escape-Level-Editor", "Logout", "Logout");
 } else {
 	nav("Login", "Login", "Create Account", "Create-Account");
 }
-
-const loggedIn = !!Account;
-const id = loggedIn ? Account.id : null;
 
 const sortSelect = document.getElementById("sort");
 sortSelect.addEventListener("input", renderPrograms);
@@ -35,15 +32,15 @@ async function renderProgram(program) {
 	div.classList.add("program-container");
 	programsContainer.append(div);
 	const heading = document.createElement("div");
-	if (loggedIn) {
+	if (Account) {
 		const editButton = document.createElement("button");
 		editButton.textContent = "Edit";
 		editButton.classList.add("right-align");
 		editButton.addEventListener("click", function () {
-			localStorage.setItem("title", program.title);
-			localStorage.setItem("version", program.version);
-			localStorage.setItem("description", program.description);
-			location.href = "https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/";
+			window.localStorage.setItem("title", program.title);
+			window.localStorage.setItem("version", program.version);
+			window.localStorage.setItem("description", program.description);
+			Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program");
 		});
 		heading.append(editButton);
 		heading.append(document.createElement("br"));
