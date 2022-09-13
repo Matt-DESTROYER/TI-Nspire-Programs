@@ -1,15 +1,10 @@
 import { GetDocument, GetCollection, CreateDocument, UpdateDocument, UploadFile, DeleteFile } from "../Modules/Database.js";
 import { Redirect, Account, nav } from "../Modules/Tools.js";
 import { SearchParameters } from "../Modules/SearchParameters.js";
-import { GetDocument } from "../Modules/Database.js";
 
 if (Account) {
 	nav("Logout", "Logout");
 } else {
-	nav("Login", "Login", "Create Account", "Create-Account");
-}
-
-if (!Account) {
 	Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
 }
 
@@ -20,11 +15,18 @@ const title = document.getElementById("title"),
 	screenshots = document.getElementById("screenshots"),
 	screenshotInputs = [];
 
+let searchParams = null;
 (function loadProgram() {
-	/*if ("location" in window && "href" in window.location) {
-
-		await GetDocument("Programs", );
-	}*/
+	if ("location" in window && "href" in window.location) {
+		searchParams = new SearchParameters(window.location.href);
+		const id = searchParams.getParam("id");
+		if (id) {
+			const program = (await GetDocument("Programs", id)).data();
+			title.value = program.title;
+			version.value = program.version;
+			description.value = program.description;
+		}
+	}
 })();
 
 document.getElementById("add-screenshot").addEventListener("click", () => {
@@ -48,26 +50,12 @@ document.getElementById("add-screenshot").addEventListener("click", () => {
 
 const errormessage = document.getElementById("error-message");
 
-function err(message) {
+function err(message = "An unexpected error occurred.") {
 	errormessage.textContent = "Error: " + message;
 	errormessage.hidden = false;
 }
 
 document.getElementById("upload").addEventListener("click", async function () {
-	if (!window.localStorage.getItem("username") || !window.localStorage.getItem("password")) {
-		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Login/");
-	} else {
-		let loggedIn = false;
-		(await GetCollection("Accounts")).forEach(function (account) {
-			const data = account.data();
-			if (window.localStorage.getItem("username") === data.username && window.localStorage.getItem("password") === data.password) {
-				loggedIn = true;
-			}
-		});
-		if (!loggedIn) {
-			Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Login/");
-		}
-	}
 	errormessage.hidden = true;
 	if (title.value.trim() === "") {
 		err("No title.");
@@ -90,8 +78,8 @@ document.getElementById("upload").addEventListener("click", async function () {
 		(await GetCollection("Programs")).forEach((program) => {
 			data = program.data();
 			if (data.title === title.value) {
-				alreadyExists = true;
 				data.id = program.id;
+				alreadyExists = true;
 			}
 		});
 		let screenshotFiles = [];
