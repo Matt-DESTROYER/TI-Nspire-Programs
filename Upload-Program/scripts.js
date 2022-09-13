@@ -16,7 +16,7 @@ const title = document.getElementById("title"),
 	screenshotInputs = [];
 
 let searchParams = null;
-(function loadProgram() {
+(async function loadProgram() {
 	if ("location" in window && "href" in window.location) {
 		searchParams = new SearchParameters(window.location.href);
 		const id = searchParams.getParam("id");
