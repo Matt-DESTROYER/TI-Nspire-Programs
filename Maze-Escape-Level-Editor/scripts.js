@@ -6,7 +6,22 @@ if (Account) {
 } else {
 	nav("Login", "Login", "Create Account", "Create-Account");
 }
-
+(function versionUpdate() {
+	const levels = [];
+	(await GetCollection("Levels")).forEach(function (level) {
+		const data = level.data();
+		data.id = level.id;
+		levels.push(data);
+	});
+	for (let i = 0; i < levels.length; i++) {
+		if ("dateCreated" in levels[i]) {
+			UpdateDocument("Levels", levels[i].id, {
+				"dateCreated": levels[i].date,
+				"lastUpdated": levels[i].date
+			});
+		}
+	}
+})();
 const canvas = document.getElementById("screen");
 const ctx = canvas.getContext("2d", { alpha: false });
 
@@ -167,32 +182,32 @@ document.getElementById("publish").addEventListener("click", async function () {
 		errormessage.textContent = "Error: A level name is required.";
 		errormessage.hidden = false;
 	} else {
-		if (level && btoa(level.author) === localStorage.getItem("username")) {
+		if (level && btoa(level.author) === Account.username) {
 			await UpdateDocument("Levels", level.id, {
 				"levelName": levelnameInput.value,
-				"date": Date.now(),
+				"lastUpdated": Date.now(),
 				"levelData": JSON.stringify(grid)
 			});
 		} else {
 			let id, updateLevel = false;
 			(await GetCollection("Levels")).forEach(function (level) {
 				const data = level.data();
-				if (data.levelName === levelnameInput.value.trim() &&
-					btoa(data.author) === localStorage.getItem("username")) {
+				if (data.levelName === levelnameInput.value.trim() && btoa(data.author) === Account.username) {
 					updateLevel = true;
 					id = level.id;
 				}
 			});
 			if (updateLevel) {
 				await UpdateDocument("Levels", id, {
-					"date": Date.now(),
+					"lastUpdated": Date.now(),
 					"levelData": JSON.stringify(grid)
 				});
 			} else {
 				await CreateDocument("Levels", {
 					"levelName": levelnameInput.value,
-					"author": atob(localStorage.getItem("username")),
-					"date": Date.now(),
+					"author": atob(Account.username),
+					"dateCreated": Date.now(),
+					"lastUpdated": Date.now(),
 					"levelData": JSON.stringify(grid),
 					"in-game": false
 				});

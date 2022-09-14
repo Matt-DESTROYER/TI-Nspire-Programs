@@ -28,12 +28,11 @@ const program = (async function loadProgram() {
 			return program;
 		}
 	}
-	return null;;
+	return null;
 })();
 
 document.getElementById("add-screenshot").addEventListener("click", () => {
-	const br = document.createElement("br");
-	screenshots.append(br);
+	screenshots.append(document.createElement("br"));
 	const screenshotInput = document.createElement("input");
 	screenshotInput.setAttribute("type", "file");
 	screenshotInput.setAttribute("accept", "image/*");
