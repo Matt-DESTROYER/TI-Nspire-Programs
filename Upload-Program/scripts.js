@@ -111,11 +111,11 @@ document.getElementById("upload").addEventListener("click", async function () {
 				return input.files[0];
 			});
 		}
-		await UploadFile(file.files[0], program.id);
 		if (program) {
 			await DeleteFile(program.id + "/" + program.file);
-			for (let i = 0; i < program.screenshots.length; i++) {
-				await DeleteFile(program.id + "/Screenshots/" + program.screenshots[i]);
+			await UploadFile(file.files[0], program.id);
+			for (let i = 0; i < screenshotFiles.length; i++) {
+				await UploadFile(screenshotFiles[i], atob(Account.username) + "/" + title.value + "/Screenshots");
 			}
 			await UpdateDocument("Programs", program.id, {
 				"title": title.value,
@@ -127,12 +127,9 @@ document.getElementById("upload").addEventListener("click", async function () {
 					return file.name;
 				})
 			});
-			for (let i = 0; i < screenshotFiles.length; i++) {
-				await UploadFile(screenshotFiles[i], atob(Account.username) + "/" + title.value + "/Screenshots");
-			}
 			Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
 		} else {
-			await CreateDocument("Programs", {
+			const id = (await CreateDocument("Programs", {
 				"title": title.value,
 				"version": version.value,
 				"author": atob(Account.username),
@@ -144,9 +141,10 @@ document.getElementById("upload").addEventListener("click", async function () {
 					return file.name;
 				}),
 				"votes": 0
-			});
+			})).id;
+			await UploadFile(file.files[0], id);
 			for (const image of screenshotFiles) {
-				await UploadFile(image, atob(Account.username) + "/" + title.value + "/Screenshots");
+				await UploadFile(image, id + "/Screenshots");
 			}
 		}
 		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
