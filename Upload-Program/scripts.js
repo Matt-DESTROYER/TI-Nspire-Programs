@@ -115,7 +115,7 @@ document.getElementById("upload").addEventListener("click", async function () {
 			await DeleteFile(program.id + "/" + program.file);
 			await UploadFile(file.files[0], program.id);
 			for (let i = 0; i < screenshotFiles.length; i++) {
-				await UploadFile(screenshotFiles[i], atob(Account.username) + "/" + title.value + "/Screenshots");
+				await UploadFile(screenshotFiles[i], program.id + "/Screenshots");
 			}
 			await UpdateDocument("Programs", program.id, {
 				"title": title.value,
