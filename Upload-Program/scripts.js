@@ -56,22 +56,22 @@ const program = (async function loadProgram() {
 })();
 
 document.getElementById("add-screenshot").addEventListener("click", function () {
-	screenshots.append(document.createElement("br"));
+	const container = document.createElement("div");
+	container.append(document.createElement("br"));
 	const screenshotInput = document.createElement("input");
 	screenshotInput.setAttribute("type", "file");
 	screenshotInput.setAttribute("accept", "image/*");
 	screenshotInputs.push(screenshotInput);
-	screenshots.append(screenshotInput);
+	container.append(screenshotInput);
 	const deleteButton = document.createElement("button");
 	deleteButton.classList.add("delete");
 	deleteButton.textContent = "X";
-	screenshots.append(deleteButton);
 	deleteButton.addEventListener("click", function () {
-		screenshots.removeChild(br);
-		screenshots.removeChild(screenshotInput);
-		screenshots.removeChild(deleteButton);
 		screenshotInputs.splice(screenshotInputs.indexOf(screenshotInput), 1);
+		screenshots.removeChild(container);
 	});
+	container.append(deleteButton);
+	screenshots.append(container);
 });
 
 const errormessage = document.getElementById("error-message");
