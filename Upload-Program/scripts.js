@@ -22,16 +22,40 @@ const program = (async function loadProgram() {
 		const id = searchParams.getParam("id");
 		if (id) {
 			const program = (await GetDocument("Programs", id)).data();
+			if (btoa(program.author) !== Account.username) {
+				Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
+			}
 			title.value = program.title;
 			version.value = program.version;
 			description.value = program.description;
+			const _screenshots = program.screenshots;
+			program.screenshots = [];
+			for (let i = 0; i < _screenshots.length; i++) {
+				program.screenshots.push(await GetFileURL(program.author + "/" + program.title + "/Screenshots", _screenshots[i]));
+			}
+			for (let i = 0; i < program.screenshots.length; i++) {
+				const container = document.createElement("div");
+				container.append(document.createElement("br"));
+				const img = document.createElement("img");
+				img.setAttribute("src", program.screenshots[i]);
+				container.append(img);
+				const rmfButton = document.createElement("button");
+				rmfButton.classList.add("delete");
+				rmfButton.textContent = "X";
+				rmfButton.addEventListener("click", async function () {
+					await DeleteFile(atob(Account.username) + "/" + program.id + "/Screenshots/" + _screenshots[i]);
+					screenshots.removeChild(container);
+				});
+				container.append(rmfButton);
+				screenshots.append(container);
+			}
 			return program;
 		}
 	}
 	return null;
 })();
 
-document.getElementById("add-screenshot").addEventListener("click", () => {
+document.getElementById("add-screenshot").addEventListener("click", function () {
 	screenshots.append(document.createElement("br"));
 	const screenshotInput = document.createElement("input");
 	screenshotInput.setAttribute("type", "file");
@@ -39,7 +63,8 @@ document.getElementById("add-screenshot").addEventListener("click", () => {
 	screenshotInputs.push(screenshotInput);
 	screenshots.append(screenshotInput);
 	const deleteButton = document.createElement("button");
-	deleteButton.textContent = "Delete";
+	deleteButton.classList.add("delete");
+	deleteButton.textContent = "X";
 	screenshots.append(deleteButton);
 	deleteButton.addEventListener("click", function () {
 		screenshots.removeChild(br);

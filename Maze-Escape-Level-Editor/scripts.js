@@ -232,7 +232,6 @@ function render() {
 		}
 	}
 }
-window.requestAnimationFrame(render);
 
 function update() {
 	if (Input.mouseDown) {
