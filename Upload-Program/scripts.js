@@ -89,7 +89,7 @@ document.getElementById("upload").addEventListener("click", async function () {
 	if (title.value.trim() === "") {
 		err("No title.");
 	} else if (title.value.trim().includes(",")) {
-		err("Title may not contain commas (\",\").");
+		err("Title may not contain commas (',').");
 	} else if (title.value.length > 100) {
 		err("Title too long.");
 	} else if (version.value.trim() === "") {
@@ -143,8 +143,8 @@ document.getElementById("upload").addEventListener("click", async function () {
 				"votes": 0
 			})).id;
 			await UploadFile(file.files[0], id);
-			for (const image of screenshotFiles) {
-				await UploadFile(image, id + "/Screenshots");
+			for (let i = 0; i < screenshotFiles.length; i++) {
+				await UploadFile(screenshotFiles[i], id + "/Screenshots");
 			}
 		}
 		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
