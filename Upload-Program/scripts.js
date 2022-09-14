@@ -44,7 +44,9 @@ const program = (async function loadProgram() {
 				rmfButton.classList.add("delete");
 				rmfButton.textContent = "X";
 				rmfButton.addEventListener("click", async function () {
+					_screenshots.splice(i, 1);
 					await DeleteFile(atob(Account.username) + "/" + program.id + "/Screenshots/" + _screenshots[i]);
+					await UpdateDocument("Programs", program.id, { "screenshots": _screenshots });
 					screenshots.removeChild(container);
 				});
 				container.append(rmfButton);
