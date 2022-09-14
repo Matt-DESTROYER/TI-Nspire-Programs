@@ -31,7 +31,7 @@ const program = (async function loadProgram() {
 			const _screenshots = program.screenshots;
 			program.screenshots = [];
 			for (let i = 0; i < _screenshots.length; i++) {
-				program.screenshots.push(await GetFileURL(program.author + "/" + program.title + "/Screenshots", _screenshots[i]));
+				program.screenshots.push(await GetFileURL(program.id + "/Screenshots", _screenshots[i]));
 			}
 			for (let i = 0; i < program.screenshots.length; i++) {
 				const container = document.createElement("div");
@@ -45,7 +45,7 @@ const program = (async function loadProgram() {
 				rmfButton.textContent = "X";
 				rmfButton.addEventListener("click", async function () {
 					_screenshots.splice(i, 1);
-					await DeleteFile(atob(Account.username) + "/" + program.id + "/Screenshots/" + _screenshots[i]);
+					await DeleteFile(program.id + "/Screenshots/" + _screenshots[i]);
 					await UpdateDocument("Programs", program.id, { "screenshots": _screenshots });
 					screenshots.removeChild(container);
 				});
@@ -111,11 +111,11 @@ document.getElementById("upload").addEventListener("click", async function () {
 				return input.files[0];
 			});
 		}
-		await UploadFile(file.files[0], atob(Account.username) + "/" + title.value);
+		await UploadFile(file.files[0], program.id);
 		if (program) {
-			await DeleteFile(atob(Account.username) + "/" + title.value + "/" + data.file);
+			await DeleteFile(program.id + "/" + program.file);
 			for (let i = 0; i < program.screenshots.length; i++) {
-				await DeleteFile(atob(Account.username) + "/" + title.value + "/Screenshots/" + program.screenshots[i]);
+				await DeleteFile(program.id + "/Screenshots/" + program.screenshots[i]);
 			}
 			await UpdateDocument("Programs", program.id, {
 				"title": title.value,
@@ -149,6 +149,6 @@ document.getElementById("upload").addEventListener("click", async function () {
 				await UploadFile(image, atob(Account.username) + "/" + title.value + "/Screenshots");
 			}
 		}
-		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/");
+		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
 	}
 });
