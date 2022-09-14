@@ -39,7 +39,7 @@ async function renderProgram(program) {
 		editButton.addEventListener("click", function () {
 			Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/Upload-Program/?id=" + program.id);
 		});
-		//heading.append(editButton);
+		heading.append(editButton);
 		heading.append(document.createElement("br"));
 		heading.append(document.createElement("br"));
 		heading.append(document.createElement("br"));
@@ -109,9 +109,9 @@ async function renderProgram(program) {
 		});
 		downvoteButton.classList.add("right-align");
 		downvoteButton.textContent = "Downvote";
+		heading.append(voteCounter);
 		heading.append(downvoteButton);
 		heading.append(upvoteButton);
-		heading.append(voteCounter);
 	}
 	const header = document.createElement("h2");
 	header.textContent = program.title + " - " + program.version;

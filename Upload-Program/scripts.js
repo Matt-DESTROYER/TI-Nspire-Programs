@@ -16,7 +16,7 @@ const title = document.getElementById("title"),
 	screenshotInputs = [];
 
 let searchParams = null;
-(async function loadProgram() {
+const program = (async function loadProgram() {
 	if ("location" in window && "href" in window.location) {
 		searchParams = new SearchParameters(window.location.href);
 		const id = searchParams.getParam("id");
@@ -25,8 +25,10 @@ let searchParams = null;
 			title.value = program.title;
 			version.value = program.version;
 			description.value = program.description;
+			return program;
 		}
 	}
+	return null;;
 })();
 
 document.getElementById("add-screenshot").addEventListener("click", () => {
@@ -74,43 +76,46 @@ document.getElementById("upload").addEventListener("click", async function () {
 	} else if (!file.files || !file.files[0]) {
 		err("No file uploaded.");
 	} else {
-		let alreadyExists = false, data;
-		(await GetCollection("Programs")).forEach((program) => {
-			data = program.data();
-			if (data.title === title.value) {
-				data.id = program.id;
-				alreadyExists = true;
-			}
-		});
 		let screenshotFiles = [];
 		if (screenshotInputs.length > 0) {
-			screenshotFiles = screenshotInputs.filter((input) => "files" in input && input.files[0]).map((input) => input.files[0]);
+			screenshotFiles = screenshotInputs.filter(function (input) {
+				return "files" in input && input.files[0];
+			}).map(function (input) {
+				return input.files[0];
+			});
 		}
-		await UploadFile(file.files[0], atob(window.localStorage.getItem("username")) + "/" + title.value);
-		if (alreadyExists) {
-			await DeleteFile(atob(window.localStorage.getItem("username")) + "/" + title.value + "/" + data.file);
-			for (const screenshot of data.screenshots) {
-				await DeleteFile(atob(window.localStorage.getItem("username")) + "/" + title.value + "/Screenshots/" + screenshot);
+		await UploadFile(file.files[0], atob(Account.username) + "/" + title.value);
+		if (program) {
+			await DeleteFile(atob(Account.username) + "/" + title.value + "/" + data.file);
+			for (let i = 0; i < program.screenshots.length; i++) {
+				await DeleteFile(atob(Account.username) + "/" + title.value + "/Screenshots/" + program.screenshots[i]);
 			}
-			await UpdateDocument("Programs", data.id, {
+			await UpdateDocument("Programs", program.id, {
+				"title": title.value,
 				"version": version.value,
 				"description": description.value,
-				"date": Date.now(),
+				"lastUpdated": Date.now(),
 				"file": file.files[0].name,
-				"screenshots": screenshotFiles.map((file) => file.name)
+				"screenshots": screenshotFiles.map(function (file) {
+					return file.name;
+				})
 			});
-			for (const image of screenshotFiles) {
-				await UploadFile(image, atob(window.localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
+			for (let i = 0; i < screenshotFiles.length; i++) {
+				await UploadFile(screenshotFiles[i], atob(Account.username) + "/" + title.value + "/Screenshots");
 			}
+			Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
 		} else {
 			await CreateDocument("Programs", {
 				"title": title.value,
 				"version": version.value,
-				"author": atob(window.localStorage.getItem("username")),
+				"author": atob(Account.username),
 				"description": description.value,
-				"date": Date.now(),
+				"dateCreated": Date.now(),
+				"lastUpdated": Date.now(),
 				"file": file.files[0].name,
-				"screenshots": screenshotFiles.map((file) => file.name),
+				"screenshots": screenshotFiles.map(function (file) {
+					return file.name;
+				}),
 				"votes": 0
 			});
 			for (const image of screenshotFiles) {
