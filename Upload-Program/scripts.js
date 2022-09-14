@@ -37,6 +37,7 @@ const program = (async function loadProgram() {
 				const container = document.createElement("div");
 				container.append(document.createElement("br"));
 				const img = document.createElement("img");
+				img.setAttribute("height", 120);
 				img.setAttribute("src", program.screenshots[i]);
 				container.append(img);
 				const rmfButton = document.createElement("button");
