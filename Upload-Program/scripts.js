@@ -118,7 +118,7 @@ document.getElementById("upload").addEventListener("click", async function () {
 				"votes": 0
 			});
 			for (const image of screenshotFiles) {
-				await UploadFile(image, atob(window.localStorage.getItem("username")) + "/" + title.value + "/Screenshots");
+				await UploadFile(image, atob(Account.username) + "/" + title.value + "/Screenshots");
 			}
 		}
 		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/");

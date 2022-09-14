@@ -6,7 +6,7 @@ if (Account) {
 } else {
 	nav("Login", "Login", "Create Account", "Create-Account");
 }
-(function versionUpdate() {
+(async function versionUpdate() {
 	const levels = [];
 	(await GetCollection("Levels")).forEach(function (level) {
 		const data = level.data();
