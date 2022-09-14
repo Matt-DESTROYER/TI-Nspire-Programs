@@ -15,11 +15,11 @@ const programsContainer = document.getElementById("programs"), programs = [];
 	_programs.forEach(async function (program) {
 		const data = program.data();
 		data.id = program.id;
-		data.file = await GetFileURL(data.author + "/" + data.title, data.file);
+		data.file = await GetFileURL(data.id, data.file);
 		const screenshots = data.screenshots;
 		data.screenshots = [];
 		for (let i = 0; i < screenshots.length; i++) {
-			data.screenshots.push(await GetFileURL(data.author + "/" + data.title + "/Screenshots", screenshots[i]));
+			data.screenshots.push(await GetFileURL(data.id + "/Screenshots", screenshots[i]));
 		}
 		programs.push(data);
 		await renderProgram(data);
