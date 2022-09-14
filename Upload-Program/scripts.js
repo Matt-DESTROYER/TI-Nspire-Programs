@@ -1,4 +1,4 @@
-import { GetDocument, GetCollection, CreateDocument, UpdateDocument, UploadFile, DeleteFile } from "../Modules/Database.js";
+import { GetDocument, GetCollection, CreateDocument, UpdateDocument, GetFileURL, UploadFile, DeleteFile } from "../Modules/Database.js";
 import { Redirect, Account, nav } from "../Modules/Tools.js";
 import { SearchParameters } from "../Modules/SearchParameters.js";
 
@@ -148,4 +148,4 @@ document.getElementById("upload").addEventListener("click", async function () {
 		}
 		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/");
 	}
-});
+})
