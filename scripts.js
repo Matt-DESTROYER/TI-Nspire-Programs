@@ -125,7 +125,7 @@ async function renderProgram(program) {
 	for (let i = 0; i < program.screenshots.length; i++) {
 		const screenshot = document.createElement("img");
 		screenshot.src = program.screenshots[i];
-		screenshot.height = 120;
+		screenshot.setAttribute("height", 120);
 		screenshots.append(screenshot);
 	}
 	div.append(screenshots);
