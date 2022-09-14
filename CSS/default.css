@@ -80,6 +80,6 @@ button:active {
 
 .vote-counter {
 	border: solid darkslategray 2px;
-	padding: 5px;
+	padding: 10px;
 	background-color: whitesmoke;
 }
