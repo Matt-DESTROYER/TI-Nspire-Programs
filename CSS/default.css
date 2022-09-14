@@ -78,6 +78,25 @@ button:active {
 	padding: 5px;
 }
 
+.delete {
+	background-color: coral;
+	color: red;
+	border-radius: 8px;
+	border: solid red 2px;
+	padding: 5px;
+}
+
+.delete:hover {
+	background-color: rgb(252, 148, 110);
+	border-color: rgb(255, 56, 56);
+	cursor: pointer;
+}
+
+.delete:active {
+	background-color: rgb(255, 183, 157);
+	border-color: rgb(252, 99, 99);
+}
+
 .vote-counter {
 	border: solid darkslategray 2px;
 	padding: 10px;
