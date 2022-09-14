@@ -6,22 +6,7 @@ if (Account) {
 } else {
 	nav("Login", "Login", "Create Account", "Create-Account");
 }
-(async function versionUpdate() {
-	const levels = [];
-	(await GetCollection("Levels")).forEach(function (level) {
-		const data = level.data();
-		data.id = level.id;
-		levels.push(data);
-	});
-	for (let i = 0; i < levels.length; i++) {
-		if ("dateCreated" in levels[i]) {
-			UpdateDocument("Levels", levels[i].id, {
-				"dateCreated": levels[i].date,
-				"lastUpdated": levels[i].date
-			});
-		}
-	}
-})();
+
 const canvas = document.getElementById("screen");
 const ctx = canvas.getContext("2d", { alpha: false });
 

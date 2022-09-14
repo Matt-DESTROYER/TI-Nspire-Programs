@@ -16,7 +16,7 @@ let levels = [];
 	levels.push(data);
 });
 levels.sort(function (a, b) {
-	return a.date < b.date ? 1 : -1;
+	return a.dateCreated < b.dateCreated ? 1 : -1;
 });
 for (const level of levels) {
 	levelContainer.append(document.createElement("br"));
