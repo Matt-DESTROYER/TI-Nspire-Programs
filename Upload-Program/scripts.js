@@ -22,6 +22,7 @@ const program = (async function loadProgram() {
 		const id = searchParams.getParam("id");
 		if (id) {
 			const program = (await GetDocument("Programs", id)).data();
+			program.id = id;
 			if (btoa(program.author) !== Account.username) {
 				Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs");
 			}
