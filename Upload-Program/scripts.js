@@ -148,4 +148,4 @@ document.getElementById("upload").addEventListener("click", async function () {
 		}
 		Redirect("https://matt-destroyer.github.io/TI-Nspire-Programs/");
 	}
-})
+});
