@@ -53,6 +53,7 @@ const Input = {};
 let tool = "#";
 
 function loadLevel() {
+	grid = [];
 	const row = " ".repeat(width.value).split("");
 	for (let y = 0; y < height.value; y++) {
 		grid.push(row.slice());
@@ -124,7 +125,7 @@ const levelnameInput = document.getElementById("level-name"),
 
 const loggedIn = !!Account;
 
-const levelId = location.search.split("=")[1] || null;
+const levelId = window.location.search.split("=")[1] || null;
 let level = null;
 if (levelId) {
 	level = (await GetDocument("Levels", levelId)).data();
