@@ -1,6 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
-import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, deleteObject, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-storage.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
+import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, deleteObject, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-storage.js";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAYc2AtdxlSEkD_VrGaIiKjOv0B3xD7uSs",
