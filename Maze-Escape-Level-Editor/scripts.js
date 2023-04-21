@@ -133,10 +133,10 @@ if (levelId) {
 	levelnameInput.value = level.levelName;
 	grid = JSON.parse(level.levelData);
 	width.value = grid[0].length;
-	widthDisplay.value = "(" + grid[0].length + ")";
+	widthDisplay.value = "(" + width.value + ")";
 	canvas.width = grid[0].length * 10;
 	height.value = grid.length;
-	heightDisplay.value = "(" + grid.length + ")";
+	heightDisplay.value = "(" + height.value + ")";
 	canvas.height = grid.length * 10;
 }
 
