@@ -1,7 +1,7 @@
 import { GetDocument } from "./Database.js";
 
 const Redirect = function (url) {
-    if ("location" in window && "href" in window.location) {
+    if (window.hasOwnProperty("location") && window.location.hasOwnProperty("href")) {
         window.location.href = url;
     } else {
         const anchor = document.createElement("a");
