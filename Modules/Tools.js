@@ -1,3 +1,5 @@
+"use strict";
+
 import { GetDocument } from "./Database.js";
 
 const Redirect = function (url) {
