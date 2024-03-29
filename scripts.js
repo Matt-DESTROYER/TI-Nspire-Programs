@@ -1,3 +1,5 @@
+"use strict";
+
 import { GetCollection, GetDocument, UpdateDocument, GetFileURL } from "./Modules/Database.js";
 import { Redirect, Account, nav } from "./Modules/Tools.js";
 
